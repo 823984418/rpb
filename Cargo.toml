@@ -1,0 +1,15 @@
+[package]
+name = "rpb"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[dependencies.portable-atomic]
+version = "1.15.0"
+default-features = false
+
+
+[features]
+default = ["std"]
+std = []
