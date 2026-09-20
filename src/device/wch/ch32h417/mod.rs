@@ -3,9 +3,10 @@ pub mod flash;
 pub mod gpio;
 pub mod pwr;
 pub mod rcc;
+pub mod usart;
 
 use flash::FLASH;
-use gpio::GPIO;
+use gpio::{AFIO, GPIO};
 use pwr::PWR;
 use rcc::RCC;
 
@@ -22,6 +23,7 @@ pub struct Device {
 
     pub PWR: Block<PWR, 0x40007000>,
 
+    pub AFIO: Block<AFIO, 0x40010000>,
     pub GPIOA: Block<GPIO, 0x40010800>,
     pub GPIOB: Block<GPIO, 0x40010C00>,
     pub GPIOC: Block<GPIO, 0x40011000>,

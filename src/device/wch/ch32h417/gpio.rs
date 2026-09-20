@@ -74,3 +74,24 @@ impl SPEED_PIN {
 }
 
 impl GPIO {}
+
+#[derive(Debug)]
+#[repr(C)]
+pub struct AFIO {
+    pub PCFR1: Reg32,
+    pub GPIOA_AFLR: Reg32,
+    pub GPIOA_AFHR: Reg32,
+    pub GPIOB_AFLR: Reg32,
+    pub GPIOB_AFHR: Reg32,
+    pub GPIOC_AFLR: Reg32,
+    pub GPIOC_AFHR: Reg32,
+    pub GPIOD_AFLR: Reg32,
+    pub GPIOD_AFHR: Reg32,
+    pub GPIOE_AFLR: Reg32,
+    pub GPIOE_AFHR: Reg32,
+    pub GPIOF_AFLR: Reg32,
+    pub GPIOF_AFHR: Reg32,
+    RESERVED0: [Reg32; 2],
+    pub EXTICR1: Reg32,
+    pub EXTICR2: Reg32,
+}

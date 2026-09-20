@@ -1,4 +1,6 @@
-use crate::register::{Reg8, Reg32};
+use bitflags::bitflags;
+
+use crate::register::{Reg, Reg8, Reg32};
 
 /// 可编程快速中断控制器
 /// 这是 WCH 的专用外设
@@ -152,7 +154,20 @@ pub struct PFIC {
     /// # 可用架构
     /// * V3
     /// * V5
-    pub SCTLR: Reg32,
+    pub SCTLR: Reg<SCTLR>,
+}
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct SCTLR: u32 {
+        const SYSRESET = 1 << 31;
+        const HART_ID_MASK = 0xFF << 16;
+        const SETEVENT = 1 << 5;
+        const SEVONPEND = 1 << 4;
+        const WFITOWFE = 1 << 3;
+        const SLEEPDEEP = 1 << 2;
+        const SLEEPONEXIT = 1 << 1;
+    }
 }
 
 impl PFIC {
@@ -162,5 +177,9 @@ impl PFIC {
 
     pub fn SystemReset(&self) {
         self.CFGR.set(Self::CFGR_KEYCODE | 1 << 7);
+    }
+
+    pub fn GetCurrentCoreID(&self) -> u8 {
+        ((self.SCTLR.get() & SCTLR::HART_ID_MASK).bits() >> 16) as u8
     }
 }
