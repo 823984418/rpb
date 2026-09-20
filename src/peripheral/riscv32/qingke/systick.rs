@@ -1,8 +1,8 @@
 use crate::register::Reg32;
 
-
 /// 系统计数器
 /// 这是 WCH 的专用外设
+#[derive(Debug)]
 #[repr(C)]
 pub struct SysTick {
     pub CTLR: Reg32,
@@ -13,7 +13,7 @@ pub struct SysTick {
 
     pub CNT: Reg32,
 
-    pub RESERVED0: Reg32,
+    RESERVED0: Reg32,
 
     pub CMP: Reg32,
 }

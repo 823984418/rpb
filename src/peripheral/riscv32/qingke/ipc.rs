@@ -1,9 +1,8 @@
 use crate::register::Reg32;
 
-pub const IPC_BASE: usize = 0xE000F000;
-
 /// 核间通信
 /// 这是 WCH 的专用外设
+#[derive(Debug)]
 #[repr(C)]
 pub struct IPC {
     /// 控制寄存器
@@ -15,7 +14,7 @@ pub struct IPC {
     /// 中断屏蔽寄存器
     pub ISM: Reg32,
 
-    pub RESERVED0: Reg32,
+    RESERVED0: Reg32,
 
     /// 使能寄存器
     pub ENA: Reg32,
@@ -31,4 +30,8 @@ pub struct IPC {
 
     /// 消息寄存器
     pub MSG: [Reg32; 4],
+}
+
+impl IPC {
+    pub const BASE: usize = 0xE000D000;
 }

@@ -1,9 +1,8 @@
 use crate::register::{Reg8, Reg32};
 
-pub const PFIC_BASE: usize = 0xE000E000;
-
 /// 可编程快速中断控制器
 /// 这是 WCH 的专用外设
+#[derive(Debug)]
 #[repr(C)]
 pub struct PFIC {
     /// 中断使能状态寄存器 x
@@ -54,7 +53,7 @@ pub struct PFIC {
     /// * V5
     pub VTFIDR: Reg32,
 
-    pub RESERVED0: [Reg32; 3],
+    RESERVED0: [Reg32; 3],
 
     /// VTF 中断 x 偏移地址寄存器
     ///
@@ -63,49 +62,49 @@ pub struct PFIC {
     /// * V5
     pub VTFADDRR: [Reg32; 4],
 
-    pub RESERVED1: [Reg8; 0x90],
+    RESERVED1: [Reg8; 0x90],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IENR: [Reg32; 8],
 
-    pub RESERVED2: [Reg8; 0x60],
+    RESERVED2: [Reg8; 0x60],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IRER: [Reg32; 8],
 
-    pub RESERVED3: [Reg8; 0x60],
+    RESERVED3: [Reg8; 0x60],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPSR: [Reg32; 8],
 
-    pub RESERVED4: [Reg8; 0x60],
+    RESERVED4: [Reg8; 0x60],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPRR: [Reg32; 8],
 
-    pub RESERVED5: [Reg8; 0x60],
+    RESERVED5: [Reg8; 0x60],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IACTR: [Reg32; 8],
 
-    pub RESERVED6: [Reg8; 0xE0],
+    RESERVED6: [Reg8; 0xE0],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPRIOR: [Reg8; 256],
 
-    pub RESERVED7: [Reg8; 0x100],
+    RESERVED7: [Reg8; 0x100],
 
     /// # 可用架构
     /// * V3
@@ -122,7 +121,7 @@ pub struct PFIC {
     /// * V5
     pub WAKEIP: [Reg32; 2],
 
-    pub RESERVED8: [Reg8; 0x58],
+    RESERVED8: [Reg8; 0x58],
 
     /// 内核状态寄存器
     ///
@@ -131,7 +130,7 @@ pub struct PFIC {
     /// * V5
     pub CSTAR: [Reg32; 2],
 
-    pub RESERVED9: [Reg8; 0x4F8],
+    RESERVED9: [Reg8; 0x4F8],
 
     /// # 可用架构
     /// * V3
@@ -148,10 +147,20 @@ pub struct PFIC {
     /// * V5
     pub EWUPR: Reg32,
 
-    pub RESERVED10: [Reg8; 0x84],
+    RESERVED10: [Reg8; 0x84],
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub SCTLR: Reg32,
+}
+
+impl PFIC {
+    pub const BASE: usize = 0xE000E000;
+
+    pub const CFGR_KEYCODE: u32 = 0xBEEF0000;
+
+    pub fn SystemReset(&self) {
+        self.CFGR.set(Self::CFGR_KEYCODE | 1 << 7);
+    }
 }
