@@ -1,10 +1,14 @@
+pub mod eth;
+pub mod flash;
 pub mod gpio;
 pub mod pwr;
 pub mod rcc;
 
-use crate::device::wch::ch32h417::gpio::GPIO;
-use crate::device::wch::ch32h417::pwr::PWR;
-use crate::device::wch::ch32h417::rcc::RCC;
+use flash::FLASH;
+use gpio::GPIO;
+use pwr::PWR;
+use rcc::RCC;
+
 use crate::peripheral::Block;
 use crate::peripheral::riscv32::qingke::hsem::HSEM;
 use crate::peripheral::riscv32::qingke::ipc::IPC;
@@ -14,6 +18,8 @@ use crate::register::Reg32;
 
 #[derive(Debug)]
 pub struct Device {
+    pub CHIP_INFO: Block<Reg32, 0x1FFFF704>,
+
     pub PWR: Block<PWR, 0x40007000>,
 
     pub GPIOA: Block<GPIO, 0x40010800>,
@@ -22,6 +28,8 @@ pub struct Device {
     pub GPIOD: Block<GPIO, 0x40011400>,
     pub GPIOE: Block<GPIO, 0x40011800>,
     pub GPIOF: Block<GPIO, 0x40011C00>,
+
+    pub FLASH: Block<FLASH, 0x40022000>,
 
     pub RCC: Block<RCC, 0x40021000>,
 
@@ -32,4 +40,59 @@ pub struct Device {
     pub SysTick1: Block<SysTick, 0xE000F080>,
 
     pub SYS_CFGR0: Block<Reg32, 0x5003C000>,
+}
+
+impl Device {
+    pub fn SetSYSCLK_400M_CoreCLK_V5F_400M_V3F_100M_HSE(&self) {
+        self.RCC.CTLR.bit_or(rcc::CTLR::HSEON);
+        let mut StartUpCounter = 0;
+        loop {
+            let HSEStatus = self.RCC.CTLR.get() & rcc::CTLR::HSERDY;
+            StartUpCounter += 1;
+            if HSEStatus.is_empty() && StartUpCounter != 0x1000000 {
+                continue;
+            }
+            break;
+        }
+        let HSEStatus = self.RCC.CTLR.get() & rcc::CTLR::HSERDY;
+        if !HSEStatus.is_empty() {
+            self.RCC.PLLCFGR.modify(
+                rcc::PLLCFGR::PLLMUL_MASK
+                    | rcc::PLLCFGR::PLL_SRC_DIV_MASK
+                    | rcc::PLLCFGR::PLLSRC_MASK,
+                rcc::PLLCFGR::PLLMUL_16 | rcc::PLLCFGR::PLL_SRC_DIV(0) | rcc::PLLCFGR::PLLSRC_HSE,
+            );
+
+            while self.RCC.PLLCFGR.get() & rcc::PLLCFGR::PLLSRC_MASK != rcc::PLLCFGR::PLLSRC_HSE {}
+
+            self.RCC.CTLR.bit_or(rcc::CTLR::PLLON);
+
+            while self.RCC.CTLR.get().intersects(rcc::CTLR::PLLRDY) {}
+
+            self.RCC
+                .PLLCFGR
+                .bit_clear(rcc::PLLCFGR::SYSPLL_GATE | rcc::PLLCFGR::SYSPLL_SEL_MASK);
+
+            while self.RCC.PLLCFGR.get() & rcc::PLLCFGR::SYSPLL_SEL_MASK
+                != rcc::PLLCFGR::SYSPLL_SEL_PLL_CLK
+            {}
+
+            self.RCC.CFGR0.modify(
+                rcc::CFGR0::FPRE_MASK | rcc::CFGR0::HPRE_MASK,
+                rcc::CFGR0::FPRE_4 | rcc::CFGR0::HPRE_1,
+            );
+
+            self.FLASH
+                .ACTLR
+                .modify(flash::ACTLR::SCK_CFG, flash::ACTLR::SCK_CFG_2);
+
+            self.RCC.PLLCFGR.bit_or(rcc::PLLCFGR::SYSPLL_GATE);
+
+            self.RCC
+                .CFGR0
+                .modify(rcc::CFGR0::SW_MASK, rcc::CFGR0::SW_PLL);
+
+            while self.RCC.CFGR0.get() & rcc::CFGR0::SWS_MASK != rcc::CFGR0::SWS_PLL {}
+        }
+    }
 }

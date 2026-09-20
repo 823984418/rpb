@@ -1,19 +1,13 @@
 use core::cell::UnsafeCell;
 use core::fmt::{Debug, Formatter};
-use core::ops::{BitAnd, BitOr, Not};
+use core::ops::{BitAnd, BitOr, Deref, DerefMut, Not};
 
+#[repr(transparent)]
 pub struct Reg<T: ?Sized>(UnsafeCell<T>);
-
-impl<T: Debug> Debug for Reg<T> {
-    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
-        let value = self.get();
-        Debug::fmt(&value, f)
-    }
-}
 
 impl<T> Reg<T> {
     pub fn set(&self, value: T) {
-        unsafe { core::ptr::write(self.0.get(), value) }
+        unsafe { core::ptr::write_volatile(self.0.get(), value) }
     }
 
     pub fn get(&self) -> T {
@@ -39,6 +33,42 @@ impl<T> Reg<T> {
         T: Not<Output = T> + BitAnd<T, Output = T>,
     {
         self.set(self.get() & !rhs);
+    }
+
+    pub fn modify(&self, mask: T, value: T)
+    where
+        T: Not<Output = T> + BitAnd<T, Output = T> + BitOr<T, Output = T>,
+    {
+        self.set((self.get() & !mask) | value);
+    }
+}
+
+impl<T: Debug> Debug for Reg<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        let value = self.get();
+        Debug::fmt(&value, f)
+    }
+}
+
+impl<T: bitflags::Flags> Deref for Reg<T> {
+    type Target = Reg<T::Bits>;
+
+    fn deref(&self) -> &Self::Target {
+        const {
+            assert!(size_of::<Self>() == size_of::<Self::Target>());
+            assert!(align_of::<Self>() == align_of::<Self::Target>());
+        }
+        unsafe { &*(self as *const Self as *const Self::Target) }
+    }
+}
+
+impl<T: bitflags::Flags> DerefMut for Reg<T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        const {
+            assert!(size_of::<Self>() == size_of::<Self::Target>());
+            assert!(align_of::<Self>() == align_of::<Self::Target>());
+        }
+        unsafe { &mut *(self as *mut Self as *mut Self::Target) }
     }
 }
 

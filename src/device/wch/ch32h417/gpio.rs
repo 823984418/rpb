@@ -16,7 +16,7 @@ pub struct GPIO {
 }
 
 bitflags! {
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR: u32 {}
 }
 
@@ -27,7 +27,7 @@ impl CFGR {
 }
 
 bitflags! {
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR_PIN: u32 {
         const AF_OD_OUT = 0b11_01;
         const AF_PP_OUT = 0b10_01;
@@ -47,7 +47,7 @@ impl CFGR_PIN {
 }
 
 bitflags! {
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SPEED: u32 {}
 }
 
@@ -58,7 +58,7 @@ impl SPEED {
 }
 
 bitflags! {
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SPEED_PIN: u32 {
         const SPEED_180M = 0b11;
         const SPEED_100M = 0b10;

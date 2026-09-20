@@ -8,7 +8,7 @@ pub mod riscv32;
 pub struct Block<T, const ADDR: usize>(PhantomData<*mut T>);
 
 impl<T: Debug, const ADDR: usize> Debug for Block<T, ADDR> {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         Debug::fmt(self.deref(), f)
     }
 }
