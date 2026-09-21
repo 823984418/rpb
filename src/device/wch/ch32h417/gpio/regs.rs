@@ -93,3 +93,23 @@ pub struct AFIO {
     pub EXTICR1: Reg32,
     pub EXTICR2: Reg32,
 }
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct PCFR1: u32 {
+        const SW_CFG_MASK = 0x7 << 24;
+        const USBPD_CC_HVT = 1 << 20;
+        const VDD33_IO_HSLV = 1 << 18;
+        const VDDIO_IO_HSLV = 1 << 17;
+        const VIO18_IO_HSLV = 1 << 16;
+        const TIM2ITR1_RM = 1 << 12;
+        const SDMMC_RM = 0x3 << 10;
+        const UHSIF_PORT_RM = 0x3 << 8;
+        const UHSIF_CLK_RM = 0x3 << 6;
+        const ADC2_ETRGINJ_RM = 1 << 4;
+        const ADC2_ETRGREG_RM = 1 << 3;
+        const ADC1_ETRGINJ_RM = 1 << 2;
+        const ADC1_ETRGREG_RM = 1 << 1;
+        const PD0PD1_RM = 1 << 0;
+    }
+}

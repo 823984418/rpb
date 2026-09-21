@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::Reg;
+use crate::register::{Reg, Reg8};
 
 #[derive(Debug)]
 #[repr(C)]
@@ -472,6 +472,10 @@ bitflags! {
 }
 
 impl RCC {
+    pub fn HSICAL(&self) -> &Reg8 {
+        unsafe { Reg::from_addr((self.CTLR.as_ptr() as *mut u8).add(1)) }
+    }
+
     pub fn INTF(&self) -> &Reg<INT> {
         unsafe { Reg::from_addr(self.INTR.as_ptr() as *mut INT) }
     }
