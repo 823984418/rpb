@@ -5,7 +5,7 @@ use crate::register::{Reg, Reg32};
 #[derive(Debug)]
 #[repr(C)]
 pub struct USART {
-    pub START: Reg<START>,
+    pub STATR: Reg<STATR>,
     pub DATAR: Reg32,
     // IQ4
     pub BRR: Reg32,
@@ -18,7 +18,7 @@ pub struct USART {
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-    pub struct START: u32 {
+    pub struct STATR: u32 {
         const LPWKUP_ACT_FLAG = 1 << 15;
         const MS_ERR = 1 << 11;
         const RX_BUSY = 1 << 10;

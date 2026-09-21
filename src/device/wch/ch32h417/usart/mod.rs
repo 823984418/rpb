@@ -86,4 +86,20 @@ impl USART {
         let brr = ClocksStatus.HCLK as u64 * 16 / InitStruct.BaudRate as u64;
         self.BRR.set(brr.clamp(0, 0xFFFF) as u32);
     }
+
+    pub fn GetFlagStatus(&self) -> STATR {
+        self.STATR.get()
+    }
+
+    pub fn SendData(&self, Data: u32) {
+        self.DATAR.set(Data);
+    }
+
+    pub fn ReceiveData(&self) -> u32 {
+        self.DATAR.get()
+    }
+
+    pub fn SendBreak(&self) {
+        self.CTLR1.bit_or(CTLR1::SBK);
+    }
 }
