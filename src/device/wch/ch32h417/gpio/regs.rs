@@ -37,6 +37,8 @@ bitflags! {
         const RES_IN = 0b10_00;
         const FLOAT_IN = 0b01_00;
         const ANALOG_IN = 0b00_00;
+
+        const MASK = 0b11_00;
     }
 }
 
@@ -64,6 +66,8 @@ bitflags! {
         const SPEED_100M = 0b10;
         const SPEED_50M = 0b01;
         const SPEED_10M = 0b00;
+
+        const MASK = 0b11;
     }
 }
 

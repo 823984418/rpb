@@ -9,6 +9,7 @@ use flash::FLASH;
 use gpio::{AFIO, GPIO};
 use pwr::PWR;
 use rcc::RCC;
+use usart::USART;
 
 use crate::peripheral::Block;
 use crate::peripheral::riscv32::qingke::hsem::HSEM;
@@ -23,6 +24,14 @@ pub struct Device {
 
     pub PWR: Block<PWR, 0x40007000>,
 
+    pub USART2: Block<USART, 0x40004400>,
+    pub USART3: Block<USART, 0x40004800>,
+    pub USART4: Block<USART, 0x40004C00>,
+    pub USART5: Block<USART, 0x40005000>,
+    pub USART6: Block<USART, 0x40001800>,
+    pub USART7: Block<USART, 0x40001C00>,
+    pub USART8: Block<USART, 0x40002000>,
+
     pub AFIO: Block<AFIO, 0x40010000>,
     pub GPIOA: Block<GPIO, 0x40010800>,
     pub GPIOB: Block<GPIO, 0x40010C00>,
@@ -30,6 +39,8 @@ pub struct Device {
     pub GPIOD: Block<GPIO, 0x40011400>,
     pub GPIOE: Block<GPIO, 0x40011800>,
     pub GPIOF: Block<GPIO, 0x40011C00>,
+
+    pub USART1: Block<USART, 0x40013800>,
 
     pub FLASH: Block<FLASH, 0x40022000>,
 

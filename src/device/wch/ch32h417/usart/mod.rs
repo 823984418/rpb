@@ -47,12 +47,16 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct USART_Mode: u32 {
+        const Mode_Tx = 0x0008;
+        const Mode_Rx = 0x0004;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct USART_HardwareFlowControl: u32 {
+        const HardwareFlowControl_CTS = 0x0200;
+        const HardwareFlowControl_RTS = 0x0100;
     }
 }
 
@@ -83,8 +87,12 @@ impl USART {
 
         let device = unsafe { core::mem::zeroed::<super::Device>() };
         let ClocksStatus = device.RCC.GetClocksFreq();
-        let brr = ClocksStatus.HCLK as u64 * 16 / InitStruct.BaudRate as u64;
+        let brr = ClocksStatus.HCLK as u64 / InitStruct.BaudRate as u64;
         self.BRR.set(brr.clamp(0, 0xFFFF) as u32);
+    }
+
+    pub fn Cmd(&self, NewState: bool) {
+        self.CTLR1.bit_set(CTLR1::UE, NewState);
     }
 
     pub fn GetFlagStatus(&self) -> STATR {
