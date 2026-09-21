@@ -1,5 +1,3 @@
-use std::ops::RangeBounds;
-
 use bitflags::bitflags;
 
 use crate::register::Reg;
@@ -48,6 +46,12 @@ bitflags! {
 
         const HSIRDY = 1 << 1;
         const HSION = 1 << 0;
+    }
+}
+
+impl CTLR {
+    pub fn HSITRIM(n: u32) -> Self {
+        Self::from_bits_retain(n << 3) & Self::HSITRIM_MASK
     }
 }
 
@@ -354,9 +358,13 @@ bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BDCTLR: u32 {
         const BDRST = 1 << 16;
+
         const RTCCAL_MASK = 0x7F << 9;
+
         const RTCEN = 1 << 8;
-        const RTCSEL = 0x3 << 6;
+
+        const RTCSEL_MASK = 0x3 << 6;
+
         const ASOS = 1 << 5;
         const ASOE = 1 << 4;
         const CCO = 1 << 3;
@@ -449,161 +457,30 @@ bitflags! {
     }
 }
 
-#[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
-pub struct Clocks {
-    pub SYSCLK: u32,
-    pub HCLK: u32,
-    pub Core: [u32; 2],
-    pub ADCCLK: u32,
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct INT: u8 {
+        const CSS = 1 << 7;
+        const SERDESPLLRDY = 1 << 6;
+        const ETHPLLRDY = 1 << 5;
+        const PLLRDY = 1 << 4;
+        const HSERDY = 1 << 3;
+        const HSIRDY = 1 << 2;
+        const LSERDY = 1 << 1;
+        const LSIRDY = 1 << 0;
+    }
 }
 
-const PLLMULTable: [u8; 32] = [
-    4, 6, 7, 8, 17, 9, 19, 10, 21, 11, 23, 12, 25, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 26, 28,
-    30, 32, 34, 36, 38, 40, 59,
-];
-const HBPrescTable: [u8; 16] = [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9];
-const SERDESPLLMULTable: [u8; 16] = [
-    25, 28, 30, 32, 35, 38, 40, 45, 50, 56, 60, 64, 70, 76, 80, 90,
-];
-const FPRETable: [u8; 4] = [0, 1, 2, 2];
-const PPRE2Table: [u8; 8] = [0, 0, 0, 0, 1, 2, 3, 4];
-const ADCPRETable: [u8; 4] = [2, 4, 6, 8];
-
 impl RCC {
-    pub const HSI_VALUE: u32 = 25_000_000;
-    pub const HSE_VALUE: u32 = 25_000_000;
-
-    pub fn DeInit(&self) {
-        self.CTLR.bit_or(CTLR::HSION);
-        self.CFGR0.bit_and(CFGR0::from_bits_retain(0x305C0000));
-        while self.CFGR0.get().intersects(CFGR0::SWS_MASK) {}
-        self.CFGR0.bit_and(CFGR0::from_bits_retain(0xFFBFFFFF));
-
-        self.PLLCFGR.bit_and(PLLCFGR::from_bits_retain(0x7FFFFFFF));
-
-        self.CTLR.bit_and(CTLR::from_bits_retain(0x6AA6FFFF));
-        self.CTLR.bit_and(CTLR::from_bits_retain(0xFFFBFFFF));
-
-        self.PLLCFGR.bit_and(PLLCFGR::from_bits_retain(0x0FFFC000));
-        self.PLLCFGR.bit_or(PLLCFGR::from_bits_retain(0x00000004));
-
-        self.INTR.set(INTR::from_bits_retain(0x00FF0000));
-        self.CFGR2.bit_and(CFGR2::from_bits_retain(0x0C600000));
-        self.PLLCFGR2
-            .bit_and(PLLCFGR2::from_bits_retain(0xFFF0E080));
-        self.PLLCFGR2.bit_or(PLLCFGR2::from_bits_retain(0x00080020));
+    pub fn INTF(&self) -> &Reg<INT> {
+        unsafe { Reg::from_addr(self.INTR.as_ptr() as *mut INT) }
     }
 
-    pub fn HSEConfig(&self, RCC_HSE: CTLR) {
-        self.CTLR.modify(CTLR::HSEON | CTLR::HSEBYP, RCC_HSE);
+    pub fn INTE(&self) -> &Reg<INT> {
+        unsafe { Reg::from_addr((self.INTR.as_ptr() as *mut INT).add(1)) }
     }
 
-    pub fn HSICmd(&self, NewState: bool) {
-        if NewState {
-            self.CTLR.bit_or(CTLR::HSION);
-        } else {
-            self.CTLR.bit_clear(CTLR::HSION);
-        }
-    }
-
-    pub fn GetClocksFreq(&self) -> Clocks {
-        let mut clocks = Clocks::default();
-        match self.CFGR0.get() & CFGR0::SWS_MASK {
-            CFGR0::SWS_HSI => {
-                clocks.SYSCLK = RCC::HSI_VALUE;
-            }
-            CFGR0::SWS_HSE => {
-                clocks.SYSCLK = RCC::HSE_VALUE;
-            }
-            _ => match self.PLLCFGR.get() & PLLCFGR::SYSPLL_SEL_MASK {
-                PLLCFGR::SYSPLL_SEL_PLL_CLK => {
-                    let pllcfgr = self.PLLCFGR.get();
-                    let pllmul = pllcfgr & PLLCFGR::PLLMUL_MASK;
-                    let presc = ((pllcfgr & PLLCFGR::PLL_SRC_DIV_MASK).bits() >> 8) + 1;
-                    let mut pllsrc = 0;
-                    match pllcfgr & PLLCFGR::PLLSRC_MASK {
-                        PLLCFGR::PLLSRC_SERDES_PLL_DIV_2 => {
-                            pllsrc = Self::HSE_VALUE
-                                * SERDESPLLMULTable[(self.PLLCFGR2.get()
-                                    & PLLCFGR2::SERDESPLL_MUL_MASK)
-                                    .bits()
-                                    as usize] as u32
-                                / 2;
-                        }
-                        PLLCFGR::PLLSRC_USBSS_PLL => {
-                            pllsrc = 125_000_000;
-                        }
-                        PLLCFGR::PLLSRC_ETH_PLL => {
-                            pllsrc = 500_000_000;
-                        }
-                        PLLCFGR::PLLSRC_USBHS_PLL => {
-                            pllsrc = 480_000_000;
-                        }
-                        PLLCFGR::PLLSRC_HSE => {
-                            pllsrc = Self::HSE_VALUE;
-                        }
-                        PLLCFGR::PLLSRC_HSI => {
-                            pllsrc = Self::HSI_VALUE;
-                        }
-                        _ => {
-                            pllsrc = RCC::HSI_VALUE;
-                        }
-                    }
-                    let pllsrc_tmp = pllsrc / presc * PLLMULTable[pllmul.bits() as usize] as u32;
-                    match pllmul {
-                        PLLCFGR::PLLMUL_12_5
-                        | PLLCFGR::PLLMUL_11_5
-                        | PLLCFGR::PLLMUL_10_5
-                        | PLLCFGR::PLLMUL_9_5
-                        | PLLCFGR::PLLMUL_8_5 => {
-                            clocks.SYSCLK = pllsrc_tmp >> 1;
-                        }
-                        _ => {
-                            clocks.SYSCLK = pllsrc_tmp;
-                        }
-                    }
-                }
-                PLLCFGR::SYSPLL_SEL_USBHS_PLL => {
-                    clocks.SYSCLK = 480_000_000;
-                }
-                PLLCFGR::SYSPLL_SEL_ETH_PLL => {
-                    clocks.SYSCLK = 500_000_000;
-                }
-                PLLCFGR::SYSPLL_SEL_SERDES_PLL_DIV_2 => {
-                    clocks.SYSCLK = Self::HSE_VALUE
-                        * SERDESPLLMULTable
-                            [(self.PLLCFGR2.get() & PLLCFGR2::SERDESPLL_MUL_MASK).bits() as usize]
-                            as u32;
-                }
-                PLLCFGR::SYSPLL_SEL_USBSS_PLL => {
-                    clocks.SYSCLK = 125_000_000;
-                }
-                _ => {
-                    clocks.SYSCLK = RCC::HSI_VALUE;
-                }
-            },
-        }
-        let cfgr0 = self.CFGR0.get();
-        let high_bus =
-            clocks.SYSCLK >> HBPrescTable[((cfgr0 & CFGR0::HPRE_MASK).bits() >> 4) as usize];
-        clocks.HCLK = high_bus >> FPRETable[((cfgr0 & CFGR0::FPRE_MASK).bits() >> 16) as usize];
-        clocks.Core[0] = clocks.HCLK;
-        clocks.Core[1] = high_bus;
-        if cfgr0.intersects(CFGR0::ADCSRC) {
-            clocks.ADCCLK = 480_000_000 / (((cfgr0 & CFGR0::PPRE2_MASK).bits() >> 11) + 5);
-        } else {
-            clocks.ADCCLK = (clocks.HCLK
-                >> (PPRE2Table[((cfgr0 & CFGR0::PPRE2_MASK).bits() >> 11) as usize]))
-                / (ADCPRETable[((cfgr0 & CFGR0::ADCPRE_MASK).bits() >> 14) as usize] as u32);
-        }
-        clocks
-    }
-
-    pub fn HB2PeriphResetCmd(&self, HB2Periph: HB2PRSTR, NewState: bool) {
-        if NewState {
-            self.HB2PRSTR.bit_or(HB2Periph);
-        } else {
-            self.HB2PRSTR.bit_clear(HB2Periph);
-        }
+    pub fn INTC(&self) -> &Reg<INT> {
+        unsafe { Reg::from_addr((self.INTR.as_ptr() as *mut INT).add(2)) }
     }
 }

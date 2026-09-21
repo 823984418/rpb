@@ -47,18 +47,14 @@ pub struct Device {
 impl Device {
     pub fn SetSYSCLK_400M_CoreCLK_V5F_400M_V3F_100M_HSE(&self) {
         self.RCC.CTLR.bit_or(rcc::CTLR::HSEON);
-        let mut StartUpCounter = 0;
-        loop {
-            let HSEStatus = self.RCC.CTLR.get() & rcc::CTLR::HSERDY;
-            StartUpCounter += 1;
-            if HSEStatus.is_empty() && StartUpCounter != 0x1000000 {
-                continue;
+        for _ in 0..0x1000000 {
+            if self.RCC.CTLR.get().intersects(rcc::CTLR::HSERDY) {
+                break;
             }
-            break;
         }
         let HSEStatus = self.RCC.CTLR.get() & rcc::CTLR::HSERDY;
         if !HSEStatus.is_empty() {
-            self.RCC.PLLCFGR.modify(
+            self.RCC.PLLCFGR.bit_clear_or(
                 rcc::PLLCFGR::PLLMUL_MASK
                     | rcc::PLLCFGR::PLL_SRC_DIV_MASK
                     | rcc::PLLCFGR::PLLSRC_MASK,
@@ -79,20 +75,20 @@ impl Device {
                 != rcc::PLLCFGR::SYSPLL_SEL_PLL_CLK
             {}
 
-            self.RCC.CFGR0.modify(
+            self.RCC.CFGR0.bit_clear_or(
                 rcc::CFGR0::FPRE_MASK | rcc::CFGR0::HPRE_MASK,
                 rcc::CFGR0::FPRE_4 | rcc::CFGR0::HPRE_1,
             );
 
             self.FLASH
                 .ACTLR
-                .modify(flash::ACTLR::SCK_CFG, flash::ACTLR::SCK_CFG_2);
+                .bit_clear_or(flash::ACTLR::SCK_CFG, flash::ACTLR::SCK_CFG_2);
 
             self.RCC.PLLCFGR.bit_or(rcc::PLLCFGR::SYSPLL_GATE);
 
             self.RCC
                 .CFGR0
-                .modify(rcc::CFGR0::SW_MASK, rcc::CFGR0::SW_PLL);
+                .bit_clear_or(rcc::CFGR0::SW_MASK, rcc::CFGR0::SW_PLL);
 
             while self.RCC.CFGR0.get() & rcc::CFGR0::SWS_MASK != rcc::CFGR0::SWS_PLL {}
         }

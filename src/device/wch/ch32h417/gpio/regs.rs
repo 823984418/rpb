@@ -73,8 +73,6 @@ impl SPEED_PIN {
     }
 }
 
-impl GPIO {}
-
 #[derive(Debug)]
 #[repr(C)]
 pub struct AFIO {

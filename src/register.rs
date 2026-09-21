@@ -3,9 +3,17 @@ use core::fmt::{Debug, Formatter};
 use core::ops::{BitAnd, BitOr, Deref, DerefMut, Not};
 
 #[repr(transparent)]
-pub struct Reg<T: ?Sized>(UnsafeCell<T>);
+pub struct Reg<T>(UnsafeCell<T>);
 
 impl<T> Reg<T> {
+    pub const unsafe fn from_addr<'s>(addr: *mut T) -> &'s Self {
+        unsafe { &*(addr as *mut Self) }
+    }
+
+    pub const fn as_ptr(&self) -> *mut T {
+        self.0.get()
+    }
+
     pub fn set(&self, value: T) {
         unsafe { core::ptr::write_volatile(self.0.get(), value) }
     }
@@ -35,11 +43,22 @@ impl<T> Reg<T> {
         self.set(self.get() & !rhs);
     }
 
-    pub fn modify(&self, mask: T, value: T)
+    pub fn bit_clear_or(&self, mask: T, value: T)
     where
         T: Not<Output = T> + BitAnd<T, Output = T> + BitOr<T, Output = T>,
     {
         self.set((self.get() & !mask) | value);
+    }
+
+    pub fn bit_set(&self, mask: T, value: bool)
+    where
+        T: Not<Output = T> + BitAnd<T, Output = T> + BitOr<T, Output = T>,
+    {
+        if value {
+            self.bit_or(mask);
+        } else {
+            self.bit_clear(mask);
+        }
     }
 }
 
