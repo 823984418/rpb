@@ -473,18 +473,18 @@ bitflags! {
 
 impl RCC {
     pub fn HSICAL(&self) -> &Reg8 {
-        unsafe { Reg::from_addr((self.CTLR.as_ptr() as *mut u8).add(1)) }
+        unsafe { Reg::from_ptr((self.CTLR.as_ptr() as *mut u8).add(1)) }
     }
 
     pub fn INTF(&self) -> &Reg<INT> {
-        unsafe { Reg::from_addr(self.INTR.as_ptr() as *mut INT) }
+        unsafe { Reg::from_ptr(self.INTR.as_ptr() as *mut INT) }
     }
 
     pub fn INTE(&self) -> &Reg<INT> {
-        unsafe { Reg::from_addr((self.INTR.as_ptr() as *mut INT).add(1)) }
+        unsafe { Reg::from_ptr((self.INTR.as_ptr() as *mut INT).add(1)) }
     }
 
     pub fn INTC(&self) -> &Reg<INT> {
-        unsafe { Reg::from_addr((self.INTR.as_ptr() as *mut INT).add(2)) }
+        unsafe { Reg::from_ptr((self.INTR.as_ptr() as *mut INT).add(2)) }
     }
 }

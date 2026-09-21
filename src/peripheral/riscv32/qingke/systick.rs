@@ -7,7 +7,7 @@ use crate::register::Reg32;
 pub struct SysTick {
     pub CTLR: Reg32,
 
-    /// SysTick0可用
+    /// 仅SysTick0可用
     /// 与其他系统计数器共用
     pub ISR: Reg32,
 

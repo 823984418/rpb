@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reg8, Reg32};
 
 #[derive(Debug)]
 #[repr(C)]
@@ -116,5 +116,15 @@ bitflags! {
     pub struct CTLR4: u32 {
         const CHECK_SEL_MASK = 0x3 << 2;
         const MS_ERRIE = 1 << 1;
+    }
+}
+
+impl USART {
+    pub const fn GT(&self) -> &Reg8 {
+        unsafe { Reg::from_ptr((self.GPR.as_ptr() as *mut u8).add(1)) }
+    }
+
+    pub const fn PSC(&self) -> &Reg8 {
+        unsafe { Reg::from_ptr(self.GPR.as_ptr() as *mut u8) }
     }
 }

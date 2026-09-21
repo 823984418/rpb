@@ -39,7 +39,7 @@ pub struct PFIC {
     /// # 可用架构
     /// * V3(AFV)
     /// * V5
-    pub CFGR: Reg32,
+    pub CFGR: Reg<CFGR>,
 
     /// 中断全局状态寄存器
     ///
@@ -159,8 +159,25 @@ pub struct PFIC {
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CFGR: u32 {
+        const KEYCODE = 0xBEEF << 16;
+        const KEYCODE_MASK = 0xFFFF << 16;
+
+        const SYSRST = 1 << 7;
+    }
+}
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SCTLR: u32 {
+        /// # 可用架构
+        /// * V3(BCFV)
+        /// * V5
         const SYSRESET = 1 << 31;
+
+        /// # 可用架构
+        /// * V3F
+        /// * V5
         const HART_ID_MASK = 0xFF << 16;
         const SETEVENT = 1 << 5;
         const SEVONPEND = 1 << 4;
@@ -171,15 +188,7 @@ bitflags! {
 }
 
 impl PFIC {
-    pub const BASE: usize = 0xE000E000;
-
-    pub const CFGR_KEYCODE: u32 = 0xBEEF0000;
-
-    pub fn SystemReset(&self) {
-        self.CFGR.set(Self::CFGR_KEYCODE | 1 << 7);
-    }
-
-    pub fn GetCurrentCoreID(&self) -> u8 {
-        ((self.SCTLR.get() & SCTLR::HART_ID_MASK).bits() >> 16) as u8
+    pub fn HART_ID(&self) -> &Reg8 {
+        unsafe { Reg::from_ptr((self.SCTLR.as_ptr() as *mut u8).add(2)) }
     }
 }

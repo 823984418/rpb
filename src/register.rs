@@ -6,7 +6,7 @@ use core::ops::{BitAnd, BitOr, Deref, DerefMut, Not};
 pub struct Reg<T>(UnsafeCell<T>);
 
 impl<T> Reg<T> {
-    pub const unsafe fn from_addr<'s>(addr: *mut T) -> &'s Self {
+    pub const unsafe fn from_ptr<'s>(addr: *mut T) -> &'s Self {
         unsafe { &*(addr as *mut Self) }
     }
 
