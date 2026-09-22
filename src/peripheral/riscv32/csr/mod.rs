@@ -19,6 +19,7 @@ use mvendorid::MVENDORID;
 #[derive(Debug)]
 pub struct RiscvCSR {
     pub mstatus: CSR<MSTATUS, 0x300>,
+
     pub mvendorid: CSR<MVENDORID, 0xF11>,
     pub marchid: CSR<MARCHID, 0xF12>,
     pub mhartid: CSR<MHARTID, 0xF14>,
