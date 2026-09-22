@@ -5,8 +5,9 @@ pub use regs::*;
 impl PFIC {
     pub const BASE: usize = 0xE000E000;
 
-    pub fn SystemReset(&self) {
+    pub fn SystemReset(&self) -> ! {
         self.CFGR.set(CFGR::KEYCODE | CFGR::SYSRST);
+        loop {}
     }
 
     pub fn GetCurrentCoreID(&self) -> u8 {

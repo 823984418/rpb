@@ -72,6 +72,52 @@ impl GPIO {
         self.CFGLR.bit_clear_or(cfglr_clear, cfglr_or);
         self.CFGHR.bit_clear_or(cfghr_clear, cfghr_or);
     }
+
+    pub fn ReadInputDataBit(&self, Pin: GPIO_Pins) -> bool {
+        GPIO_Pins::from_bits_retain(self.INDR.get() as u16).intersects(Pin)
+    }
+
+    pub fn ReadInputData(&self) -> GPIO_Pins {
+        GPIO_Pins::from_bits_retain(self.INDR.get() as u16)
+    }
+
+    pub fn ReadOutputDataBit(&self, Pin: GPIO_Pins) -> bool {
+        GPIO_Pins::from_bits_retain(self.OUTDR.get() as u16).intersects(Pin)
+    }
+
+    pub fn ReadOutputData(&self) -> GPIO_Pins {
+        GPIO_Pins::from_bits_retain(self.OUTDR.get() as u16)
+    }
+
+    pub fn SetBits(&self, Pin: GPIO_Pins) {
+        self.BSHR.set(Pin.bits() as u32);
+    }
+
+    pub fn ResetBits(&self, Pin: GPIO_Pins) {
+        self.BCR.set(Pin.bits() as u32);
+    }
+
+    pub fn WriteBit(&self, Pin: GPIO_Pins, BitVal: bool) {
+        if BitVal {
+            self.BSHR.set(Pin.bits() as u32);
+        } else {
+            self.BCR.set(Pin.bits() as u32);
+        }
+    }
+
+    pub fn Write(&self, PortVal: GPIO_Pins) {
+        self.OUTDR.set(PortVal.bits() as u32);
+    }
+
+    pub fn PinLockConfig(&self, Pin: GPIO_Pins) {
+        let lock1 = 0x00010000 | Pin.bits() as u32;
+        let lock0 = Pin.bits() as u32;
+        self.LCKR.set(lock1);
+        self.LCKR.set(lock0);
+        self.LCKR.set(lock1);
+        let _ = self.LCKR.get();
+        let _ = self.LCKR.get();
+    }
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
