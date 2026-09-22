@@ -12,6 +12,7 @@ use rcc::RCC;
 use usart::USART;
 
 use crate::peripheral::Block;
+use crate::peripheral::riscv32::qingke::csr::QingKeCSR;
 use crate::peripheral::riscv32::qingke::hsem::HSEM;
 use crate::peripheral::riscv32::qingke::ipc::IPC;
 use crate::peripheral::riscv32::qingke::pfic::PFIC;
@@ -20,6 +21,8 @@ use crate::register::Reg32;
 
 #[derive(Debug)]
 pub struct Device {
+    pub CSR: QingKeCSR,
+
     pub CHIP_INFO: Block<Reg32, 0x1FFFF704>,
 
     pub PWR: Block<PWR, 0x40007000>,

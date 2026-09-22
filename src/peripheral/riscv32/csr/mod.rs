@@ -1,25 +1,27 @@
 #![allow(unused_variables)]
 
-pub mod csr_marchid;
-pub mod csr_mhartid;
-pub mod csr_mimpid;
-pub mod csr_misa;
-pub mod csr_mstatus;
-pub mod csr_mvendorid;
+pub mod marchid;
+pub mod mhartid;
+pub mod mimpid;
+pub mod misa;
+pub mod mstatus;
+pub mod mvendorid;
 
 use core::fmt::{Debug, Formatter};
 use core::marker::PhantomData;
 use core::mem::ManuallyDrop;
 
-use csr_marchid::marchid;
-use csr_mstatus::mstatus;
-use csr_mvendorid::mvendorid;
+use marchid::MARCHID;
+use mhartid::MHARTID;
+use mstatus::MSTATUS;
+use mvendorid::MVENDORID;
 
 #[derive(Debug)]
 pub struct RiscvCSR {
-    pub mstatus: CSR<mstatus, 0x300>,
-    pub mvendorid: CSR<mvendorid, 0xF11>,
-    pub marchid: CSR<marchid, 0xF12>,
+    pub mstatus: CSR<MSTATUS, 0x300>,
+    pub mvendorid: CSR<MVENDORID, 0xF11>,
+    pub marchid: CSR<MARCHID, 0xF12>,
+    pub mhartid: CSR<MHARTID, 0xF14>,
 }
 
 #[derive(Copy, Clone)]

@@ -2,7 +2,7 @@ use bitflags::bitflags;
 
 bitflags! {
      #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-     pub struct marchid: usize {
+     pub struct MARCHID: usize {
           const VENDER0_MASK = 0x1F << 26;
           const VENDER1_MASK = 0x1F << 21;
           const VENDER2_MASK = 0x1F << 16;

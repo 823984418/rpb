@@ -2,7 +2,7 @@ use bitflags::bitflags;
 
 bitflags! {
      #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-     pub struct mvendorid: usize {
+     pub struct MIMPID: usize {
 
      }
 }

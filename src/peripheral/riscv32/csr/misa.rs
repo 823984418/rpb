@@ -2,7 +2,7 @@ use bitflags::bitflags;
 
 bitflags! {
      #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-     pub struct misa: usize {
+     pub struct MISA: usize {
           const MXL_32 = 1 << 30;
           const MXL_MASK = 0x3 << 30;
 
