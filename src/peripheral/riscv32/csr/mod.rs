@@ -86,7 +86,7 @@ pub unsafe fn csrr<const CSR: usize>() -> usize {
             unsafe { core::arch::asm!("csrr {}, {}", out(reg) val, const CSR) };
             val
         }
-        _ => panic!("csrr is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -100,7 +100,7 @@ pub unsafe fn csrw<const CSR: usize>(val: usize) {
         any(target_arch = "riscv32", target_arch = "riscv64") => {
             unsafe { core::arch::asm!("csrw {}, {}", const CSR, in(reg) val) };
         }
-        _ => panic!("csrw is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -114,7 +114,7 @@ pub unsafe fn csrs<const CSR: usize>(mask: usize) {
         any(target_arch = "riscv32", target_arch = "riscv64") => {
             unsafe { core::arch::asm!("csrs {}, {}", const CSR, in(reg) mask) };
         }
-        _ => panic!("csrs is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -128,7 +128,7 @@ pub unsafe fn csrc<const CSR: usize>(mask: usize) {
         any(target_arch = "riscv32", target_arch = "riscv64") => {
             unsafe { core::arch::asm!("csrc {}, {}", const CSR, in(reg) mask) };
         }
-        _ => panic!("csrc is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -144,7 +144,7 @@ pub unsafe fn csrrw<const CSR: usize>(val: usize) -> usize {
             unsafe { core::arch::asm!("csrrw {}, {}, {}", out(reg) old, const CSR, in(reg) val) };
             old
         }
-        _ => panic!("csrrw is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -160,7 +160,7 @@ pub unsafe fn csrrs<const CSR: usize>(mask: usize) -> usize {
             unsafe { core::arch::asm!("csrrs {}, {}, {}", out(reg) old, const CSR, in(reg) mask) };
             old
         }
-        _ => panic!("csrrs is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
 
@@ -176,6 +176,6 @@ pub unsafe fn csrrc<const CSR: usize>(mask: usize) -> usize {
             unsafe { core::arch::asm!("csrrc {}, {}, {}", out(reg) old, const CSR, in(reg) mask) };
             old
         }
-        _ => panic!("csrrc is only supported on RISC-V targets"),
+        _ => unimplemented!(),
     }
 }
