@@ -1,14 +1,25 @@
 #![allow(unused_variables)]
 
+pub mod csr_marchid;
+pub mod csr_mhartid;
+pub mod csr_mimpid;
+pub mod csr_misa;
 pub mod csr_mstatus;
+pub mod csr_mvendorid;
 
+use core::fmt::{Debug, Formatter};
 use core::marker::PhantomData;
 use core::mem::ManuallyDrop;
 
+use csr_marchid::marchid;
 use csr_mstatus::mstatus;
+use csr_mvendorid::mvendorid;
 
+#[derive(Debug)]
 pub struct RiscvCSR {
     pub mstatus: CSR<mstatus, 0x300>,
+    pub mvendorid: CSR<mvendorid, 0xF11>,
+    pub marchid: CSR<marchid, 0xF12>,
 }
 
 #[derive(Copy, Clone)]
@@ -17,6 +28,12 @@ pub struct CSR<T, const CSR_ADDR: usize>(PhantomData<T>);
 unsafe fn transmute<Src, Dst>(src: Src) -> Dst {
     const { assert!(size_of::<Src>() == size_of::<Dst>()) };
     unsafe { core::mem::transmute_copy(&ManuallyDrop::new(src)) }
+}
+
+impl<T: Debug + Copy, const CSR_ADDR: usize> Debug for CSR<T, CSR_ADDR> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        Debug::fmt(&self.get(), f)
+    }
 }
 
 impl<T: Copy, const CSR_ADDR: usize> CSR<T, CSR_ADDR> {
