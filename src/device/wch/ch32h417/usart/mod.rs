@@ -61,7 +61,7 @@ bitflags! {
 }
 
 impl USART {
-    pub fn Init(&self, InitStruct: &USART_Init) {
+    pub fn Init(&self, InitStruct: &USART_Init, HCLK: u32) {
         let mut Parity = InitStruct.Parity;
         if Parity.bits() & 0xF000 == 0xF000 {
             self.CTLR4.bit_clear_or(
@@ -85,9 +85,7 @@ impl USART {
             CTLR3::from_bits_retain(InitStruct.HardwareFlowControl.bits()),
         );
 
-        let device = unsafe { core::mem::zeroed::<super::Device>() };
-        let ClocksStatus = device.RCC.GetClocksFreq();
-        let brr = ClocksStatus.HCLK as u64 / InitStruct.BaudRate as u64;
+        let brr = HCLK as u64 / InitStruct.BaudRate as u64;
         self.BRR.set(brr.clamp(0, 0xFFFF) as u32);
     }
 
