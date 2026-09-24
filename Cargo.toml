@@ -12,9 +12,10 @@ std = []
 
 riscv32 = []
 cortex-m = []
+qingke = ["riscv32"]
 
 py32f003 = ["cortex-m"]
 
 sh30f2602 = ["cortex-m"]
 
-ch32h417 = ["riscv32"]
+ch32h417 = ["qingke"]
