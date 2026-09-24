@@ -2,7 +2,10 @@ use core::fmt::{Debug, Formatter};
 use core::marker::PhantomData;
 use core::ops::{Deref, DerefMut};
 
+#[cfg(feature = "cortex-m")]
 pub mod cortex_m;
+
+#[cfg(feature = "riscv32")]
 pub mod riscv32;
 
 pub struct Block<T, const ADDR: usize>(PhantomData<*mut T>);
