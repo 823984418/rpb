@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg16, Reg32, Reg8};
+use crate::register::{Reg, Reg8, Reg16, Reg32};
 
 /// 系统配置寄存器组，基地址 `0x40001000`
 #[derive(Debug)]

@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg16, Reg8};
+use crate::register::{Reg, Reg8, Reg16};
 
 /// I2C 寄存器组，基地址 `0x40004800`
 #[derive(Debug)]

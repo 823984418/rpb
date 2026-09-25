@@ -23,9 +23,7 @@ impl GPIO_INT {
     ///
     /// 每一位对应一个引脚：0=按 POR 触发，1=不按 POR 触发
     pub const fn EDGE_TYPE(&self) -> &Reg<PA_INT_EDGE> {
-        unsafe {
-            Reg::from_ptr((self.MODE.as_ptr() as *mut u8).add(2) as *mut PA_INT_EDGE)
-        }
+        unsafe { Reg::from_ptr((self.MODE.as_ptr() as *mut u8).add(2) as *mut PA_INT_EDGE) }
     }
 }
 

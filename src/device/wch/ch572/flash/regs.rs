@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32, Reg8};
+use crate::register::{Reg, Reg8, Reg32};
 
 /// Flash ROM 控制寄存器组，基地址 `0x40001800`
 #[derive(Debug)]

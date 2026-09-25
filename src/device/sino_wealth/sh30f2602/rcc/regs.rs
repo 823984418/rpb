@@ -1,0 +1,217 @@
+use bitflags::bitflags;
+
+use crate::register::{Reg, Reg32};
+
+/// RCC register block.
+#[derive(Debug)]
+#[repr(C)]
+pub struct RCC {
+    pub CR: Reg<CR>,
+    pub CFGR: Reg<CFGR>,
+    pub CIENR: Reg<CIENR>,
+    pub CISTR: Reg<CISTR>,
+    pub CICLR: Reg<CICLR>,
+    pub AHBRSTR: Reg<AHBRSTR>,
+    /// Reserved (0x18..=0x1b).
+    RESERVED0: [Reg32; 1],
+    pub APB0RSTR: Reg<APB0RSTR>,
+    pub AHBENR: Reg<AHBENR>,
+    /// Reserved (0x24..=0x27).
+    RESERVED1: [Reg32; 1],
+    pub APB0ENR: Reg<APB0ENR>,
+    pub RSTSTR: Reg<RSTSTR>,
+    pub RSTCLR: Reg<RSTCLR>,
+    /// Reserved (0x34..=0x37).
+    RESERVED2: [Reg32; 1],
+    pub RCCLOCK: Reg<RCCLOCK>,
+}
+
+bitflags! {
+    /// `CR` (0x0).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CR: u32 {
+        const CSMON = 1 << 8;
+
+        const PLLRDY = 1 << 7;
+
+        const PLLON = 1 << 6;
+
+        const SWS_MASK = 0x3 << 2;
+
+        const SW_MASK = 0x3 << 0;
+    }
+}
+
+bitflags! {
+    /// `CFGR` (0x4).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CFGR: u32 {
+        const PLLF_MASK = 0x3f << 12;
+
+        const PLLK_MASK = 0x7 << 9;
+
+        const PPRE_MASK = 0x7 << 3;
+
+        const HPRE_MASK = 0x7 << 0;
+    }
+}
+
+bitflags! {
+    /// `CIENR` (0x8).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CIENR: u32 {
+        const PLLRDYIE = 1 << 4;
+    }
+}
+
+bitflags! {
+    /// `CISTR` (0xc).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CISTR: u32 {
+        const CSMPLLF = 1 << 7;
+
+        const PLLRDYIF = 1 << 4;
+    }
+}
+
+bitflags! {
+    /// `CICLR` (0x10).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CICLR: u32 {
+        const CSMC = 1 << 7;
+
+        const PLLRDYC = 1 << 4;
+    }
+}
+
+bitflags! {
+    /// `AHBRSTR` (0x14).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct AHBRSTR: u32 {
+        const ADCRST = 1 << 5;
+
+        const MACPRST = 1 << 4;
+
+        const SYSCFGRST = 1 << 2;
+
+        const MCMRST = 1 << 1;
+
+        const GPIORST = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `APB0RSTR` (0x1c).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct APB0RSTR: u32 {
+        const NTESTRST = 1 << 14;
+
+        const PCA0RST = 1 << 10;
+
+        const AMOCRST = 1 << 9;
+
+        const WWDTRST = 1 << 8;
+
+        const PWM4RST = 1 << 7;
+
+        const SPI0RST = 1 << 6;
+
+        const PWM3RST = 1 << 5;
+
+        const UART1RST = 1 << 4;
+
+        const UART0RST = 1 << 3;
+
+        const TIM8RST = 1 << 1;
+
+        const TIM7RST = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `AHBENR` (0x20).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct AHBENR: u32 {
+        const ADCEN = 1 << 5;
+
+        const MACPEN = 1 << 4;
+
+        const SYSCFGEN = 1 << 2;
+
+        const MCMEN = 1 << 1;
+
+        const GPIOEN = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `APB0ENR` (0x28).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct APB0ENR: u32 {
+        const NTESTEN = 1 << 14;
+
+        const PCA0EN = 1 << 10;
+
+        const AMOCEN = 1 << 9;
+
+        const WWDTEN = 1 << 8;
+
+        const PWM4EN = 1 << 7;
+
+        const SPI0EN = 1 << 6;
+
+        const PWM3EN = 1 << 5;
+
+        const UART1EN = 1 << 4;
+
+        const UART0EN = 1 << 3;
+
+        const TIM8EN = 1 << 1;
+
+        const TIM7EN = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `RSTSTR` (0x2c).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct RSTSTR: u32 {
+        const WWDTRSTF = 1 << 5;
+
+        const IWDTRSTF = 1 << 4;
+
+        const SWRSTF = 1 << 3;
+
+        const PORSTF = 1 << 2;
+
+        const LVRSTF = 1 << 1;
+
+        const PINRSTF = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `RSTCLR` (0x30).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct RSTCLR: u32 {
+        const WWDTRSTFC = 1 << 5;
+
+        const IWDTRSTFC = 1 << 4;
+
+        const SWRSTFC = 1 << 3;
+
+        const PORSTFC = 1 << 2;
+
+        const LVRSTFC = 1 << 1;
+
+        const PINRSTFC = 1 << 0;
+    }
+}
+
+bitflags! {
+    /// `RCCLOCK` (0x38).
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct RCCLOCK: u32 {
+        const LOCK_MASK = 0xffff << 0;
+    }
+}

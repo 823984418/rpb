@@ -1,1 +1,3 @@
-pub mod regs;
+mod regs;
+
+pub use regs::*;
