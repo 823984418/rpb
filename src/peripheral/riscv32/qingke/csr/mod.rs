@@ -25,12 +25,15 @@ use intsyscr::INTSYSCR;
 use memary_cfgr::MEMARY_CFGR;
 use meminfo::MEMINFO;
 use mie::MIE;
+use mtvec::MTVEC;
 use opcache_ctlr::OPCACHE_CTLR;
 use tcm_rrduty_cfgr::TCM_RRDUTY_CFGR;
 
 #[derive(Debug)]
 pub struct QingKeCSR {
     pub RISCV_CSR: RiscvCSR,
+
+    pub mtvec: CSR<MTVEC, 0x305>,
 
     pub gintenr: CSR<MSTATUS, 0x800>,
     pub intsyscr: CSR<INTSYSCR, 0x804>,

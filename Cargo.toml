@@ -19,3 +19,5 @@ py32f003 = ["cortex-m"]
 sh30f2602 = ["cortex-m"]
 
 ch32h417 = ["qingke"]
+
+ch572 = ["qingke"]
