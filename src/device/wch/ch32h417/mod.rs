@@ -79,7 +79,7 @@ impl Device {
 
             self.RCC.CTLR.bit_or(rcc::CTLR::PLLON);
 
-            while self.RCC.CTLR.get().intersects(rcc::CTLR::PLLRDY) {}
+            while !self.RCC.CTLR.get().intersects(rcc::CTLR::PLLRDY) {}
 
             self.RCC
                 .PLLCFGR

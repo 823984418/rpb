@@ -130,7 +130,7 @@ pub struct PFIC {
     /// # 可用架构
     /// * V3
     /// * V5
-    pub CSTAR: [Reg32; 2],
+    pub CSTAR: [Reg<CSTAR>; 2],
 
     RESERVED9: [Reg8; 0x4F8],
 
@@ -187,8 +187,20 @@ bitflags! {
     }
 }
 
-impl PFIC {
-    pub fn HART_ID(&self) -> &Reg8 {
-        unsafe { Reg::from_ptr((self.SCTLR.as_ptr() as *mut u8).add(2)) }
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct CSTAR: u32 {
+        const CPU_EX_STATE_LOCK_UP = 0b11 << 14;
+        const CPU_EX_STATE_DEEP_SLEEP = 0b10 << 14;
+        const CPU_EX_STATE_SLEEP = 0b01 << 14;
+        const CPU_EX_STATE_RUN = 0b00 << 14;
+        const CPU_EX_STATE_MASK = 0x3 << 14;
+
+        const CPU_LOCK_UP = 1 << 13;
+        const CPU_DBG_MODE = 1 << 12;
+        const CPU_GLOBL_IE = 1 << 11;
+        const CPU_IRQ_PEND = 1 << 9;
+        const CPU_IRQ_ACTIVE = 1 << 8;
+        const CPU_NEST_STA_MASK = 0xFF << 0;
     }
 }
