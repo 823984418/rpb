@@ -1,4 +1,4 @@
-use crate::register::Reg32;
+use crate::register::{Reg32, Reserved};
 
 /// 核间通信
 /// 这是 WCH 的专用外设
@@ -14,7 +14,7 @@ pub struct IPC {
     /// 中断屏蔽寄存器
     pub ISM: Reg32,
 
-    RESERVED0: Reg32,
+    RESERVED0: Reserved<u32>,
 
     /// 使能寄存器
     pub ENA: Reg32,

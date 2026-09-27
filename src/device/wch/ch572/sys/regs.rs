@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16, Reg32};
+use crate::register::{Reg, Reg8, Reg32, Reserved};
 
 /// 系统配置寄存器组，基地址 `0x40001000`
 #[derive(Debug)]
@@ -15,12 +15,12 @@ pub struct SYS {
     /// 系统时钟配置寄存器
     pub CLK_SYS_CFG: Reg<CLK_SYS_CFG>, // 0x08
 
-    RESERVED0: Reg8, // 0x09
+    RESERVED0: Reserved<u8>, // 0x09
 
     /// 系统高频时钟电源配置寄存器
     pub HFCK_PWR_CTRL: Reg<HFCK_PWR_CTRL>, // 0x0A
 
-    RESERVED1: Reg8, // 0x0B
+    RESERVED1: Reserved<u8>, // 0x0B
 
     /// 睡眠时钟关闭控制字节 0
     pub SLP_CLK_OFF0: Reg<SLP_CLK_OFF0>, // 0x0C
@@ -34,7 +34,7 @@ pub struct SYS {
     /// 外设掉电控制寄存器
     pub SLP_POWER_CTRL: Reg<SLP_POWER_CTRL>, // 0x0F
 
-    RESERVED2: [Reg8; 8], // 0x10 ~ 0x17
+    RESERVED2: Reserved<[u8; 8]>, // 0x10 ~ 0x17
 
     /// 功能引脚复用配置寄存器低位
     pub PIN_ALTERNATE: Reg<PIN_ALTERNATE>, // 0x18
@@ -66,14 +66,14 @@ pub struct SYS {
     /// 电池电压检测状态寄存器
     pub BAT_STATUS: Reg<BAT_STATUS>, // 0x26
 
-    RESERVED3: Reg8, // 0x27
+    RESERVED3: Reserved<u8>, // 0x27
 
-    RESERVED4: [Reg8; 4], // 0x28 ~ 0x2B
+    RESERVED4: Reserved<[u8; 4]>, // 0x28 ~ 0x2B
 
     /// 内部 LSI 振荡器频率调整寄存器
     pub INT_LSI_TUNE: Reg<INT_LSI_TUNE>, // 0x2C
 
-    RESERVED5: Reg8, // 0x2E
+    RESERVED5: Reserved<u8>, // 0x2E
 
     /// LSI 振荡器配置寄存器
     pub LSI_CONFIG: Reg<LSI_CONFIG>, // 0x2F
@@ -84,7 +84,7 @@ pub struct SYS {
     /// RTC 模式控制寄存器
     pub RTC_MODE_CTRL: Reg<RTC_MODE_CTRL>, // 0x31
 
-    RESERVED6: Reg16, // 0x32 ~ 0x33
+    RESERVED6: Reserved<u16>, // 0x32 ~ 0x33
 
     /// RTC 触发值寄存器
     pub RTC_TRIG: Reg32, // 0x34
@@ -435,12 +435,12 @@ pub struct CFG {
     /// 杂项控制寄存器，高字节为 PLL 配置，见 [`CFG::PLL_CONFIG`]
     pub MISC_CTRL: Reg32, // 0x08
 
-    RESERVED0: Reg16, // 0x0C ~ 0x0D
+    RESERVED0: Reserved<u16>, // 0x0C ~ 0x0D
 
     /// 外部 32MHz 振荡器调整控制寄存器
     pub XT32M_TUNE: Reg<XT32M_TUNE>, // 0x0E
 
-    RESERVED1: Reg8, // 0x0F
+    RESERVED1: Reserved<u8>, // 0x0F
 
     /// 振荡器频率校准计数寄存器
     pub OSC_CAL_CNT: Reg<OSC_CAL_CNT>, // 0x10
@@ -451,7 +451,7 @@ pub struct CFG {
     /// 振荡器频率校准控制寄存器
     pub OSC_CAL_CTRL: Reg<OSC_CAL_CTRL>, // 0x13
 
-    RESERVED2: Reg32, // 0x14 ~ 0x17，CMP 寄存器区
+    RESERVED2: Reserved<u32>, // 0x14 ~ 0x17，CMP 寄存器区
 
     /// 安全访问签名寄存器 2
     pub SAFE_ACCESS_SIG2: Reg<SAFE_ACCESS_SIG2>, // 0x18

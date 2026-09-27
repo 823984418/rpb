@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16};
+use crate::register::{Reg, Reg8, Reg16, Reserved};
 
 /// I2C 寄存器组，基地址 `0x40004800`
 #[derive(Debug)]
@@ -9,47 +9,47 @@ pub struct I2C {
     /// 控制寄存器 1
     pub CTRL1: Reg<CTRL1>, // 0x00
 
-    RESERVED0: Reg16, // 0x02
+    RESERVED0: Reserved<u16>, // 0x02
 
     /// 控制寄存器 2
     pub CTRL2: Reg<CTRL2>, // 0x04
 
-    RESERVED1: Reg16, // 0x06
+    RESERVED1: Reserved<u16>, // 0x06
 
     /// 自身地址寄存器 1
     pub OADDR1: Reg<OADDR1>, // 0x08
 
-    RESERVED2: Reg16, // 0x0A
+    RESERVED2: Reserved<u16>, // 0x0A
 
     /// 自身地址寄存器 2
     pub OADDR2: Reg<OADDR2>, // 0x0C
 
-    RESERVED3: Reg16, // 0x0E
+    RESERVED3: Reserved<u16>, // 0x0E
 
     /// 数据寄存器
     pub DATAR: Reg16, // 0x10
 
-    RESERVED4: Reg16, // 0x12
+    RESERVED4: Reserved<u16>, // 0x12
 
     /// 状态寄存器 1
     pub STAR1: Reg<STAR1>, // 0x14
 
-    RESERVED5: Reg16, // 0x16
+    RESERVED5: Reserved<u16>, // 0x16
 
     /// 状态寄存器 2，高字节为 PEC 寄存器
     pub STAR2: Reg<STAR2>, // 0x18
 
-    RESERVED6: Reg16, // 0x1A
+    RESERVED6: Reserved<u16>, // 0x1A
 
     /// 时钟控制寄存器
     pub CKCFGR: Reg<CKCFGR>, // 0x1C
 
-    RESERVED7: Reg16, // 0x1E
+    RESERVED7: Reserved<u16>, // 0x1E
 
     /// 上升时间寄存器
     pub RTR: Reg<RTR>, // 0x20
 
-    RESERVED8: Reg16, // 0x22
+    RESERVED8: Reserved<u16>, // 0x22
 }
 
 impl I2C {

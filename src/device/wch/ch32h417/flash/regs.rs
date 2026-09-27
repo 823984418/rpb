@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reg32, Reserved};
 
 #[derive(Debug)]
 #[repr(C)]
@@ -11,7 +11,7 @@ pub struct FLASH {
     pub STATR: Reg<STATR>,
     pub CTLR: Reg<CTLR>,
     pub ADDR: Reg32,
-    RESERVED0: Reg32,
+    RESERVED0: Reserved<u32>,
     pub OBR: Reg<OBR>,
     pub WPR: Reg32,
     pub MODEKEYR: Reg<MODEKEYR>,

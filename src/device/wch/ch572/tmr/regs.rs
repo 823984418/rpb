@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16, Reg32};
+use crate::register::{Reg, Reg8, Reg16, Reg32, Reserved};
 
 /// 定时器寄存器组，基地址 `0x40002400`
 #[derive(Debug)]
@@ -15,9 +15,9 @@ pub struct TMR {
     /// 定时器中断使能寄存器
     pub INTER_EN: Reg<INTER_EN>, // 0x02
 
-    RESERVED0: Reg8, // 0x03
+    RESERVED0: Reserved<u8>, // 0x03
 
-    RESERVED1: Reg16, // 0x04 ~ 0x05
+    RESERVED1: Reserved<u16>, // 0x04 ~ 0x05
 
     /// 定时器中断标志寄存器，写 1 清除
     pub INT_FLAG: Reg<INT_FLAG>, // 0x06
@@ -154,7 +154,7 @@ pub struct ENC {
     /// 编码器中断标志寄存器
     pub INT_FLAG: Reg<ENC_INT_FLAG>, // 0x02
 
-    RESERVED0: Reg8, // 0x03
+    RESERVED0: Reserved<u8>, // 0x03
 
     /// 编码器结束计数值
     pub REG_CEND: Reg32, // 0x04

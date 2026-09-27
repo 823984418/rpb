@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// MCM register block.
 #[derive(Debug)]
@@ -32,7 +32,7 @@ pub struct MCM {
     pub PMANUALCON2: Reg<PMANUALCON2>,
     pub FLTCON: Reg<FLTCON>,
     /// Reserved (0x64..=0x6f).
-    RESERVED0: [Reg32; 3],
+    RESERVED0: Reserved<[u32; 3]>,
     pub POSTDCR: Reg<POSTDCR>,
     pub PWMINTEN: Reg<PWMINTEN>,
     pub PWMINTF: Reg<PWMINTF>,

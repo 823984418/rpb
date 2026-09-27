@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16, Reg32};
+use crate::register::{Reg, Reg8, Reg16, Reserved};
 
 /// USB 寄存器组，基地址 `0x40008000`
 #[derive(Debug)]
@@ -18,7 +18,7 @@ pub struct USB {
     /// USB 设备地址寄存器
     pub DEV_AD: Reg<DEV_AD>, // 0x03
 
-    RESERVED0: Reg8, // 0x04
+    RESERVED0: Reserved<u8>, // 0x04
 
     /// USB 杂项状态寄存器
     pub MIS_ST: Reg<MIS_ST>, // 0x05
@@ -32,7 +32,7 @@ pub struct USB {
     /// USB 接收长度寄存器
     pub RX_LEN: Reg8, // 0x08
 
-    RESERVED1: [Reg8; 3], // 0x09 ~ 0x0B
+    RESERVED1: Reserved<[u8; 3]>, // 0x09 ~ 0x0B
 
     /// 端点 4/1 模式寄存器
     pub UEP4_1_MOD: Reg<UEP4_1_MOD>, // 0x0C
@@ -43,124 +43,124 @@ pub struct USB {
     /// 端点 5/6/7 模式寄存器
     pub UEP567_MOD: Reg<UEP567_MOD>, // 0x0E
 
-    RESERVED2: Reg8, // 0x0F
+    RESERVED2: Reserved<u8>, // 0x0F
 
     /// 端点 0 DMA 缓冲地址
     pub UEP0_DMA: Reg16, // 0x10
 
-    RESERVED3: Reg16, // 0x12
+    RESERVED3: Reserved<u16>, // 0x12
 
     /// 端点 1 DMA 缓冲地址
     pub UEP1_DMA: Reg16, // 0x14
 
-    RESERVED4: Reg16, // 0x16
+    RESERVED4: Reserved<u16>, // 0x16
 
     /// 端点 2 DMA 缓冲地址，主机模式下为 `UH_RX_DMA`
     pub UEP2_DMA: Reg16, // 0x18
 
-    RESERVED5: Reg16, // 0x1A
+    RESERVED5: Reserved<u16>, // 0x1A
 
     /// 端点 3 DMA 缓冲地址，主机模式下为 `UH_TX_DMA`
     pub UEP3_DMA: Reg16, // 0x1C
 
-    RESERVED6: Reg16, // 0x1E
+    RESERVED6: Reserved<u16>, // 0x1E
 
     /// 端点 0 发送长度寄存器
     pub UEP0_T_LEN: Reg8, // 0x20
 
-    RESERVED7: Reg8, // 0x21
+    RESERVED7: Reserved<u8>, // 0x21
 
     /// 端点 0 控制寄存器
     pub UEP0_CTRL: Reg<UEP_CTRL>, // 0x22
 
-    RESERVED8: Reg8, // 0x23
+    RESERVED8: Reserved<u8>, // 0x23
 
     /// 端点 1 发送长度寄存器
     pub UEP1_T_LEN: Reg8, // 0x24
 
-    RESERVED9: Reg8, // 0x25
+    RESERVED9: Reserved<u8>, // 0x25
 
     /// 端点 1 控制寄存器，主机模式下见 [`USB::UH_SETUP`]
     pub UEP1_CTRL: Reg<UEP_CTRL>, // 0x26
 
-    RESERVED10: Reg8, // 0x27
+    RESERVED10: Reserved<u8>, // 0x27
 
     /// 端点 2 发送长度寄存器，主机模式下为 `UH_EP_PID`
     pub UEP2_T_LEN: Reg8, // 0x28
 
-    RESERVED11: Reg8, // 0x29
+    RESERVED11: Reserved<u8>, // 0x29
 
     /// 端点 2 控制寄存器，主机模式下见 [`USB::UH_RX_CTRL`]
     pub UEP2_CTRL: Reg<UEP_CTRL>, // 0x2A
 
-    RESERVED12: Reg8, // 0x2B
+    RESERVED12: Reserved<u8>, // 0x2B
 
     /// 端点 3 发送长度寄存器，主机模式下为 `UH_TX_LEN`
     pub UEP3_T_LEN: Reg8, // 0x2C
 
-    RESERVED13: Reg8, // 0x2D
+    RESERVED13: Reserved<u8>, // 0x2D
 
     /// 端点 3 控制寄存器，主机模式下见 [`USB::UH_TX_CTRL`]
     pub UEP3_CTRL: Reg<UEP_CTRL>, // 0x2E
 
-    RESERVED14: Reg8, // 0x2F
+    RESERVED14: Reserved<u8>, // 0x2F
 
     /// 端点 4 发送长度寄存器
     pub UEP4_T_LEN: Reg8, // 0x30
 
-    RESERVED15: Reg8, // 0x31
+    RESERVED15: Reserved<u8>, // 0x31
 
     /// 端点 4 控制寄存器
     pub UEP4_CTRL: Reg<UEP_CTRL>, // 0x32
 
-    RESERVED16: [Reg8; 0x21], // 0x33 ~ 0x53
+    RESERVED16: Reserved<[u8; 0x21]>, // 0x33 ~ 0x53
 
     /// 端点 5 DMA 缓冲地址
     pub UEP5_DMA: Reg16, // 0x54
 
-    RESERVED17: Reg16, // 0x56
+    RESERVED17: Reserved<u16>, // 0x56
 
     /// 端点 6 DMA 缓冲地址
     pub UEP6_DMA: Reg16, // 0x58
 
-    RESERVED18: Reg16, // 0x5A
+    RESERVED18: Reserved<u16>, // 0x5A
 
     /// 端点 7 DMA 缓冲地址
     pub UEP7_DMA: Reg16, // 0x5C
 
-    RESERVED19: Reg16, // 0x5E
+    RESERVED19: Reserved<u16>, // 0x5E
 
-    RESERVED20: Reg32, // 0x60 ~ 0x63
+    RESERVED20: Reserved<u32>, // 0x60 ~ 0x63
 
     /// 端点 5 发送长度寄存器
     pub UEP5_T_LEN: Reg8, // 0x64
 
-    RESERVED21: Reg8, // 0x65
+    RESERVED21: Reserved<u8>, // 0x65
 
     /// 端点 5 控制寄存器
     pub UEP5_CTRL: Reg<UEP_CTRL>, // 0x66
 
-    RESERVED22: Reg8, // 0x67
+    RESERVED22: Reserved<u8>, // 0x67
 
     /// 端点 6 发送长度寄存器
     pub UEP6_T_LEN: Reg8, // 0x68
 
-    RESERVED23: Reg8, // 0x69
+    RESERVED23: Reserved<u8>, // 0x69
 
     /// 端点 6 控制寄存器
     pub UEP6_CTRL: Reg<UEP_CTRL>, // 0x6A
 
-    RESERVED24: Reg8, // 0x6B
+    RESERVED24: Reserved<u8>, // 0x6B
 
     /// 端点 7 发送长度寄存器
     pub UEP7_T_LEN: Reg8, // 0x6C
 
-    RESERVED25: Reg8, // 0x6D
+    RESERVED25: Reserved<u8>, // 0x6D
 
     /// 端点 7 控制寄存器
     pub UEP7_CTRL: Reg<UEP_CTRL>, // 0x6E
 
-    RESERVED26: Reg8, // 0x6F
+    RESERVED26: Reserved<u8>, // 0x6F
 }
 
 impl USB {

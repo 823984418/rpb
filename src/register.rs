@@ -96,3 +96,12 @@ pub type Reg16 = Reg<u16>;
 pub type Reg32 = Reg<u32>;
 pub type Reg64 = Reg<u64>;
 pub type Reg128 = Reg<u128>;
+
+#[repr(transparent)]
+pub struct Reserved<T>(UnsafeCell<T>);
+
+impl<T> Debug for Reserved<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
+        f.write_str("Reserved(...)")
+    }
+}

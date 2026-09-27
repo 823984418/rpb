@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16, Reg32};
+use crate::register::{Reg, Reg8, Reg16, Reg32, Reserved};
 
 /// SPI 寄存器组，基地址 `0x40004000`
 #[derive(Debug)]
@@ -36,7 +36,7 @@ pub struct SPI {
     /// SPI 总字节数寄存器，仅低 12 位有效
     pub TOTAL_CNT: Reg16, // 0x0C
 
-    RESERVED0: Reg16, // 0x0E
+    RESERVED0: Reserved<u16>, // 0x0E
 
     /// SPI FIFO 寄存器，最高字节为 FIFO 计数状态
     pub FIFO: Reg32, // 0x10
@@ -44,17 +44,17 @@ pub struct SPI {
     /// SPI DMA 当前地址
     pub DMA_NOW: Reg16, // 0x14
 
-    RESERVED1: Reg16, // 0x16
+    RESERVED1: Reserved<u16>, // 0x16
 
     /// SPI DMA 起始地址
     pub DMA_BEG: Reg16, // 0x18
 
-    RESERVED2: Reg16, // 0x1A
+    RESERVED2: Reserved<u16>, // 0x1A
 
     /// SPI DMA 结束地址
     pub DMA_END: Reg16, // 0x1C
 
-    RESERVED3: Reg16, // 0x1E
+    RESERVED3: Reserved<u16>, // 0x1E
 }
 
 impl SPI {

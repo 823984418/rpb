@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reg32, Reserved};
 
 #[derive(Debug)]
 #[repr(C)]
@@ -93,7 +93,7 @@ pub struct AFIO {
     pub GPIOE_AFHR: Reg32,
     pub GPIOF_AFLR: Reg32,
     pub GPIOF_AFHR: Reg32,
-    RESERVED0: [Reg32; 2],
+    RESERVED0: Reserved<[u32; 2]>,
     pub EXTICR1: Reg32,
     pub EXTICR2: Reg32,
 }

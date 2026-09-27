@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16, Reg32};
+use crate::register::{Reg, Reg8, Reg16, Reg32, Reserved};
 
 /// PWM1~PWM5 寄存器组，基地址 `0x40005000`
 ///
@@ -31,7 +31,7 @@ pub struct PWMX {
     /// PWM3 数据寄存器（16 位）
     pub PWM3_DATA: Reg16, // 0x08
 
-    RESERVED0: Reg16, // 0x0A
+    RESERVED0: Reserved<u16>, // 0x0A
 
     /// PWM 中断使能寄存器
     pub INT_EN: Reg<INT_EN>, // 0x0C
@@ -39,7 +39,7 @@ pub struct PWMX {
     /// PWM 中断标志寄存器，写 1 清除
     pub INT_FLAG: Reg<INT_FLAG>, // 0x0D
 
-    RESERVED1: Reg16, // 0x0E
+    RESERVED1: Reserved<u16>, // 0x0E
 
     /// PWM4 数据寄存器（16 位）
     pub PWM4_DATA: Reg16, // 0x10
@@ -56,7 +56,7 @@ pub struct PWMX {
     /// PWM 时钟分频寄存器
     pub CLOCK_DIV: Reg16, // 0x18
 
-    RESERVED2: Reg16, // 0x1A
+    RESERVED2: Reserved<u16>, // 0x1A
 
     /// PWM DMA 当前地址
     pub DMA_NOW: Reg32, // 0x1C

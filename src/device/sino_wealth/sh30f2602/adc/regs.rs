@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// ADC register block.
 #[derive(Debug)]
@@ -27,7 +27,7 @@ pub struct ADC {
     pub ADDR14: Reg<ADDR14>,
     pub ADDR15: Reg<ADDR15>,
     /// Reserved (0x50..=0x5b).
-    RESERVED0: [Reg32; 3],
+    RESERVED0: Reserved<[u32; 3]>,
     pub SEQCHSEL0: Reg<SEQCHSEL0>,
     pub SEQCHSEL1: Reg<SEQCHSEL1>,
     pub ADGAPON: Reg<ADGAPON>,

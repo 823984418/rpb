@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg32};
+use crate::register::{Reg, Reg8, Reg32, Reserved};
 
 /// 可编程快速中断控制器
 /// 这是 WCH 的专用外设
@@ -55,7 +55,7 @@ pub struct PFIC {
     /// * V5
     pub VTFIDR: Reg32,
 
-    RESERVED0: [Reg32; 3],
+    RESERVED0: Reserved<[u32; 3]>,
 
     /// VTF 中断 x 偏移地址寄存器
     ///
@@ -64,49 +64,49 @@ pub struct PFIC {
     /// * V5
     pub VTFADDRR: [Reg32; 4],
 
-    RESERVED1: [Reg8; 0x90],
+    RESERVED1: Reserved<[u8; 0x90]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IENR: [Reg32; 8],
 
-    RESERVED2: [Reg8; 0x60],
+    RESERVED2: Reserved<[u8; 0x60]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IRER: [Reg32; 8],
 
-    RESERVED3: [Reg8; 0x60],
+    RESERVED3: Reserved<[u8; 0x60]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPSR: [Reg32; 8],
 
-    RESERVED4: [Reg8; 0x60],
+    RESERVED4: Reserved<[u8; 0x60]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPRR: [Reg32; 8],
 
-    RESERVED5: [Reg8; 0x60],
+    RESERVED5: Reserved<[u8; 0x60]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IACTR: [Reg32; 8],
 
-    RESERVED6: [Reg8; 0xE0],
+    RESERVED6: Reserved<[u8; 0xE0]>,
 
     /// # 可用架构
     /// * V3
     /// * V5
     pub IPRIOR: [Reg8; 256],
 
-    RESERVED7: [Reg8; 0x100],
+    RESERVED7: Reserved<[u8; 0x100]>,
 
     /// # 可用架构
     /// * V3
@@ -123,7 +123,7 @@ pub struct PFIC {
     /// * V5
     pub WAKEIP: [Reg32; 2],
 
-    RESERVED8: [Reg8; 0x58],
+    RESERVED8: Reserved<[u8; 0x58]>,
 
     /// 内核状态寄存器
     ///
@@ -132,7 +132,7 @@ pub struct PFIC {
     /// * V5
     pub CSTAR: [Reg<CSTAR>; 2],
 
-    RESERVED9: [Reg8; 0x4F8],
+    RESERVED9: Reserved<[u8; 0x4F8]>,
 
     /// # 可用架构
     /// * V3
@@ -149,7 +149,7 @@ pub struct PFIC {
     /// * V5
     pub EWUPR: Reg32,
 
-    RESERVED10: [Reg8; 0x84],
+    RESERVED10: Reserved<[u8; 0x84]>,
 
     /// # 可用架构
     /// * V3

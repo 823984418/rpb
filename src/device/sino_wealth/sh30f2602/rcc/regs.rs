@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// RCC register block.
 #[derive(Debug)]
@@ -13,16 +13,16 @@ pub struct RCC {
     pub CICLR: Reg<CICLR>,
     pub AHBRSTR: Reg<AHBRSTR>,
     /// Reserved (0x18..=0x1b).
-    RESERVED0: [Reg32; 1],
+    RESERVED0: Reserved<[u32; 1]>,
     pub APB0RSTR: Reg<APB0RSTR>,
     pub AHBENR: Reg<AHBENR>,
     /// Reserved (0x24..=0x27).
-    RESERVED1: [Reg32; 1],
+    RESERVED1: Reserved<[u32; 1]>,
     pub APB0ENR: Reg<APB0ENR>,
     pub RSTSTR: Reg<RSTSTR>,
     pub RSTCLR: Reg<RSTCLR>,
     /// Reserved (0x34..=0x37).
-    RESERVED2: [Reg32; 1],
+    RESERVED2: Reserved<[u32; 1]>,
     pub RCCLOCK: Reg<RCCLOCK>,
 }
 

@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// GPIO 中断控制寄存器组，基地址 `0x40001090`
 #[derive(Debug)]
@@ -12,7 +12,7 @@ pub struct GPIO_INT {
     /// GPIO 中断模式寄存器：0=电平触发，1=边沿触发
     pub MODE: Reg<PA_PINS>, // 0x04
 
-    RESERVED0: Reg32, // 0x08 ~ 0x0B
+    RESERVED0: Reserved<u32>, // 0x08 ~ 0x0B
 
     /// GPIO 中断标志寄存器，写 1 清除
     pub IF: Reg<PA_PINS>, // 0x0C

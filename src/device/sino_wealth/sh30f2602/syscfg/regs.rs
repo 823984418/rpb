@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// SYSCFG register block.
 #[derive(Debug)]
@@ -10,11 +10,11 @@ pub struct SYSCFG {
     pub PWRSR: Reg<PWRSR>,
     pub SAFR: Reg<SAFR>,
     /// Reserved (0xc..=0xf).
-    RESERVED0: [Reg32; 1],
+    RESERVED0: Reserved<[u32; 1]>,
     pub DBGCR: Reg<DBGCR>,
     pub GPIOBCR: Reg<GPIOBCR>,
     /// Reserved (0x18..=0x7f).
-    RESERVED1: [Reg32; 26],
+    RESERVED1: Reserved<[u32; 26]>,
     pub HLDOCR: Reg<HLDOCR>,
 }
 

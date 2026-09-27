@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg8, Reg16};
+use crate::register::{Reg, Reg8, Reg16, Reserved};
 
 /// UART 寄存器组，基地址 `0x40003400`
 #[derive(Debug)]
@@ -24,12 +24,12 @@ pub struct UART {
     /// 线路状态寄存器
     pub LSR: Reg<LSR>, // 0x05
 
-    RESERVED0: [Reg8; 2], // 0x06 ~ 0x07
+    RESERVED0: Reserved<[u8; 2]>, // 0x06 ~ 0x07
 
     /// 接收缓冲寄存器，写访问见 [`UART::THR`]
     pub RBR: Reg8, // 0x08
 
-    RESERVED1: Reg8, // 0x09
+    RESERVED1: Reserved<u8>, // 0x09
 
     /// 接收 FIFO 计数寄存器
     pub RFC: Reg8, // 0x0A

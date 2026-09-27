@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reg32, Reserved};
 
 /// MACP register block.
 #[derive(Debug)]
@@ -15,7 +15,7 @@ pub struct MACP {
     pub OPRDY1: Reg32,
     pub OPRDZ1: Reg32,
     /// Reserved (0x20..=0xff).
-    RESERVED0: [Reg32; 56],
+    RESERVED0: Reserved<[u32; 56]>,
     pub DIVCSR0: Reg<DIVCSR0>,
     pub DIVDND0: Reg32,
     pub DIVSOR0: Reg32,

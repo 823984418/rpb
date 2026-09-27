@@ -1,6 +1,6 @@
 use bitflags::bitflags;
 
-use crate::register::{Reg, Reg32};
+use crate::register::{Reg, Reserved};
 
 /// UART1 register block.
 #[derive(Debug)]
@@ -8,7 +8,7 @@ use crate::register::{Reg, Reg32};
 pub struct UART1 {
     pub FR: Reg<FR>,
     /// Reserved (0x4..=0x7).
-    RESERVED0: [Reg32; 1],
+    RESERVED0: Reserved<[u32; 1]>,
     pub TDR: Reg<TDR>,
     pub RDR: Reg<RDR>,
     pub ADDR: Reg<ADDR>,
