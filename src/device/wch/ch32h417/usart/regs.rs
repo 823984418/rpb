@@ -41,10 +41,9 @@ bitflags! {
         const DR_MASK = 0x1FF << 0;
     }
 }
-
-/// USART波特率分频寄存器
-/// 虽然官方手册指示其为小数分频，但前方已经经过相应预分频，因此实际上这个寄存器相对模块时钟就是整数分频
 bitflags! {
+    /// USART波特率分频寄存器
+    /// 虽然官方手册指示其为小数分频，但前方已经经过相应预分频，因此实际上这个寄存器相对模块时钟就是整数分频
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BRR: u32 {
         const DIV_Mantissa_MASK = 0xFFF << 4;
