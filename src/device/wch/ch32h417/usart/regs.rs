@@ -20,6 +20,7 @@ bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATR: u32 {
         const LPWKUP_ACT_FLAG = 1 << 15;
+        const STATR_USART_WKUP = 0x8000;
         const MS_ERR = 1 << 11;
         const RX_BUSY = 1 << 10;
         const CTS = 1 << 9;
@@ -37,12 +38,31 @@ bitflags! {
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct DATAR: u32 {
+        const DATAR_DR = 0x01FF;
+    }
+}
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct BRR: u32 {
+        const BRR_DIV_Fraction = 0x000F;
+        const BRR_DIV_Mantissa = 0xFFF0;
+    }
+}
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u32 {
         const M_EXT_5 = 0b11 << 14;
         const M_EXT_6 = 0b10 << 14;
         const M_EXT_7 = 0b01 << 14;
         const M_EXT_M = 0b00 << 14;
         const M_EXT_MASK = 0x3 << 14;
+
+        const CTLR1_M_EXT = 0xC000;
+        const CTLR1_M_EXT_0 = 0x4000;
+        const CTLR1_M_EXT_1 = 0x8000;
 
         const UE = 1 << 13;
         const M = 1 << 12;
@@ -80,6 +100,10 @@ bitflags! {
         const LBDL = 1 << 5;
 
         const ADD_MASK = 0xF << 0;
+
+        const CTLR2_ADD = 0x000F;
+        const CTLR2_STOP_0 = 0x1000;
+        const CTLR2_STOP_1 = 0x2000;
     }
 }
 
@@ -108,6 +132,18 @@ bitflags! {
     pub struct GPR: u32 {
         const GT_MASK = 0xFF << 8;
         const PSC_MASK = 0xFF << 0;
+
+        const GPR_PSC = 0x00FF;
+        const GPR_PSC_0 = 0x0001;
+        const GPR_PSC_1 = 0x0002;
+        const GPR_PSC_2 = 0x0004;
+        const GPR_PSC_3 = 0x0008;
+        const GPR_PSC_4 = 0x0010;
+        const GPR_PSC_5 = 0x0020;
+        const GPR_PSC_6 = 0x0040;
+        const GPR_PSC_7 = 0x0080;
+
+        const GPR_GT = 0xFF00;
     }
 }
 
@@ -116,6 +152,9 @@ bitflags! {
     pub struct CTLR4: u32 {
         const CHECK_SEL_MASK = 0x3 << 2;
         const MS_ERRIE = 1 << 1;
+
+        const CTLR4_CHECK_MARKENABLE = 0x0008;
+        const CTLR4_CHECK_APACEENABLE = 0x000C;
     }
 }
 
