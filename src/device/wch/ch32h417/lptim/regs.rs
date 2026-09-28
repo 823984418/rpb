@@ -21,92 +21,101 @@ pub struct LPTIM {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ISR: u32 {
-        const CMPM = 0x00000001;
-        const ARRM = 0x00000002;
-        const EXTTRIG = 0x00000004;
-        const CMPOK = 0x00000008;
-        const ARROK = 0x00000010;
-        const UP = 0x00000020;
-        const DOWN = 0x00000040;
-        const DIRSYNC = 0x00000080;
+        const DIRSYNC = 1 << 7;
+        const DOWN = 1 << 6;
+        const UP = 1 << 5;
+        const ARROK = 1 << 4;
+        const CMPOK = 1 << 3;
+        const EXTTRIG = 1 << 2;
+        const ARRM = 1 << 1;
+        const CMPM = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ICR: u32 {
-        const CMPMCF = 0x00000001;
-        const ARRMCF = 0x00000002;
-        const EXTTRIGCF = 0x00000004;
-        const CMPOKCF = 0x00000008;
-        const ARROKCF = 0x00000010;
-        const UPCF = 0x00000020;
-        const DOWNCF = 0x00000040;
+        const DOWNCF = 1 << 6;
+        const UPCF = 1 << 5;
+        const ARROKCF = 1 << 4;
+        const CMPOKCF = 1 << 3;
+        const EXTTRIGCF = 1 << 2;
+        const ARRMCF = 1 << 1;
+        const CMPMCF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IER: u32 {
-        const CMPMIE = 0x00000001;
-        const ARRMIE = 0x00000002;
-        const EXTTRIGIE = 0x00000004;
-        const CMPOKIE = 0x00000008;
-        const ARROKIE = 0x00000010;
-        const UPIE = 0x00000020;
-        const DOWNIE = 0x00000040;
+        const DOWNIE = 1 << 6;
+        const UPIE = 1 << 5;
+        const ARROKIE = 1 << 4;
+        const CMPOKIE = 1 << 3;
+        const EXTTRIGIE = 1 << 2;
+        const ARRMIE = 1 << 1;
+        const CMPMIE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR: u32 {
-        const CKSEL = 0x00000001;
-        const CKPOL = 0x00000006;
-        const CKFLT = 0x00000018;
-        const TRGFLT = 0x000000C0;
-        const PRESC = 0x00000E00;
-        const TRIGSEL = 0x00006000;
-        const TRIGEN = 0x00060000;
-        const TIMOUT = 0x00080000;
-        const WAVE = 0x00100000;
-        const WAVPOL = 0x00200000;
-        const PRELOAD = 0x00400000;
-        const CONTMODE = 0x00800000;
-        const ENC = 0x01000000;
-        const CLKSEL = 0x06000000;
-        const FORCEPWM = 0x08000000;
+        const FORCEPWM = 1 << 27;
+
+        const CLKSEL_MASK = 0x3 << 25;
+
+        const ENC = 1 << 24;
+        const CONTMODE = 1 << 23;
+        const PRELOAD = 1 << 22;
+        const WAVPOL = 1 << 21;
+        const WAVE = 1 << 20;
+        const TIMOUT = 1 << 19;
+
+        const TRIGEN_MASK = 0x3 << 17;
+
+        const TRIGSEL_MASK = 0x3 << 13;
+
+        const PRESC_MASK = 0x7 << 9;
+
+        const TRGFLT_MASK = 0x3 << 6;
+
+        const CKFLT_MASK = 0x3 << 3;
+
+        const CKPOL_MASK = 0x3 << 1;
+
+        const CKSEL = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR: u32 {
-        const ENABLE = 0x00000001;
-        const SNGSTRT = 0x00000002;
-        const CNTSTRT = 0x00000004;
-        const OUTEN = 0x00000008;
-        const DIR_EXTEN = 0x00000010;
+        const DIR_EXTEN = 1 << 4;
+        const OUTEN = 1 << 3;
+        const CNTSTRT = 1 << 2;
+        const SNGSTRT = 1 << 1;
+        const ENABLE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMP: u16 {
-        const CMP = 0x0000FFFF;
+        const CMP_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ARR: u16 {
-        const ARR = 0x0000FFFF;
+        const ARR_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CNT: u16 {
-        const COUNT = 0x0000FFFF;
+        const CNT_MASK = 0xFFFF << 0;
     }
 }

@@ -20,93 +20,93 @@ pub struct SWPMI {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR: u32 {
-        const RXDMA = 0x00000001;
-        const TXDMA = 0x00000002;
-        const RXMODE = 0x00000004;
-        const TXMODE = 0x00000008;
-        const LPBK = 0x00000010;
-        const SWPACT = 0x00000020;
-        const DEACT = 0x00000400;
-        const SWPTEN = 0x00000800;
+        const SWPTEN = 1 << 11;
+        const DEACT = 1 << 10;
+        const SWPACT = 1 << 5;
+        const LPBK = 1 << 4;
+        const TXMODE = 1 << 3;
+        const RXMODE = 1 << 2;
+        const TXDMA = 1 << 1;
+        const RXDMA = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BRR: u32 {
-        const BR = 0x000000FF;
+        const BR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ISR: u32 {
-        const RXBFF = 0x00000001;
-        const TXBEF = 0x00000002;
-        const RXBERF = 0x00000004;
-        const RXOVRF = 0x00000008;
-        const TXUNRF = 0x00000010;
-        const RXNE = 0x00000020;
-        const TXE = 0x00000040;
-        const TCF = 0x00000080;
-        const SRF = 0x00000100;
-        const SUSP = 0x00000200;
-        const DEACTF = 0x00000400;
-        const RDYF = 0x00000800;
+        const RDYF = 1 << 11;
+        const DEACTF = 1 << 10;
+        const SUSP = 1 << 9;
+        const SRF = 1 << 8;
+        const TCF = 1 << 7;
+        const TXE = 1 << 6;
+        const RXNE = 1 << 5;
+        const TXUNRF = 1 << 4;
+        const RXOVRF = 1 << 3;
+        const RXBERF = 1 << 2;
+        const TXBEF = 1 << 1;
+        const RXBFF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ICR: u32 {
-        const CRXBFF = 0x00000001;
-        const CTXBEF = 0x00000002;
-        const CRXBERF = 0x00000004;
-        const CRXOVRF = 0x00000008;
-        const CTXUNRF = 0x00000010;
-        const CTCF = 0x00000080;
-        const CSRF = 0x00000100;
-        const CRDYF = 0x00000800;
+        const CRDYF = 1 << 11;
+        const CSRF = 1 << 8;
+        const CTCF = 1 << 7;
+        const CTXUNRF = 1 << 4;
+        const CRXOVRF = 1 << 3;
+        const CRXBERF = 1 << 2;
+        const CTXBEF = 1 << 1;
+        const CRXBFF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IER: u32 {
-        const RXBFIE = 0x00000001;
-        const TXBEIE = 0x00000002;
-        const RXBERIE = 0x00000004;
-        const RXOVRIE = 0x00000008;
-        const TXUNRIE = 0x00000010;
-        const RIE = 0x00000020;
-        const TIE = 0x00000040;
-        const TCIE = 0x00000080;
-        const SRIE = 0x00000100;
-        const RDYIE = 0x00000800;
+        const RDYIE = 1 << 11;
+        const SRIE = 1 << 8;
+        const TCIE = 1 << 7;
+        const TIE = 1 << 6;
+        const RIE = 1 << 5;
+        const TXUNRIE = 1 << 4;
+        const RXOVRIE = 1 << 3;
+        const RXBERIE = 1 << 2;
+        const TXBEIE = 1 << 1;
+        const RXBFIE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RFL: u32 {
-        const RFL = 0x0000001F;
+        const RFL_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TDR: u32 {
-        const TD = 0xFFFFFFFF;
+        const TD_MASK = 0xFFFFFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OR: u32 {
-        const SWP_TBYP = 0x00000001;
+        const SWP_ISEL_1 = 1 << 3;
+        const SWP_ISEL_0 = 1 << 2;
+        const SWP_ISEL_MASK = 0x3 << 2;
 
-        const SWP_ISEL = 0x0000000C;
-        const SWP_ISEL_0 = 0x00000004;
-        const SWP_ISEL_1 = 0x00000008;
+        const SWP_TBYP = 1 << 0;
     }
 }

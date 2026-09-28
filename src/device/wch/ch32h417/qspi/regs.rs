@@ -23,155 +23,154 @@ pub struct QSPI {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR: u32 {
-        const EN = 0x00000001;
-        const ABORT = 0x00000002;
-        const DMAEN = 0x00000004;
-        const TCEN = 0x00000008;
+        const PRESCALER_7 = 1 << 31;
+        const PRESCALER_6 = 1 << 30;
+        const PRESCALER_5 = 1 << 29;
+        const PRESCALER_4 = 1 << 28;
+        const PRESCALER_3 = 1 << 27;
+        const PRESCALER_2 = 1 << 26;
+        const PRESCALER_1 = 1 << 25;
+        const PRESCALER_0 = 1 << 24;
+        const PRESCALER_MASK = 0xFF << 24;
 
-        const START = 0x00000020;
-        const DFM = 0x00000040;
-        const FSEL = 0x00000080;
+        const PMM = 1 << 23;
+        const APMS = 1 << 22;
+        const TOIE = 1 << 20;
+        const SMIE = 1 << 19;
+        const FTIE = 1 << 18;
+        const TCIE = 1 << 17;
+        const TEIE = 1 << 16;
 
-        const FTHRES = 0x00001F00;
-        const FTHRES_0 = 0x00000100;
-        const FTHRES_1 = 0x00000200;
-        const FTHRES_2 = 0x00000400;
-        const FTHRES_3 = 0x00000800;
-        const FTHRES_4 = 0x00001000;
+        const FTHRES_4 = 1 << 12;
+        const FTHRES_3 = 1 << 11;
+        const FTHRES_2 = 1 << 10;
+        const FTHRES_1 = 1 << 9;
+        const FTHRES_0 = 1 << 8;
+        const FTHRES_MASK = 0x1F << 8;
 
-        const TEIE = 0x00010000;
-        const TCIE = 0x00020000;
-        const FTIE = 0x00040000;
-        const SMIE = 0x00080000;
-        const TOIE = 0x00100000;
-        const APMS = 0x00400000;
-        const PMM = 0x00800000;
-
-        const PRESCALER = 0xFF000000;
-        const PRESCALER_0 = 0x01000000;
-        const PRESCALER_1 = 0x02000000;
-        const PRESCALER_2 = 0x04000000;
-        const PRESCALER_3 = 0x08000000;
-        const PRESCALER_4 = 0x10000000;
-        const PRESCALER_5 = 0x20000000;
-        const PRESCALER_6 = 0x40000000;
-        const PRESCALER_7 = 0x80000000;
+        const FSEL = 1 << 7;
+        const DFM = 1 << 6;
+        const START = 1 << 5;
+        const TCEN = 1 << 3;
+        const DMAEN = 1 << 2;
+        const ABORT = 1 << 1;
+        const EN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DCR: u32 {
-        const CKMODE = 0x00000001;
+        const FSIZE_4 = 1 << 20;
+        const FSIZE_3 = 1 << 19;
+        const FSIZE_2 = 1 << 18;
+        const FSIZE_1 = 1 << 17;
+        const FSIZE_0 = 1 << 16;
+        const FSIZE_MASK = 0x1F << 16;
 
-        const CSHT = 0x00000700;
-        const CSHT_0 = 0x00000100;
-        const CSHT_1 = 0x00000200;
-        const CSHT_2 = 0x00000400;
+        const CSHT_2 = 1 << 10;
+        const CSHT_1 = 1 << 9;
+        const CSHT_0 = 1 << 8;
+        const CSHT_MASK = 0x7 << 8;
 
-        const FSIZE = 0x001F0000;
-        const FSIZE_0 = 0x00010000;
-        const FSIZE_1 = 0x00020000;
-        const FSIZE_2 = 0x00040000;
-        const FSIZE_3 = 0x00080000;
-        const FSIZE_4 = 0x00100000;
+        const CKMODE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SR: u32 {
-        const TEF = 0x00000001;
-        const TCF = 0x00000002;
-        const FTF = 0x00000004;
-        const SMF = 0x00000008;
-        const TOF = 0x00000010;
-        const BUSY = 0x00000020;
+        const IDLEF = 1 << 16;
 
-        const FLEVEL = 0x00003F00;
-        const FLEVEL_0 = 0x00000100;
-        const FLEVEL_1 = 0x00000200;
-        const FLEVEL_2 = 0x00000400;
-        const FLEVEL_3 = 0x00000800;
-        const FLEVEL_4 = 0x00001000;
-        const FLEVEL_5 = 0x00002000;
+        const FLEVEL_5 = 1 << 13;
+        const FLEVEL_4 = 1 << 12;
+        const FLEVEL_3 = 1 << 11;
+        const FLEVEL_2 = 1 << 10;
+        const FLEVEL_1 = 1 << 9;
+        const FLEVEL_0 = 1 << 8;
+        const FLEVEL_MASK = 0x3F << 8;
 
-        const IDLEF = 0x00010000;
+        const BUSY = 1 << 5;
+        const TOF = 1 << 4;
+        const SMF = 1 << 3;
+        const FTF = 1 << 2;
+        const TCF = 1 << 1;
+        const TEF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct FCR: u32 {
-        const CTEF = 0x00000001;
-        const CTCF = 0x00000002;
-        const CSMF = 0x00000008;
-        const CTOF = 0x00000010;
+        const CTOF = 1 << 4;
+        const CSMF = 1 << 3;
+        const CTCF = 1 << 1;
+        const CTEF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CCR: u32 {
-        const INSTRUCTION = 0x000000FF;
-        const INSTRUCTION_0 = 0x00000001;
-        const INSTRUCTION_1 = 0x00000002;
-        const INSTRUCTION_2 = 0x00000004;
-        const INSTRUCTION_3 = 0x00000008;
-        const INSTRUCTION_4 = 0x00000010;
-        const INSTRUCTION_5 = 0x00000020;
-        const INSTRUCTION_6 = 0x00000040;
-        const INSTRUCTION_7 = 0x00000080;
+        const SIOO = 1 << 28;
 
-        const IMODE = 0x00000300;
-        const IMODE_0 = 0x00000100;
-        const IMODE_1 = 0x00000200;
+        const FMODE_1 = 1 << 27;
+        const FMODE_0 = 1 << 26;
+        const FMODE_MASK = 0x3 << 26;
 
-        const ADMODE = 0x00000C00;
-        const ADMODE_0 = 0x00000400;
-        const ADMODE_1 = 0x00000800;
+        const DMODE_1 = 1 << 25;
+        const DMODE_0 = 1 << 24;
+        const DMODE_MASK = 0x3 << 24;
 
-        const ADSIZE = 0x00003000;
-        const ADSIZE_0 = 0x00001000;
-        const ADSIZE_1 = 0x00002000;
+        const DCYC_4 = 1 << 22;
+        const DCYC_3 = 1 << 21;
+        const DCYC_2 = 1 << 20;
+        const DCYC_1 = 1 << 19;
+        const DCYC_0 = 1 << 18;
+        const DCYC_MASK = 0x1F << 18;
 
-        const ABMODE = 0x0000C000;
-        const ABMODE_0 = 0x00004000;
-        const ABMODE_1 = 0x00008000;
+        const ABSIZE_1 = 1 << 17;
+        const ABSIZE_0 = 1 << 16;
+        const ABSIZE_MASK = 0x3 << 16;
 
-        const ABSIZE = 0x00030000;
-        const ABSIZE_0 = 0x00010000;
-        const ABSIZE_1 = 0x00020000;
+        const ABMODE_1 = 1 << 15;
+        const ABMODE_0 = 1 << 14;
+        const ABMODE_MASK = 0x3 << 14;
 
-        const DCYC = 0x007C0000;
-        const DCYC_0 = 0x00040000;
-        const DCYC_1 = 0x00080000;
-        const DCYC_2 = 0x00100000;
-        const DCYC_3 = 0x00200000;
-        const DCYC_4 = 0x00400000;
+        const ADSIZE_1 = 1 << 13;
+        const ADSIZE_0 = 1 << 12;
+        const ADSIZE_MASK = 0x3 << 12;
 
-        const DMODE = 0x03000000;
-        const DMODE_0 = 0x01000000;
-        const DMODE_1 = 0x02000000;
+        const ADMODE_1 = 1 << 11;
+        const ADMODE_0 = 1 << 10;
+        const ADMODE_MASK = 0x3 << 10;
 
-        const FMODE = 0x0C000000;
-        const FMODE_0 = 0x04000000;
-        const FMODE_1 = 0x08000000;
+        const IMODE_1 = 1 << 9;
+        const IMODE_0 = 1 << 8;
+        const IMODE_MASK = 0x3 << 8;
 
-        const SIOO = 0x10000000;
+        const INSTRUCTION_7 = 1 << 7;
+        const INSTRUCTION_6 = 1 << 6;
+        const INSTRUCTION_5 = 1 << 5;
+        const INSTRUCTION_4 = 1 << 4;
+        const INSTRUCTION_3 = 1 << 3;
+        const INSTRUCTION_2 = 1 << 2;
+        const INSTRUCTION_1 = 1 << 1;
+        const INSTRUCTION_0 = 1 << 0;
+        const INSTRUCTION_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PIR: u32 {
-        const INTERVAL = 0x0000FFFF;
+        const INTERVAL_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct LPTR: u32 {
-        const TIMEOUT = 0x0000FFFF;
+        const TIMEOUT_MASK = 0xFFFF << 0;
     }
 }

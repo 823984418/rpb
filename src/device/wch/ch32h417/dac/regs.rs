@@ -23,133 +23,136 @@ pub struct DAC {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR: u32 {
-        const EN1 = 0x00000001;
-        const BOFF1 = 0x00000002;
-        const TEN1 = 0x00000004;
+        const DMAEN2 = 1 << 28;
 
-        const TSEL1 = 0x00000038;
-        const TSEL1_0 = 0x00000008;
-        const TSEL1_1 = 0x00000010;
-        const TSEL1_2 = 0x00000020;
+        const MAMP2_3 = 1 << 27;
+        const MAMP2_2 = 1 << 26;
+        const MAMP2_1 = 1 << 25;
+        const MAMP2_0 = 1 << 24;
+        const MAMP2_MASK = 0xF << 24;
 
-        const WAVE1 = 0x000000C0;
-        const WAVE1_0 = 0x00000040;
-        const WAVE1_1 = 0x00000080;
+        const WAVE2_1 = 1 << 23;
+        const WAVE2_0 = 1 << 22;
+        const WAVE2_MASK = 0x3 << 22;
 
-        const MAMP1 = 0x00000F00;
-        const MAMP1_0 = 0x00000100;
-        const MAMP1_1 = 0x00000200;
-        const MAMP1_2 = 0x00000400;
-        const MAMP1_3 = 0x00000800;
+        const TSEL2_2 = 1 << 21;
+        const TSEL2_1 = 1 << 20;
+        const TSEL2_0 = 1 << 19;
+        const TSEL2_MASK = 0x7 << 19;
 
-        const DMAEN1 = 0x00001000;
-        const EN2 = 0x00010000;
-        const BOFF2 = 0x00020000;
-        const TEN2 = 0x00040000;
+        const TEN2 = 1 << 18;
+        const BOFF2 = 1 << 17;
+        const EN2 = 1 << 16;
+        const DMAEN1 = 1 << 12;
 
-        const TSEL2 = 0x00380000;
-        const TSEL2_0 = 0x00080000;
-        const TSEL2_1 = 0x00100000;
-        const TSEL2_2 = 0x00200000;
+        const MAMP1_3 = 1 << 11;
+        const MAMP1_2 = 1 << 10;
+        const MAMP1_1 = 1 << 9;
+        const MAMP1_0 = 1 << 8;
+        const MAMP1_MASK = 0xF << 8;
 
-        const WAVE2 = 0x00C00000;
-        const WAVE2_0 = 0x00400000;
-        const WAVE2_1 = 0x00800000;
+        const WAVE1_1 = 1 << 7;
+        const WAVE1_0 = 1 << 6;
+        const WAVE1_MASK = 0x3 << 6;
 
-        const MAMP2 = 0x0F000000;
-        const MAMP2_0 = 0x01000000;
-        const MAMP2_1 = 0x02000000;
-        const MAMP2_2 = 0x04000000;
-        const MAMP2_3 = 0x08000000;
+        const TSEL1_2 = 1 << 5;
+        const TSEL1_1 = 1 << 4;
+        const TSEL1_0 = 1 << 3;
+        const TSEL1_MASK = 0x7 << 3;
 
-        const DMAEN2 = 0x10000000;
+        const TEN1 = 1 << 2;
+        const BOFF1 = 1 << 1;
+        const EN1 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SWTR: u32 {
-        const SWTRIG1 = 0x01;
-        const SWTRIG2 = 0x02;
+        const SWTRIG2 = 1 << 1;
+        const SWTRIG1 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct R12BDHR1: u32 {
-        const DHR12R1 = 0x0FFF;
+        const DHR12R1_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct L12BDHR1: u32 {
-        const DHR12L1 = 0xFFF0;
+        const DHR12L1_MASK = 0xFFF << 4;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct R8BDHR1: u32 {
-        const DHR8R1 = 0xFF;
+        const DHR8R1_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct R12BDHR2: u32 {
-        const DHR12R2 = 0x0FFF;
+        const DHR12R2_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct L12BDHR2: u32 {
-        const DHR12L2 = 0xFFF0;
+        const DHR12L2_MASK = 0xFFF << 4;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct R8BDHR2: u32 {
-        const DHR8R2 = 0xFF;
+        const DHR8R2_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RD12BDHR: u32 {
-        const DACC1DHR = 0x00000FFF;
-        const DACC2DHR = 0x0FFF0000;
+        const DACC2DHR_MASK = 0xFFF << 16;
+
+        const DACC1DHR_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct LD12BDHR: u32 {
-        const DACC1DHR = 0x0000FFF0;
-        const DACC2DHR = 0xFFF00000;
+        const DACC2DHR_MASK = 0xFFF << 20;
+
+        const DACC1DHR_MASK = 0xFFF << 4;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RD8BDHR: u32 {
-        const DACC1DHR = 0x00FF;
-        const DACC2DHR = 0xFF00;
+        const DACC2DHR_MASK = 0xFF << 8;
+
+        const DACC1DHR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DOR1: u32 {
-        const DACC1DOR = 0x0FFF;
+        const DACC1DOR_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DOR2: u32 {
-        const DACC2DOR = 0x0FFF;
+        const DACC2DOR_MASK = 0xFFF << 0;
     }
 }

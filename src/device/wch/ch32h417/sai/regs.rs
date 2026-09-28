@@ -18,103 +18,111 @@ pub struct SAI_BLOCK {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR1: u32 {
-        const MODE = 0x00000003;
-        const MODE_0 = 0x00000001;
-        const MODE_1 = 0x00000002;
+        const OSR = 1 << 26;
 
-        const PRTCFG = 0x0000000C;
-        const PRTCFG_0 = 0x00000004;
-        const PRTCFG_1 = 0x00000008;
+        const MCKDIV_MASK = 0x3F << 20;
 
-        const DS = 0x000000E0;
-        const DS_0 = 0x00000020;
-        const DS_1 = 0x00000040;
-        const DS_2 = 0x00000080;
+        const NODIV = 1 << 19;
+        const DMAEN = 1 << 17;
+        const EN = 1 << 16;
+        const MONO = 1 << 12;
 
-        const LSBFIRST = 0x00000100;
-        const CKSTR = 0x00000200;
+        const SYNCEN_1 = 1 << 11;
+        const SYNCEN_0 = 1 << 10;
+        const SYNCEN_MASK = 0x3 << 10;
 
-        const SYNCEN = 0x00000C00;
-        const SYNCEN_0 = 0x00000400;
-        const SYNCEN_1 = 0x00000800;
-        const MONO = 0x00001000;
-        const EN = 0x00010000;
-        const DMAEN = 0x00020000;
-        const NODIV = 0x00080000;
-        const MCKDIV = 0x03F00000;
-        const OSR = 0x04000000;
+        const CKSTR = 1 << 9;
+        const LSBFIRST = 1 << 8;
+
+        const DS_2 = 1 << 7;
+        const DS_1 = 1 << 6;
+        const DS_0 = 1 << 5;
+        const DS_MASK = 0x7 << 5;
+
+        const PRTCFG_1 = 1 << 3;
+        const PRTCFG_0 = 1 << 2;
+        const PRTCFG_MASK = 0x3 << 2;
+
+        const MODE_1 = 1 << 1;
+        const MODE_0 = 1 << 0;
+        const MODE_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR2: u32 {
-        const FTH = 0x00000007;
-        const FTH_0 = 0x00000001;
-        const FTH_1 = 0x00000002;
-        const FTH_2 = 0x00000004;
+        const COMP_MASK = 0x3 << 14;
 
-        const FFLUSH = 0x00000008;
-        const TRIS = 0x00000010;
-        const MUTE = 0x00000020;
-        const MUTEVAL = 0x00000040;
+        const CPL = 1 << 13;
 
-        const MUTECNT = 0x00001F80;
+        const MUTECNT_MASK = 0x3F << 7;
 
-        const CPL = 0x00002000;
-        const COMP = 0x0000C000;
+        const MUTEVAL = 1 << 6;
+        const MUTE = 1 << 5;
+        const TRIS = 1 << 4;
+        const FFLUSH = 1 << 3;
+
+        const FTH_2 = 1 << 2;
+        const FTH_1 = 1 << 1;
+        const FTH_0 = 1 << 0;
+        const FTH_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct FRCR: u32 {
-        const FRL = 0x000000FF;
+        const FSOFF = 1 << 18;
+        const FSPOL = 1 << 17;
+        const FSDEF = 1 << 16;
 
-        const FSALL = 0x00007F00;
-        const FSDEF = 0x00010000;
-        const FSPOL = 0x00020000;
-        const FSOFF = 0x00040000;
+        const FSALL_MASK = 0x7F << 8;
+
+        const FRL_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SLOTR: u32 {
-        const FBOFF = 0x0000001F;
-        const SLOTSZ = 0x000000C0;
-        const NBSLOT = 0x00000F00;
-        const SLOTEN = 0xFFFF0000;
+        const SLOTEN_MASK = 0xFFFF << 16;
+
+        const NBSLOT_MASK = 0xF << 8;
+
+        const SLOTSZ_MASK = 0x3 << 6;
+
+        const FBOFF_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct INTENR: u32 {
-        const OVRUDRIE = 0x00000001;
-        const MUTEDETIE = 0x00000002;
-        const WCKCFGIE = 0x00000004;
-        const FREQIE = 0x00000008;
-        const CNRDYIE = 0x00000010;
-        const AFSDETIE = 0x00000020;
-        const LFSDETIE = 0x00000040;
+        const LFSDETIE = 1 << 6;
+        const AFSDETIE = 1 << 5;
+        const CNRDYIE = 1 << 4;
+        const FREQIE = 1 << 3;
+        const WCKCFGIE = 1 << 2;
+        const MUTEDETIE = 1 << 1;
+        const OVRUDRIE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SR: u32 {
-        const OVRUDR = 0x00000001;
-        const MUTEDET = 0x00000002;
-        const WCKCFG = 0x00000004;
-        const FREQ = 0x00000008;
-        const CNRDY = 0x00000010;
-        const AFSDET = 0x00000020;
-        const LFSDET = 0x00000040;
+        const FLTH_2 = 0x3 << 16;
+        const FLTH_1 = 1 << 17;
+        const FLTH_0 = 1 << 16;
+        const FLTH_MASK = 0x7 << 16;
 
-        const FLTH = 0x00070000;
-        const FLTH_0 = 0x00010000;
-        const FLTH_1 = 0x00020000;
-        const FLTH_2 = 0x00030000;
+        const LFSDET = 1 << 6;
+        const AFSDET = 1 << 5;
+        const CNRDY = 1 << 4;
+        const FREQ = 1 << 3;
+        const WCKCFG = 1 << 2;
+        const MUTEDET = 1 << 1;
+        const OVRUDR = 1 << 0;
     }
 }

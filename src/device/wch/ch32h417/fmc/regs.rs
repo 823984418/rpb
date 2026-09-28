@@ -44,139 +44,140 @@ pub struct FMC_BANK5_6 {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PCR: u32 {
-        const PWAITEN = 0x00000020;
-        const PBKEN = 0x00000040;
-        const PTYP = 0x00000080;
-        const PWID = 0x00000300;
-        const PWID_0 = 0x00000100;
-        const PWID_1 = 0x00000200;
+        const ECCPS_2 = 1 << 19;
+        const ECCPS_1 = 1 << 18;
+        const ECCPS_0 = 1 << 17;
+        const ECCPS_MASK = 0x7 << 17;
 
-        const ECCEN = 0x00000400;
+        const TAR_3 = 1 << 16;
+        const TAR_2 = 1 << 15;
+        const TAR_1 = 1 << 14;
+        const TAR_0 = 1 << 13;
+        const TAR_MASK = 0xF << 13;
 
-        const TCLR = 0x00001E00;
-        const TCLR_0 = 0x00000200;
-        const TCLR_1 = 0x00000400;
-        const TCLR_2 = 0x00000800;
-        const TCLR_3 = 0x00001000;
+        const TCLR_3 = 1 << 12;
+        const TCLR_2 = 1 << 11;
+        const TCLR_1 = 1 << 10;
+        const TCLR_0 = 1 << 9;
+        const TCLR_MASK = 0xF << 9;
 
-        const TAR = 0x0001E000;
-        const TAR_0 = 0x00002000;
-        const TAR_1 = 0x00004000;
-        const TAR_2 = 0x00008000;
-        const TAR_3 = 0x00010000;
+        const ECCEN = 1 << 10;
 
-        const ECCPS = 0x000E0000;
-        const ECCPS_0 = 0x00020000;
-        const ECCPS_1 = 0x00040000;
-        const ECCPS_2 = 0x00080000;
+        const PWID_1 = 1 << 9;
+        const PWID_0 = 1 << 8;
+        const PWID_MASK = 0x3 << 8;
+
+        const PTYP = 1 << 7;
+        const PBKEN = 1 << 6;
+        const PWAITEN = 1 << 5;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SR: u32 {
-        const IRS = 0x00000001;
-        const ILS = 0x00000002;
-        const IFS = 0x00000004;
-        const IREN = 0x00000008;
-        const ILEN = 0x00000010;
-        const IFEN = 0x00000020;
-        const FEMPT = 0x00000040;
+        const FEMPT = 1 << 6;
+        const IFEN = 1 << 5;
+        const ILEN = 1 << 4;
+        const IREN = 1 << 3;
+        const IFS = 1 << 2;
+        const ILS = 1 << 1;
+        const IRS = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PMEM: u32 {
-        const MEMSET = 0x000000FF;
-        const MEMWAIT = 0x0000FF00;
-        const MEMHOLD = 0x00FF0000;
-        const MEMHIZ = 0xFF000000;
+        const MEMHIZ_MASK = 0xFF << 24;
+        const MEMHOLD_MASK = 0xFF << 16;
+        const MEMWAIT_MASK = 0xFF << 8;
+        const MEMSET_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PATT: u32 {
-        const ATTSET = 0x000000FF;
-        const ATTWAIT = 0x0000FF00;
-        const ATTHOLD = 0x00FF0000;
-        const ATTHIZ = 0xFF000000;
+        const ATTHIZ_MASK = 0xFF << 24;
+        const ATTHOLD_MASK = 0xFF << 16;
+        const ATTWAIT_MASK = 0xFF << 8;
+        const ATTSET_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SDCMR: u32 {
-        const MODE = 0x00000007;
-        const MODE_0 = 0x00000001;
-        const MODE_1 = 0x00000002;
-        const MODE_2 = 0x00000004;
+        const MRD_MASK = 0x1FFF << 9;
 
-        const CTB2 = 0x00000008;
-        const CTB1 = 0x00000010;
+        const NRFS_3 = 1 << 8;
+        const NRFS_2 = 1 << 7;
+        const NRFS_1 = 1 << 6;
+        const NRFS_0 = 1 << 5;
+        const NRFS_MASK = 0xF << 5;
 
-        const NRFS = 0x000001E0;
-        const NRFS_0 = 0x00000020;
-        const NRFS_1 = 0x00000040;
-        const NRFS_2 = 0x00000080;
-        const NRFS_3 = 0x00000100;
+        const CTB1 = 1 << 4;
+        const CTB2 = 1 << 3;
 
-        const MRD = 0x003FFE00;
+        const MODE_2 = 1 << 2;
+        const MODE_1 = 1 << 1;
+        const MODE_0 = 1 << 0;
+        const MODE_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SDRTR: u32 {
-        const CRE = 0x00000001;
-        const COUNT = 0x00003FFE;
-        const REIE = 0x00004000;
+        const REIE = 1 << 14;
+        const COUNT_MASK = 0x1FFF << 1;
+        const CRE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SDSR: u32 {
-        const RE = 0x00000001;
+        const BUSY = 1 << 5;
 
-        const MODES1 = 0x00000006;
-        const MODES1_0 = 0x00000002;
-        const MODES1_1 = 0x00000004;
+        const MODES2_1 = 1 << 4;
+        const MODES2_0 = 1 << 3;
+        const MODES2_MASK = 0x3 << 3;
 
-        const MODES2 = 0x00000018;
-        const MODES2_0 = 0x00000008;
-        const MODES2_1 = 0x00000010;
+        const MODES1_1 = 1 << 2;
+        const MODES1_0 = 1 << 1;
+        const MODES1_MASK = 0x3 << 1;
 
-        const BUSY = 0x00000020;
+        const RE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct MISC: u32 {
-        const NRFS_CNT = 0x0000000F;
-        const NRFS_CNT_0 = 0x00000001;
-        const NRFS_CNT_1 = 0x00000002;
-        const NRFS_CNT_2 = 0x00000004;
-        const NRFS_CNT_3 = 0x00000008;
+        const En_Bank2 = 1 << 17;
+        const En_Bank1 = 1 << 16;
+        const Enhance_read_mode = 1 << 12;
 
-        const Phase_Sel = 0x000000F0;
-        const Phase_Sel_0 = 0x00000010;
-        const Phase_Sel_1 = 0x00000020;
-        const Phase_Sel_2 = 0x00000040;
-        const Phase_Sel_3 = 0x00000080;
+        const Phase_Sel_3 = 1 << 7;
+        const Phase_Sel_2 = 1 << 6;
+        const Phase_Sel_1 = 1 << 5;
+        const Phase_Sel_0 = 1 << 4;
+        const Phase_Sel_MASK = 0xF << 4;
 
-        const Enhance_read_mode = 0x00001000;
-        const En_Bank1 = 0x00010000;
-        const En_Bank2 = 0x00020000;
+        const NRFS_CNT_3 = 1 << 3;
+        const NRFS_CNT_2 = 1 << 2;
+        const NRFS_CNT_1 = 1 << 1;
+        const NRFS_CNT_0 = 1 << 0;
+        const NRFS_CNT_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ECCR: u32 {
-        const ECC = 0xFFFFFFFF;
+        const ECC_MASK = 0xFFFFFFFF << 0;
     }
 }
 
@@ -186,46 +187,46 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BCR: u32 {
-        const MBKEN = 0x00000001;
-        const MUXEN = 0x00000002;
+        const FMCEN = 1 << 31;
 
-        const MTYP = 0x0000000C;
-        const MTYP_0 = 0x00000004;
-        const MTYP_1 = 0x00000008;
+        const BMP_1 = 1 << 25;
+        const BMP_0 = 1 << 24;
+        const BMP_MASK = 0x3 << 24;
 
-        const MWID = 0x00000030;
-        const MWID_0 = 0x00000010;
-        const MWID_1 = 0x00000020;
+        const CBURSTRW = 1 << 19;
 
-        const MFACCEN = 0x00000040;
-        const FACCEN = 0x00000040;
+        const CPSIZE_2 = 1 << 18;
+        const CPSIZE_1 = 1 << 17;
+        const CPSIZE_0 = 1 << 16;
+        const CPSIZE_MASK = 0x7 << 16;
 
-        const BURSTEN = 0x00000100;
-        const WAITPOL = 0x00000200;
-        const WAITCFG = 0x00000800;
+        const CPSZIE_2 = 1 << 18;
+        const CPSZIE_1 = 1 << 17;
+        const CPSZIE_0 = 1 << 16;
+        const CPSZIE_MASK = 0x7 << 16;
 
-        const WREN = 0x00001000;
-        const WAITEN = 0x00002000;
-        const EXTMOD = 0x00004000;
-        const ASYNCWAIT = 0x00008000;
+        const ASYNCWAIT = 1 << 15;
+        const EXTMOD = 1 << 14;
+        const WAITEN = 1 << 13;
+        const WREN = 1 << 12;
 
-        const CPSIZE = 0x00070000;
-        const CPSIZE_0 = 0x00010000;
-        const CPSIZE_1 = 0x00020000;
-        const CPSIZE_2 = 0x00040000;
+        const WAITCFG = 1 << 11;
+        const WAITPOL = 1 << 9;
+        const BURSTEN = 1 << 8;
 
-        const CPSZIE = 0x00070000;
-        const CPSZIE_0 = 0x00010000;
-        const CPSZIE_1 = 0x00020000;
-        const CPSZIE_2 = 0x00040000;
+        const MFACCEN = 1 << 6;
+        const FACCEN = 1 << 6;
 
-        const CBURSTRW = 0x00080000;
+        const MWID_1 = 1 << 5;
+        const MWID_0 = 1 << 4;
+        const MWID_MASK = 0x3 << 4;
 
-        const BMP = 0x03000000;
-        const BMP_0 = 0x01000000;
-        const BMP_1 = 0x02000000;
+        const MTYP_1 = 1 << 3;
+        const MTYP_0 = 1 << 2;
+        const MTYP_MASK = 0x3 << 2;
 
-        const FMCEN = 0x80000000;
+        const MUXEN = 1 << 1;
+        const MBKEN = 1 << 0;
     }
 }
 
@@ -233,49 +234,49 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BTR: u32 {
-        const ADDSET = 0x0000000F;
-        const ADDSET_0 = 0x00000001;
-        const ADDSET_1 = 0x00000002;
-        const ADDSET_2 = 0x00000004;
-        const ADDSET_3 = 0x00000008;
+        const ACCMOD_1 = 1 << 29;
+        const ACCMOD_0 = 1 << 28;
+        const ACCMOD_MASK = 0x3 << 28;
 
-        const ADDHLD = 0x000000F0;
-        const ADDHLD_0 = 0x00000010;
-        const ADDHLD_1 = 0x00000020;
-        const ADDHLD_2 = 0x00000040;
-        const ADDHLD_3 = 0x00000080;
+        const DATLAT_3 = 1 << 27;
+        const DATLAT_2 = 1 << 26;
+        const DATLAT_1 = 1 << 25;
+        const DATLAT_0 = 1 << 24;
+        const DATLAT_MASK = 0xF << 24;
 
-        const DATAST = 0x0000FF00;
-        const DATAST_0 = 0x00000100;
-        const DATAST_1 = 0x00000200;
-        const DATAST_2 = 0x00000400;
-        const DATAST_3 = 0x00000800;
-        const DATAST_4 = 0x00001000;
-        const DATAST_5 = 0x00002000;
-        const DATAST_6 = 0x00004000;
-        const DATAST_7 = 0x00008000;
+        const CLKDIV_3 = 1 << 23;
+        const CLKDIV_2 = 1 << 22;
+        const CLKDIV_1 = 1 << 21;
+        const CLKDIV_0 = 1 << 20;
+        const CLKDIV_MASK = 0xF << 20;
 
-        const BUSTURN = 0x000F0000;
-        const BUSTURN_0 = 0x00010000;
-        const BUSTURN_1 = 0x00020000;
-        const BUSTURN_2 = 0x00040000;
-        const BUSTURN_3 = 0x00080000;
+        const BUSTURN_3 = 1 << 19;
+        const BUSTURN_2 = 1 << 18;
+        const BUSTURN_1 = 1 << 17;
+        const BUSTURN_0 = 1 << 16;
+        const BUSTURN_MASK = 0xF << 16;
 
-        const CLKDIV = 0x00F00000;
-        const CLKDIV_0 = 0x00100000;
-        const CLKDIV_1 = 0x00200000;
-        const CLKDIV_2 = 0x00400000;
-        const CLKDIV_3 = 0x00800000;
+        const DATAST_7 = 1 << 15;
+        const DATAST_6 = 1 << 14;
+        const DATAST_5 = 1 << 13;
+        const DATAST_4 = 1 << 12;
+        const DATAST_3 = 1 << 11;
+        const DATAST_2 = 1 << 10;
+        const DATAST_1 = 1 << 9;
+        const DATAST_0 = 1 << 8;
+        const DATAST_MASK = 0xFF << 8;
 
-        const DATLAT = 0x0F000000;
-        const DATLAT_0 = 0x01000000;
-        const DATLAT_1 = 0x02000000;
-        const DATLAT_2 = 0x04000000;
-        const DATLAT_3 = 0x08000000;
+        const ADDHLD_3 = 1 << 7;
+        const ADDHLD_2 = 1 << 6;
+        const ADDHLD_1 = 1 << 5;
+        const ADDHLD_0 = 1 << 4;
+        const ADDHLD_MASK = 0xF << 4;
 
-        const ACCMOD = 0x30000000;
-        const ACCMOD_0 = 0x10000000;
-        const ACCMOD_1 = 0x20000000;
+        const ADDSET_3 = 1 << 3;
+        const ADDSET_2 = 1 << 2;
+        const ADDSET_1 = 1 << 1;
+        const ADDSET_0 = 1 << 0;
+        const ADDSET_MASK = 0xF << 0;
     }
 }
 
@@ -283,37 +284,37 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BWTR: u32 {
-        const ADDSET = 0x0000000F;
-        const ADDSET_0 = 0x00000001;
-        const ADDSET_1 = 0x00000002;
-        const ADDSET_2 = 0x00000004;
-        const ADDSET_3 = 0x00000008;
+        const ACCMOD_1 = 1 << 29;
+        const ACCMOD_0 = 1 << 28;
+        const ACCMOD_MASK = 0x3 << 28;
 
-        const ADDHLD = 0x000000F0;
-        const ADDHLD_0 = 0x00000010;
-        const ADDHLD_1 = 0x00000020;
-        const ADDHLD_2 = 0x00000040;
-        const ADDHLD_3 = 0x00000080;
+        const BUSTURN_3 = 1 << 19;
+        const BUSTURN_2 = 1 << 18;
+        const BUSTURN_1 = 1 << 17;
+        const BUSTURN_0 = 1 << 16;
+        const BUSTURN_MASK = 0xF << 16;
 
-        const DATAST = 0x0000FF00;
-        const DATAST_0 = 0x00000100;
-        const DATAST_1 = 0x00000200;
-        const DATAST_2 = 0x00000400;
-        const DATAST_3 = 0x00000800;
-        const DATAST_4 = 0x00001000;
-        const DATAST_5 = 0x00002000;
-        const DATAST_6 = 0x00004000;
-        const DATAST_7 = 0x00008000;
+        const DATAST_7 = 1 << 15;
+        const DATAST_6 = 1 << 14;
+        const DATAST_5 = 1 << 13;
+        const DATAST_4 = 1 << 12;
+        const DATAST_3 = 1 << 11;
+        const DATAST_2 = 1 << 10;
+        const DATAST_1 = 1 << 9;
+        const DATAST_0 = 1 << 8;
+        const DATAST_MASK = 0xFF << 8;
 
-        const BUSTURN = 0x000F0000;
-        const BUSTURN_0 = 0x00010000;
-        const BUSTURN_1 = 0x00020000;
-        const BUSTURN_2 = 0x00040000;
-        const BUSTURN_3 = 0x00080000;
+        const ADDHLD_3 = 1 << 7;
+        const ADDHLD_2 = 1 << 6;
+        const ADDHLD_1 = 1 << 5;
+        const ADDHLD_0 = 1 << 4;
+        const ADDHLD_MASK = 0xF << 4;
 
-        const ACCMOD = 0x30000000;
-        const ACCMOD_0 = 0x10000000;
-        const ACCMOD_1 = 0x20000000;
+        const ADDSET_3 = 1 << 3;
+        const ADDSET_2 = 1 << 2;
+        const ADDSET_1 = 1 << 1;
+        const ADDSET_0 = 1 << 0;
+        const ADDSET_MASK = 0xF << 0;
     }
 }
 
@@ -321,35 +322,35 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SDCR: u32 {
-        const NC = 0x00000003;
-        const NC_0 = 0x00000001;
-        const NC_1 = 0x00000002;
+        const RPIPE_1 = 1 << 14;
+        const RPIPE_0 = 1 << 13;
+        const RPIPE_MASK = 0x3 << 13;
 
-        const NR = 0x0000000C;
-        const NR_0 = 0x00000004;
-        const NR_1 = 0x00000008;
+        const RBURST = 1 << 12;
 
-        const MWID = 0x00000030;
-        const MWID_0 = 0x00000010;
-        const MWID_1 = 0x00000020;
+        const SDCLK_1 = 1 << 11;
+        const SDCLK_0 = 1 << 10;
+        const SDCLK_MASK = 0x3 << 10;
 
-        const NB = 0x00000040;
+        const WP = 1 << 9;
 
-        const CAS = 0x00000180;
-        const CAS_0 = 0x00000080;
-        const CAS_1 = 0x00000100;
+        const CAS_1 = 1 << 8;
+        const CAS_0 = 1 << 7;
+        const CAS_MASK = 0x3 << 7;
 
-        const WP = 0x00000200;
+        const NB = 1 << 6;
 
-        const SDCLK = 0x00000C00;
-        const SDCLK_0 = 0x00000400;
-        const SDCLK_1 = 0x00000800;
+        const MWID_1 = 1 << 5;
+        const MWID_0 = 1 << 4;
+        const MWID_MASK = 0x3 << 4;
 
-        const RBURST = 0x00001000;
+        const NR_1 = 1 << 3;
+        const NR_0 = 1 << 2;
+        const NR_MASK = 0x3 << 2;
 
-        const RPIPE = 0x00006000;
-        const RPIPE_0 = 0x00002000;
-        const RPIPE_1 = 0x00004000;
+        const NC_1 = 1 << 1;
+        const NC_0 = 1 << 0;
+        const NC_MASK = 0x3 << 0;
     }
 }
 
@@ -358,46 +359,46 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SDTR: u32 {
-        const TMRD = 0x0000000F;
-        const TMRD_0 = 0x00000001;
-        const TMRD_1 = 0x00000002;
-        const TMRD_2 = 0x00000004;
-        const TMRD_3 = 0x00000008;
+        const TRCD_3 = 1 << 27;
+        const TRCD_2 = 1 << 26;
+        const TRCD_1 = 1 << 25;
+        const TRCD_0 = 1 << 24;
+        const TRCD_MASK = 0xF << 24;
 
-        const TXSR = 0x000000F0;
-        const TXSR_0 = 0x00000010;
-        const TXSR_2 = 0x00000020;
-        const TXSR_4 = 0x00000040;
-        const TXSR_8 = 0x00000080;
+        const TRP_4 = 1 << 23;
+        const TRP_3 = 1 << 22;
+        const TRP_2 = 1 << 21;
+        const TRP_0 = 1 << 20;
+        const TRP_MASK = 0xF << 20;
 
-        const TRAS = 0x00000F00;
-        const TRAS_0 = 0x00000100;
-        const TRAS_1 = 0x00000200;
-        const TRAS_2 = 0x00000400;
-        const TRAS_3 = 0x00000800;
+        const TWR_3 = 1 << 19;
+        const TWR_2 = 1 << 18;
+        const TWR_1 = 1 << 17;
+        const TWR_0 = 1 << 16;
+        const TWR_MASK = 0xF << 16;
 
-        const TRC = 0x0000F000;
-        const TRC_0 = 0x00001000;
-        const TRC_1 = 0x00002000;
-        const TRC_2 = 0x00004000;
-        const TRC_3 = 0x00008000;
+        const TRC_3 = 1 << 15;
+        const TRC_2 = 1 << 14;
+        const TRC_1 = 1 << 13;
+        const TRC_0 = 1 << 12;
+        const TRC_MASK = 0xF << 12;
 
-        const TWR = 0x000F0000;
-        const TWR_0 = 0x00010000;
-        const TWR_1 = 0x00020000;
-        const TWR_2 = 0x00040000;
-        const TWR_3 = 0x00080000;
+        const TRAS_3 = 1 << 11;
+        const TRAS_2 = 1 << 10;
+        const TRAS_1 = 1 << 9;
+        const TRAS_0 = 1 << 8;
+        const TRAS_MASK = 0xF << 8;
 
-        const TRP = 0x00F00000;
-        const TRP_0 = 0x00100000;
-        const TRP_2 = 0x00200000;
-        const TRP_3 = 0x00400000;
-        const TRP_4 = 0x00800000;
+        const TXSR_8 = 1 << 7;
+        const TXSR_4 = 1 << 6;
+        const TXSR_2 = 1 << 5;
+        const TXSR_0 = 1 << 4;
+        const TXSR_MASK = 0xF << 4;
 
-        const TRCD = 0x0F000000;
-        const TRCD_0 = 0x01000000;
-        const TRCD_1 = 0x02000000;
-        const TRCD_2 = 0x04000000;
-        const TRCD_3 = 0x08000000;
+        const TMRD_3 = 1 << 3;
+        const TMRD_2 = 1 << 2;
+        const TMRD_1 = 1 << 1;
+        const TMRD_0 = 1 << 0;
+        const TMRD_MASK = 0xF << 0;
     }
 }

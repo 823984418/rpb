@@ -36,149 +36,153 @@ pub struct SDMMC {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMD_SET: u16 {
-        const CMDIDX_MASK = 0x003F;
-        const RPTY_MASK = 0x0300;
-        const CKCRC = 0x0400;
-        const CKIDX = 0x0800;
+        const CKIDX = 1 << 11;
+        const CKCRC = 1 << 10;
+
+        const RPTY_MASK = 0x3 << 8;
+
+        const CMDIDX_MASK = 0x3F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CONTROL: u16 {
-        const LW_MASK = 0x0003;
-        const LW_MASK_0 = 0x0001;
-        const LW_MASK_1 = 0x0002;
+        const SLV_FORCE_ERR = 1 << 9;
+        const SLV_MODE = 1 << 8;
+        const NEGSMP = 1 << 5;
+        const RST_LGC = 1 << 4;
+        const DMAEN = 1 << 3;
+        const ALL_CLR = 1 << 2;
 
-        const ALL_CLR = 0x0004;
-        const DMAEN = 0x0008;
-        const RST_LGC = 0x0010;
-        const NEGSMP = 0x0020;
-        const SLV_MODE = 0x0100;
-        const SLV_FORCE_ERR = 0x0200;
+        const LW_MASK_1 = 1 << 1;
+        const LW_MASK_0 = 1 << 0;
+        const LW_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TIMEOUT: u8 {
-        const TOCNT_MASK = 0x0F;
+        const TOCNT_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATUS: u32 {
-        const MASK_BLOCK_NUM = 0x0000FFFF;
-        const CMDSTA = 0x00010000;
-        const DAT0STA = 0x00020000;
+        const DAT0STA = 1 << 17;
+        const CMDSTA = 1 << 16;
+
+        const MASK_BLOCK_NUM = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct INT_FG: u16 {
-        const IF_RE_TMOUT = 0x0001;
-        const IF_RECRC_WR = 0x0002;
-        const IF_REIDX_ER = 0x0004;
-        const IF_CMDDONE = 0x0008;
-        const IF_DATTMO = 0x0010;
-        const IF_TRANERR = 0x0020;
-        const IF_TRANDONE = 0x0040;
-        const IF_BKGAP = 0x0080;
-        const IF_FIFO_OV = 0x0100;
-        const IF_SDIOINT = 0x0200;
-        const SIF_SLV_BUF_RELEAS = 0x0400;
+        const SIF_SLV_BUF_RELEAS = 1 << 10;
+        const IF_SDIOINT = 1 << 9;
+        const IF_FIFO_OV = 1 << 8;
+        const IF_BKGAP = 1 << 7;
+        const IF_TRANDONE = 1 << 6;
+        const IF_TRANERR = 1 << 5;
+        const IF_DATTMO = 1 << 4;
+        const IF_CMDDONE = 1 << 3;
+        const IF_REIDX_ER = 1 << 2;
+        const IF_RECRC_WR = 1 << 1;
+        const IF_RE_TMOUT = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct INT_EN: u16 {
-        const IE_RE_TMOUT = 0x0001;
-        const IE_RECRC_WR = 0x0002;
-        const IE_REIDX_ER = 0x0004;
-        const IE_CMDDONE = 0x0008;
-        const IE_DATTMO = 0x0010;
-        const IE_TRANERR = 0x0020;
-        const IE_TRANDONE = 0x0040;
-        const IE_FIFO_OV = 0x0080;
-        const IE_SDIOINT = 0x0100;
+        const IE_SDIOINT = 1 << 8;
+        const IE_FIFO_OV = 1 << 7;
+        const IE_TRANDONE = 1 << 6;
+        const IE_TRANERR = 1 << 5;
+        const IE_DATTMO = 1 << 4;
+        const IE_CMDDONE = 1 << 3;
+        const IE_REIDX_ER = 1 << 2;
+        const IE_RECRC_WR = 1 << 1;
+        const IE_RE_TMOUT = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BLOCK_CFG: u32 {
-        const BKNUM_MASK = 0x0000FFFF;
-        const BKSIZE_MASK = 0x0FFF0000;
+        const BKSIZE_MASK = 0xFFF << 16;
+        const BKNUM_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TRAN_MODE: u32 {
-        const DMA_DIR = 0x00000001;
-        const GAP_STOP = 0x00000002;
-        const MODE_BOOT = 0x00000004;
-        const AUTOGAPSTOP = 0x00000010;
+        const SW_1 = 1 << 20;
+        const SW_0 = 1 << 19;
+        const SW_MASK = 0x3 << 19;
 
-        const DMATN_CNT = 0x00007F00;
+        const CARE_NEG = 1 << 18;
+        const DDR_MODE = 1 << 17;
+        const DULEDMA_EN = 1 << 16;
 
-        const DULEDMA_EN = 0x00010000;
-        const DDR_MODE = 0x00020000;
-        const CARE_NEG = 0x00040000;
+        const DMATN_CNT_MASK = 0x7F << 8;
 
-        const SW = 0x00180000;
-        const SW_0 = 0x00080000;
-        const SW_1 = 0x00100000;
+        const AUTOGAPSTOP = 1 << 4;
+        const MODE_BOOT = 1 << 2;
+        const GAP_STOP = 1 << 1;
+        const DMA_DIR = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CLK_DIV: u16 {
-        const DIV_MASK = 0x001F;
-        const CLKOE = 0x0100;
-        const CLKMode = 0x0200;
-        const PHASEINV = 0x0400;
+        const PHASEINV = 1 << 10;
+        const CLKMode = 1 << 9;
+        const CLKOE = 1 << 8;
+
+        const DIV_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TUNE_DATO: u32 {
-        const TUNNE_DAT0_O = 0x0000000F;
-        const TUNNE_DAT1_O = 0x000000F0;
-        const TUNNE_DAT2_O = 0x00000F00;
-        const TUNNE_DAT3_O = 0x0000F000;
-        const TUNNE_DAT4_O = 0x000F0000;
-        const TUNNE_DAT5_O = 0x00F00000;
-        const TUNNE_DAT6_O = 0x0F000000;
-        const TUNNE_DAT7_O = 0xF0000000;
+        const TUNNE_DAT7_O_MASK = 0xF << 28;
+        const TUNNE_DAT6_O_MASK = 0xF << 24;
+        const TUNNE_DAT5_O_MASK = 0xF << 20;
+        const TUNNE_DAT4_O_MASK = 0xF << 16;
+        const TUNNE_DAT3_O_MASK = 0xF << 12;
+        const TUNNE_DAT2_O_MASK = 0xF << 8;
+        const TUNNE_DAT1_O_MASK = 0xF << 4;
+        const TUNNE_DAT0_O_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TUNE_DATI: u32 {
-        const TUNNE_DAT0_I = 0x0000000F;
-        const TUNNE_DAT1_I = 0x000000F0;
-        const TUNNE_DAT2_I = 0x00000F00;
-        const TUNNE_DAT3_I = 0x0000F000;
-        const TUNNE_DAT4_I = 0x000F0000;
-        const TUNNE_DAT5_I = 0x00F00000;
-        const TUNNE_DAT6_I = 0x0F000000;
-        const TUNNE_DAT7_I = 0xF0000000;
+        const TUNNE_DAT7_I_MASK = 0xF << 28;
+        const TUNNE_DAT6_I_MASK = 0xF << 24;
+        const TUNNE_DAT5_I_MASK = 0xF << 20;
+        const TUNNE_DAT4_I_MASK = 0xF << 16;
+        const TUNNE_DAT3_I_MASK = 0xF << 12;
+        const TUNNE_DAT2_I_MASK = 0xF << 8;
+        const TUNNE_DAT1_I_MASK = 0xF << 4;
+        const TUNNE_DAT0_I_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TUNE_CLK_CMD: u32 {
-        const TUNNE_CLK_O = 0x0000000F;
-        const TUNNE_CLK_I = 0x000000F0;
-        const TUNNE_CMD_O = 0x000F0000;
-        const TUNNE_CMD_I = 0x00F00000;
+        const TUNNE_CMD_I_MASK = 0xF << 20;
+        const TUNNE_CMD_O_MASK = 0xF << 16;
+        const TUNNE_CLK_I_MASK = 0xF << 4;
+        const TUNNE_CLK_O_MASK = 0xF << 0;
     }
 }

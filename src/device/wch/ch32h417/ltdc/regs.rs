@@ -40,248 +40,245 @@ pub struct LTDC_Layer {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SSCR: u32 {
-        const VSH = 0x000007FF;
-        const HSW = 0x0FFF0000;
+        const HSW_MASK = 0xFFF << 16;
+        const VSH_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BPCR: u32 {
-        const AVBP = 0x000007FF;
-        const AHBP = 0x0FFF0000;
+        const AHBP_MASK = 0xFFF << 16;
+        const AVBP_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWCR: u32 {
-        const AAH = 0x000007FF;
-        const AAW = 0x0FFF0000;
+        const AAW_MASK = 0xFFF << 16;
+        const AAH_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TWCR: u32 {
-        const TOTALH = 0x000007FF;
-        const TOTALW = 0x0FFF0000;
+        const TOTALW_MASK = 0xFFF << 16;
+        const TOTALH_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct GCR: u32 {
-        const LTDCEN = 0x00000001;
+        const HSPOL = 1 << 31;
+        const VSPOL = 1 << 30;
+        const DEPOL = 1 << 29;
+        const PCPOL = 1 << 28;
 
-        const DBW = 0x00000070;
-        const DBW_0 = 0x00000010;
-        const DBW_1 = 0x00000020;
-        const DBW_2 = 0x00000040;
+        const DRW_2 = 1 << 14;
+        const DRW_1 = 1 << 13;
+        const DRW_0 = 1 << 12;
+        const DRW_MASK = 0x7 << 12;
 
-        const DGW = 0x00000700;
-        const DGW_0 = 0x00000100;
-        const DGW_1 = 0x00000200;
-        const DGW_2 = 0x00000400;
+        const DGW_2 = 1 << 10;
+        const DGW_1 = 1 << 9;
+        const DGW_0 = 1 << 8;
+        const DGW_MASK = 0x7 << 8;
 
-        const DRW = 0x00007000;
-        const DRW_0 = 0x00001000;
-        const DRW_1 = 0x00002000;
-        const DRW_2 = 0x00004000;
+        const DBW_2 = 1 << 6;
+        const DBW_1 = 1 << 5;
+        const DBW_0 = 1 << 4;
+        const DBW_MASK = 0x7 << 4;
 
-        const PCPOL = 0x10000000;
-        const DEPOL = 0x20000000;
-        const VSPOL = 0x40000000;
-        const HSPOL = 0x80000000;
+        const LTDCEN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SRCR: u32 {
-        const IMR = 0x00000001;
-        const VBR = 0x00000002;
+        const VBR = 1 << 1;
+        const IMR = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BCCR: u32 {
-        const BCBLUE = 0x000000FF;
-        const BCGREEN = 0x0000FF00;
-        const BCRED = 0x00FF0000;
+        const BCRED_MASK = 0xFF << 16;
+        const BCGREEN_MASK = 0xFF << 8;
+        const BCBLUE_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IER: u32 {
-        const LIE = 0x00000001;
-        const FUIE = 0x00000002;
-
-        const RRIE = 0x00000008;
+        const RRIE = 1 << 3;
+        const FUIE = 1 << 1;
+        const LIE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ISR: u32 {
-        const LIF = 0x00000001;
-        const FUIF = 0x00000002;
-
-        const RRIF = 0x00000008;
+        const RRIF = 1 << 3;
+        const FUIF = 1 << 1;
+        const LIF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ICR: u32 {
-        const CLIF = 0x00000001;
-        const CFUIF = 0x00000002;
-
-        const CRRIF = 0x00000008;
+        const CRRIF = 1 << 3;
+        const CFUIF = 1 << 1;
+        const CLIF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct LIPCR: u32 {
-        const LIPOS = 0x000007FF;
+        const LIPOS_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CPSR: u32 {
-        const CYPOS = 0x0000FFFF;
-        const CXPOS = 0xFFFF0000;
+        const CXPOS_MASK = 0xFFFF << 16;
+        const CYPOS_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CDSR: u32 {
-        const VDES = 0x00000001;
-        const HDES = 0x00000002;
-        const VSYNCS = 0x00000004;
-        const HSYNCS = 0x00000008;
+        const HSYNCS = 1 << 3;
+        const VSYNCS = 1 << 2;
+        const HDES = 1 << 1;
+        const VDES = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR: u32 {
-        const LEN = 0x00000001;
-        const COLKEN = 0x00000002;
+        const CLUTEN = 1 << 4;
 
-        const CLUTEN = 0x00000010;
+        const COLKEN = 1 << 1;
+        const LEN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WHPCR: u32 {
-        const WHSTPOS = 0x00000FFF;
-        const WHSPPOS = 0x0FFF0000;
+        const WHSPPOS_MASK = 0xFFF << 16;
+        const WHSTPOS_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WVPCR: u32 {
-        const WVSTPOS = 0x000007FF;
-        const WVSPPOS = 0x07FF0000;
+        const WVSPPOS_MASK = 0x7FF << 16;
+        const WVSTPOS_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CKCR: u32 {
-        const CKBLUE = 0x000000FF;
-        const CKGREEN = 0x0000FF00;
-        const CKRED = 0x00FF0000;
+        const CKRED_MASK = 0xFF << 16;
+        const CKGREEN_MASK = 0xFF << 8;
+        const CKBLUE_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PFCR: u32 {
-        const PF = 0x00000007;
-        const PF_0 = 0x00000001;
-        const PF_1 = 0x00000002;
-        const PF_2 = 0x00000004;
+        const PF_2 = 1 << 2;
+        const PF_1 = 1 << 1;
+        const PF_0 = 1 << 0;
 
-        const PF_ARGB8888 = 0x00000000;
-        const PF_RGB888 = 0x00000001;
-        const PF_RGB565 = 0x00000002;
-        const PF_ARGB1555 = 0x00000003;
-        const PF_ARGB4444 = 0x00000004;
-        const PF_L8 = 0x00000005;
-        const PF_AL44 = 0x00000006;
-        const PF_AL88 = 0x00000007;
+        const PF_AL88 = 0b111 << 0;
+        const PF_AL44 = 0b110 << 0;
+        const PF_L8 = 0b101 << 0;
+        const PF_ARGB4444 = 0b100 << 0;
+        const PF_ARGB1555 = 0b011 << 0;
+        const PF_RGB565 = 0b010 << 0;
+        const PF_RGB888 = 0b001 << 0;
+        const PF_ARGB8888 = 0b000 << 0;
+        const PF_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CACR: u32 {
-        const CONSTA = 0x000000FF;
+        const CONSTA_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DCCR: u32 {
-        const DCBLUE = 0x000000FF;
-        const DCGREEN = 0x0000FF00;
-        const DCRED = 0x00FF0000;
-        const DCALPHA = 0xFF000000;
+        const DCALPHA_MASK = 0xFF << 24;
+        const DCRED_MASK = 0xFF << 16;
+        const DCGREEN_MASK = 0xFF << 8;
+        const DCBLUE_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BFCR: u32 {
-        const BF2 = 0x00000007;
-        const BF2_0 = 0x00000001;
-        const BF2_1 = 0x00000002;
-        const BF2_2 = 0x00000004;
+        const BF1_2 = 1 << 10;
+        const BF1_1 = 1 << 9;
+        const BF1_0 = 1 << 8;
+        const BF1_MASK = 0x7 << 8;
 
-        const BF1 = 0x00000700;
-        const BF1_0 = 0x00000100;
-        const BF1_1 = 0x00000200;
-        const BF1_2 = 0x00000400;
+        const BF2_2 = 1 << 2;
+        const BF2_1 = 1 << 1;
+        const BF2_0 = 1 << 0;
+        const BF2_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFBAR: u32 {
-        const CFBADD = 0xFFFFFFFF;
+        const CFBADD_MASK = 0xFFFFFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFBLR: u32 {
-        const CFBLL = 0x00001FFF;
-        const CFBP = 0x1FFF0000;
+        const CFBP_MASK = 0x1FFF << 16;
+        const CFBLL_MASK = 0x1FFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFBLNR: u32 {
-        const CFBLNBR = 0x000007FF;
+        const CFBLNBR_MASK = 0x7FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CLUTWR: u32 {
-        const BLUE = 0x000000FF;
-        const GREEN = 0x0000FF00;
-        const RED = 0x00FF0000;
-        const CLUTADD = 0xFF000000;
+        const CLUTADD_MASK = 0xFF << 24;
+        const RED_MASK = 0xFF << 16;
+        const GREEN_MASK = 0xFF << 8;
+        const BLUE_MASK = 0xFF << 0;
     }
 }

@@ -15,106 +15,110 @@ pub struct OPA {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u32 {
-        const EN1 = 0x0001;
+        const HS1 = 1 << 10;
+        const PGADIF1 = 1 << 9;
+        const FBEN1 = 1 << 8;
 
-        const MODE1 = 0x0006;
-        const MODE1_0 = 0x0002;
-        const MODE1_1 = 0x0004;
+        const NSEL1_1 = 1 << 5;
+        const NSEL1_0 = 1 << 4;
 
-        const PSEL1 = 0x0008;
+        const NSEL1_2 = 0b011 << 4;
+        const NSEL1_MASK = 0x7 << 4;
 
-        const NSEL1 = 0x0070;
-        const NSEL1_0 = 0x0010;
-        const NSEL1_1 = 0x0020;
-        const NSEL1_2 = 0x0030;
+        const PSEL1 = 1 << 3;
 
-        const FBEN1 = 0x0100;
-        const PGADIF1 = 0x0200;
-        const HS1 = 0x0400;
+        const MODE1_1 = 1 << 2;
+        const MODE1_0 = 1 << 1;
+        const MODE1_MASK = 0x3 << 1;
+
+        const EN1 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR2: u32 {
-        const EN2 = 0x0001;
+        const HS2 = 1 << 10;
+        const PGADIF2 = 1 << 9;
+        const FBEN2 = 1 << 8;
 
-        const MODE2 = 0x0006;
-        const MODE2_0 = 0x0002;
-        const MODE2_1 = 0x0004;
+        const NSEL2_1 = 1 << 5;
+        const NSEL2_0 = 1 << 4;
 
-        const PSEL2 = 0x0008;
+        const NSEL2_2 = 0b011 << 4;
+        const NSEL2_MASK = 0x7 << 4;
 
-        const NSEL2 = 0x0070;
-        const NSEL2_0 = 0x0010;
-        const NSEL2_1 = 0x0020;
-        const NSEL2_2 = 0x0030;
+        const PSEL2 = 1 << 3;
 
-        const FBEN2 = 0x0100;
-        const PGADIF2 = 0x0200;
-        const HS2 = 0x0400;
+        const MODE2_1 = 1 << 2;
+        const MODE2_0 = 1 << 1;
+        const MODE2_MASK = 0x3 << 1;
+
+        const EN2 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR3: u32 {
-        const EN3 = 0x0001;
+        const HS3 = 1 << 10;
+        const PGADIF3 = 1 << 9;
+        const FBEN3 = 1 << 8;
 
-        const MODE3 = 0x0006;
-        const MODE3_0 = 0x0002;
-        const MODE3_1 = 0x0004;
+        const NSEL3_1 = 1 << 5;
+        const NSEL3_0 = 1 << 4;
 
-        const PSEL3 = 0x0008;
+        const NSEL3_2 = 0b011 << 4;
+        const NSEL3_MASK = 0x7 << 4;
 
-        const NSEL3 = 0x0070;
-        const NSEL3_0 = 0x0010;
-        const NSEL3_1 = 0x0020;
-        const NSEL3_2 = 0x0030;
+        const PSEL3 = 1 << 3;
 
-        const FBEN3 = 0x0100;
-        const PGADIF3 = 0x0200;
-        const HS3 = 0x0400;
+        const MODE3_1 = 1 << 2;
+        const MODE3_0 = 1 << 1;
+        const MODE3_MASK = 0x3 << 1;
+
+        const EN3 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMP_CTLR: u32 {
-        const PSEL = 0x00000003;
-        const PSEL_0 = 0x00000001;
-        const PSEL_1 = 0x00000002;
+        const FILT_BASE_MASK = 0x7 << 28;
 
-        const NSEL = 0x0000000C;
-        const NSEL_0 = 0x00000004;
-        const NSEL_1 = 0x00000008;
+        const FILT_CFG_MASK = 0x1FF << 16;
 
-        const MODE = 0x000000F0;
-        const MODE_0 = 0x00000010;
-        const MODE_1 = 0x00000020;
-        const MODE_2 = 0x00000040;
-        const MODE_3 = 0x00000080;
+        const FILT_EN = 1 << 13;
 
-        const EN = 0x00000100;
+        const VREF_1 = 1 << 12;
+        const VREF_0 = 1 << 11;
+        const VREF_MASK = 0x3 << 11;
 
-        const HYPSEL = 0x00000600;
-        const HYPSEL_0 = 0x00000200;
-        const HYPSEL_1 = 0x00000400;
+        const HYPSEL_1 = 1 << 10;
+        const HYPSEL_0 = 1 << 9;
+        const HYPSEL_MASK = 0x3 << 9;
 
-        const VREF = 0x00001800;
-        const VREF_0 = 0x00000800;
-        const VREF_1 = 0x00001000;
+        const EN = 1 << 8;
 
-        const FILT_EN = 0x00002000;
+        const MODE_3 = 1 << 7;
+        const MODE_2 = 1 << 6;
+        const MODE_1 = 1 << 5;
+        const MODE_0 = 1 << 4;
+        const MODE_MASK = 0xF << 4;
 
-        const FILT_CFG = 0x01FF0000;
-        const FILT_BASE = 0x70000000;
+        const NSEL_1 = 1 << 3;
+        const NSEL_0 = 1 << 2;
+        const NSEL_MASK = 0x3 << 2;
+
+        const PSEL_1 = 1 << 1;
+        const PSEL_0 = 1 << 0;
+        const PSEL_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMP_STATR: u32 {
-        const OUTFILT = 0x01;
+        const OUTFILT = 1 << 0;
     }
 }

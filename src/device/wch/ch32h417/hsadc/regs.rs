@@ -17,88 +17,88 @@ pub struct HSADC {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR: u32 {
-        const EN = 0x00000001;
-        const DMAEN = 0x00000002;
+        const DMA_LEN_MASK = 0xFFFF << 16;
 
-        const CHSEL = 0x0000001C;
-        const CHSEL_0 = 0x00000004;
-        const CHSEL_1 = 0x00000008;
-        const CHSEL_2 = 0x00000010;
+        const BURST_EN = 1 << 15;
+        const PPMODE = 1 << 14;
 
-        const SETUP = 0x00000060;
-        const SETUP_0 = 0x00000020;
-        const SETUP_1 = 0x00000040;
+        const CLKDIV_5 = 1 << 13;
+        const CLKDIV_4 = 1 << 12;
+        const CLKDIV_3 = 1 << 11;
+        const CLKDIV_2 = 1 << 10;
+        const CLKDIV_1 = 1 << 9;
+        const CLKDIV_0 = 1 << 8;
+        const CLKDIV_MASK = 0x3F << 8;
 
-        const WIDTH = 0x00000080;
+        const WIDTH = 1 << 7;
 
-        const CLKDIV = 0x00003F00;
-        const CLKDIV_0 = 0x00000100;
-        const CLKDIV_1 = 0x00000200;
-        const CLKDIV_2 = 0x00000400;
-        const CLKDIV_3 = 0x00000800;
-        const CLKDIV_4 = 0x00001000;
-        const CLKDIV_5 = 0x00002000;
+        const SETUP_1 = 1 << 6;
+        const SETUP_0 = 1 << 5;
+        const SETUP_MASK = 0x3 << 5;
 
-        const PPMODE = 0x00004000;
-        const BURST_EN = 0x00008000;
+        const CHSEL_2 = 1 << 4;
+        const CHSEL_1 = 1 << 3;
+        const CHSEL_0 = 1 << 2;
+        const CHSEL_MASK = 0x7 << 2;
 
-        const DMA_LEN = 0xFFFF0000;
+        const DMAEN = 1 << 1;
+        const EN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u32 {
-        const START = 0x00000001;
-        const BURSTEND = 0x00000002;
-        const EOCIE = 0x00000100;
-        const DMAIE = 0x00000200;
-        const BURSTIE = 0x00000400;
+        const BURSTIE = 1 << 10;
+        const DMAIE = 1 << 9;
+        const EOCIE = 1 << 8;
+        const BURSTEND = 1 << 1;
+        const START = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR2: u32 {
-        const BURST_LEN = 0x0000FFFF;
-        const BURST_DMA_LEN = 0xFFFF0000;
+        const BURST_DMA_LEN_MASK = 0xFFFF << 16;
+
+        const BURST_LEN_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATR: u32 {
-        const EOCIF = 0x00000001;
-        const DMAIF = 0x00000002;
-        const BURSTIF = 0x00000004;
-        const RXNE = 0x00000008;
-        const PP_ADDR = 0x00000010;
+        const FIFO_CNT_MASK = 0x7 << 11;
 
-        const FIFO_RDY = 0x00000100;
-        const FIFO_FULL = 0x00000200;
-        const FIFO_OV = 0x00000400;
-
-        const FIFO_CNT = 0x00003800;
+        const FIFO_OV = 1 << 10;
+        const FIFO_FULL = 1 << 9;
+        const FIFO_RDY = 1 << 8;
+        const PP_ADDR = 1 << 4;
+        const RXNE = 1 << 3;
+        const BURSTIF = 1 << 2;
+        const DMAIF = 1 << 1;
+        const EOCIF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DATAR: u32 {
-        const DR = 0x000003FF;
+        const DR_MASK = 0x3FF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ADDR0: u32 {
-        const DMA_ADDR0 = 0xFFFFFFFF;
+        const DMA_ADDR0_MASK = 0xFFFFFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ADDR1: u32 {
-        const DMA_ADDR1 = 0xFFFFFFFF;
+        const DMA_ADDR1_MASK = 0xFFFFFFFF << 0;
     }
 }

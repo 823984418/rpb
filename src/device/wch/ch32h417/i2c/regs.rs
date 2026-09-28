@@ -28,124 +28,128 @@ pub struct I2C {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u16 {
-        const PE = 0x0001;
-        const SMBUS = 0x0002;
-        const SMBTYPE = 0x0008;
-        const ENARP = 0x0010;
-        const ENPEC = 0x0020;
-        const ENGC = 0x0040;
-        const NOSTRETCH = 0x0080;
-        const START = 0x0100;
-        const STOP = 0x0200;
-        const ACK = 0x0400;
-        const POS = 0x0800;
-        const PEC = 0x1000;
-        const ALERT = 0x2000;
-        const SWRST = 0x8000;
+        const SWRST = 1 << 15;
+        const ALERT = 1 << 13;
+        const PEC = 1 << 12;
+        const POS = 1 << 11;
+        const ACK = 1 << 10;
+        const STOP = 1 << 9;
+        const START = 1 << 8;
+        const NOSTRETCH = 1 << 7;
+        const ENGC = 1 << 6;
+        const ENPEC = 1 << 5;
+        const ENARP = 1 << 4;
+        const SMBTYPE = 1 << 3;
+        const SMBUS = 1 << 1;
+        const PE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR2: u16 {
-        const FREQ = 0x003F;
-        const FREQ_0 = 0x0001;
-        const FREQ_1 = 0x0002;
-        const FREQ_2 = 0x0004;
-        const FREQ_3 = 0x0008;
-        const FREQ_4 = 0x0010;
-        const FREQ_5 = 0x0020;
+        const LAST = 1 << 12;
+        const DMAEN = 1 << 11;
+        const ITBUFEN = 1 << 10;
+        const ITEVTEN = 1 << 9;
+        const ITERREN = 1 << 8;
 
-        const ITERREN = 0x0100;
-        const ITEVTEN = 0x0200;
-        const ITBUFEN = 0x0400;
-        const DMAEN = 0x0800;
-        const LAST = 0x1000;
+        const FREQ_5 = 1 << 5;
+        const FREQ_4 = 1 << 4;
+        const FREQ_3 = 1 << 3;
+        const FREQ_2 = 1 << 2;
+        const FREQ_1 = 1 << 1;
+        const FREQ_0 = 1 << 0;
+        const FREQ_MASK = 0x3F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OADDR1: u16 {
-        const ADD0 = 0x0001;
-        const ADD1_7 = 0x00FE;
-        const ADD8_9 = 0x0300;
+        const ADDMODE = 1 << 15;
 
-        const ADD1 = 0x0002;
-        const ADD2 = 0x0004;
-        const ADD3 = 0x0008;
-        const ADD4 = 0x0010;
-        const ADD5 = 0x0020;
-        const ADD6 = 0x0040;
-        const ADD7 = 0x0080;
-        const ADD8 = 0x0100;
-        const ADD9 = 0x0200;
+        const ADD9 = 1 << 9;
+        const ADD8 = 1 << 8;
+        const ADD8_9_MASK = 0x3 << 8;
 
-        const ADDMODE = 0x8000;
+        const ADD7 = 1 << 7;
+        const ADD6 = 1 << 6;
+        const ADD5 = 1 << 5;
+        const ADD4 = 1 << 4;
+        const ADD3 = 1 << 3;
+        const ADD2 = 1 << 2;
+        const ADD1 = 1 << 1;
+        const ADD1_7_MASK = 0x7F << 1;
+
+        const ADD0 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OADDR2: u16 {
-        const ENDUAL = 0x01;
-        const ADD2 = 0xFE;
+        const ADD2_MASK = 0x7F << 1;
+
+        const ENDUAL = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DATAR: u16 {
-        const DATAR = 0xFF;
+        const DR_DATAR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STAR1: u16 {
-        const SB = 0x0001;
-        const ADDR = 0x0002;
-        const BTF = 0x0004;
-        const ADD10 = 0x0008;
-        const STOPF = 0x0010;
-        const RXNE = 0x0040;
-        const TXE = 0x0080;
-        const BERR = 0x0100;
-        const ARLO = 0x0200;
-        const AF = 0x0400;
-        const OVR = 0x0800;
-        const PECERR = 0x1000;
-        const TIMEOUT = 0x4000;
-        const SMBALERT = 0x8000;
+        const SMBALERT = 1 << 15;
+        const TIMEOUT = 1 << 14;
+        const PECERR = 1 << 12;
+        const OVR = 1 << 11;
+        const AF = 1 << 10;
+        const ARLO = 1 << 9;
+        const BERR = 1 << 8;
+        const TXE = 1 << 7;
+        const RXNE = 1 << 6;
+        const STOPF = 1 << 4;
+        const ADD10 = 1 << 3;
+        const BTF = 1 << 2;
+        const ADDR = 1 << 1;
+        const SB = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STAR2: u16 {
-        const MSL = 0x0001;
-        const BUSY = 0x0002;
-        const TRA = 0x0004;
-        const GENCALL = 0x0010;
-        const SMBDEFAULT = 0x0020;
-        const SMBHOST = 0x0040;
-        const DUALF = 0x0080;
-        const PEC = 0xFF00;
+        const PEC_MASK = 0xFF << 8;
+
+        const DUALF = 1 << 7;
+        const SMBHOST = 1 << 6;
+        const SMBDEFAULT = 1 << 5;
+        const GENCALL = 1 << 4;
+        const TRA = 1 << 2;
+        const BUSY = 1 << 1;
+        const MSL = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CKCFGR: u16 {
-        const CCR = 0x0FFF;
-        const DUTY = 0x4000;
-        const FS = 0x8000;
+        const FS = 1 << 15;
+        const DUTY = 1 << 14;
+
+        const CCR_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RTR: u16 {
-        const TRISE = 0x3F;
+        const TRISE_MASK = 0x3F << 0;
     }
 }

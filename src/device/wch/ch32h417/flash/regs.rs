@@ -35,33 +35,27 @@ bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ACTLR: u32 {
         const ST = 1 << 15;
-        const FLASH_ST = 1 << 15;
         const READY = 1 << 14;
-        const FLASH_READY = 1 << 14;
         const RD_MD = 1 << 11;
-        const FLASH_RD_MD = 1 << 11;
         const LP = 1 << 8;
-        const FLASH_LP = 1 << 8;
         const EHMOD = 1 << 7;
         const ENHANCE_STATUS = 1 << 6;
-        const ENHANCE_STATUSOD = 1 << 6;
+
+        const SCK_CFG_1 = 1 << 1;
+        const SCK_CFG_0 = 1 << 0;
+        const SCK_CFG_MASK = 0x3 << 0;
 
         const LATENCY_HCLK_DIV4 = 0b10 << 0;
         const LATENCY_HCLK_DIV2 = 0b01 << 0;
         const LATENCY_HCLK_DIV1 = 0b00 << 0;
-        const SCK_CFG_4 = 0b10 << 0;
-        const SCK_CFG_2 = 0b01 << 0;
-        const SCK_CFG_1 = 0b00 << 0;
-        const SCK_CFG_0 = 0b01 << 0;
-        const SCK_CFG = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct KEYR: u32 {
-        const FKEYR = 0xFFFFFFFF;
-        const RDPRT = 0x000000A5;
+        const FKEYR_MASK = 0xFFFFFFFF << 0;
+
         const KEY1 = 0x45670123;
         const KEY2 = 0xCDEF89AB;
     }
@@ -70,9 +64,7 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OBKEYR: u32 {
-        const OBKEYR = 0xFFFFFFFF;
-        const KEY1 = 0x45670123;
-        const KEY2 = 0xCDEF89AB;
+        const OBKEYR_MASK = 0xFFFFFFFF << 0;
     }
 }
 
@@ -95,23 +87,16 @@ bitflags! {
     pub struct CTLR: u32 {
         const RSENACT = 1 << 22;
         const PG_STRT = 1 << 21;
-        const PGSTRT = 1 << 21;
         const PAGE_BER32 = 1 << 18;
-        const BER = 1 << 18;
         const PAGE_PG = 1 << 16;
-        const FTPG = 1 << 16;
         const FAST_LOCK = 1 << 15;
-        const FLOCK = 1 << 15;
         const EOPIE = 1 << 12;
         const ERRIE = 1 << 10;
         const OPTWRE = 1 << 9;
-        const OBWRE = 1 << 9;
         const LOCK = 1 << 7;
         const STRT = 1 << 6;
         const OPTER = 1 << 5;
-        const OBER = 1 << 5;
         const OPTPG = 1 << 4;
-        const OBPG = 1 << 4;
         const PER = 1 << 1;
         const PG = 1 << 0;
     }
@@ -120,27 +105,32 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ADDR: u32 {
-        const FAR = 0xFFFFFFFF;
+        const FAR_MASK = 0xFFFFFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OBR: u32 {
-        const DATA1 = 0x03FC0000;
-        const DATA0 = 0x0003FC00;
-        const USER = 0x00000304;
-        const FIX_11 = 0x00000300;
-        const WDG_SW = 0x00000004;
-        const RDPRT = 0x00000002;
-        const OPTERR = 0x00000001;
+        const DATA1_MASK = 0x3FC << 18;
+
+        const DATA0_MASK = 0x3FC << 10;
+
+        const USER_MASK = 0x304 << 0;
+
+        const FIX_11_MASK = 0x3 << 8;
+
+        const WDG_SW = 1 << 2;
+
+        const RDPRT = 1 << 1;
+        const OPTERR = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WPR: u32 {
-        const WRP = 0xFFFFFFFF;
+        const WRP_MASK = 0xFFFFFFFF << 0;
     }
 }
 
@@ -170,63 +160,63 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RDPR: u32 {
-        const nRDPR = 0x0000FF00;
-        const RDPR = 0x000000FF;
+        const nRDPR_MASK = 0xFF << 8;
+        const RDPR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct USER: u32 {
-        const nUSER = 0xFF000000;
-        const USER = 0x00FF0000;
+        const nUSER_MASK = 0xFF << 24;
+        const USER_MASK = 0xFF << 16;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct Data0: u32 {
-        const nData0 = 0x0000FF00;
-        const Data0 = 0x000000FF;
+        const nData0_MASK = 0xFF << 8;
+        const Data0_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct Data1: u32 {
-        const nData1 = 0xFF000000;
-        const Data1 = 0x00FF0000;
+        const nData1_MASK = 0xFF << 24;
+        const Data1_MASK = 0xFF << 16;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WRPR0: u32 {
-        const nWRPR0 = 0x0000FF00;
-        const WRPR0 = 0x000000FF;
+        const nWRPR0_MASK = 0xFF << 8;
+        const WRPR0_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WRPR1: u32 {
-        const nWRPR1 = 0xFF000000;
-        const WRPR1 = 0x00FF0000;
+        const nWRPR1_MASK = 0xFF << 24;
+        const WRPR1_MASK = 0xFF << 16;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WRPR2: u32 {
-        const nWRPR2 = 0x0000FF00;
-        const WRPR2 = 0x000000FF;
+        const nWRPR2_MASK = 0xFF << 8;
+        const WRPR2_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WRPR3: u32 {
-        const nWRPR3 = 0xFF000000;
-        const WRPR3 = 0x00FF0000;
+        const nWRPR3_MASK = 0xFF << 24;
+        const WRPR3_MASK = 0xFF << 16;
     }
 }

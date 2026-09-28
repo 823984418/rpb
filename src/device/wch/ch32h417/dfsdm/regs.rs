@@ -54,285 +54,288 @@ pub struct DFSDM_Channel {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR1: u32 {
-        const DFEN = 0x00000001;
-        const JSWSTART = 0x00000002;
-        const JSYNC = 0x00000008;
-        const JSCAN = 0x00000010;
-        const JDMAEN = 0x00000020;
+        const AWFSEL = 1 << 30;
+        const FAST = 1 << 29;
+        const RCH = 1 << 24;
+        const RDMAEN = 1 << 21;
+        const RSYNC = 1 << 19;
+        const RCONT = 1 << 18;
+        const RSWSTART = 1 << 17;
 
-        const JEXTSEL = 0x00000F00;
-        const JEXTSEL_0 = 0x00000100;
-        const JEXTSEL_1 = 0x00000200;
-        const JEXTSEL_2 = 0x00000400;
-        const JEXTSEL_3 = 0x00000800;
+        const JEXTEN_1 = 1 << 14;
+        const JEXTEN_0 = 1 << 13;
+        const JEXTEN_MASK = 0x3 << 13;
 
-        const JEXTEN = 0x00006000;
-        const JEXTEN_0 = 0x00002000;
-        const JEXTEN_1 = 0x00004000;
+        const JEXTSEL_3 = 1 << 11;
+        const JEXTSEL_2 = 1 << 10;
+        const JEXTSEL_1 = 1 << 9;
+        const JEXTSEL_0 = 1 << 8;
+        const JEXTSEL_MASK = 0xF << 8;
 
-        const RSWSTART = 0x00020000;
-        const RCONT = 0x00040000;
-        const RSYNC = 0x00080000;
-
-        const RDMAEN = 0x00200000;
-
-        const RCH = 0x01000000;
-
-        const FAST = 0x20000000;
-        const AWFSEL = 0x40000000;
+        const JDMAEN = 1 << 5;
+        const JSCAN = 1 << 4;
+        const JSYNC = 1 << 3;
+        const JSWSTART = 1 << 1;
+        const DFEN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CR2: u32 {
-        const JEOCIE = 0x00000001;
-        const REOCIE = 0x00000002;
-        const JOVRIE = 0x00000004;
-        const ROVRIE = 0x00000008;
-        const AWDIE = 0x00000010;
-        const SCDIE = 0x00000020;
-        const CKABIE = 0x00000040;
+        const AWDCH_1 = 1 << 17;
+        const AWDCH_0 = 1 << 16;
+        const AWDCH_MASK = 0x3 << 16;
 
-        const EXCH = 0x00000300;
-        const EXCH_0 = 0x00000100;
-        const EXCH_1 = 0x00000200;
+        const EXCH_1 = 1 << 9;
+        const EXCH_0 = 1 << 8;
+        const EXCH_MASK = 0x3 << 8;
 
-        const AWDCH = 0x00030000;
-        const AWDCH_0 = 0x00010000;
-        const AWDCH_1 = 0x00020000;
+        const CKABIE = 1 << 6;
+        const SCDIE = 1 << 5;
+        const AWDIE = 1 << 4;
+        const ROVRIE = 1 << 3;
+        const JOVRIE = 1 << 2;
+        const REOCIE = 1 << 1;
+        const JEOCIE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ISR: u32 {
-        const JEOCF = 0x00000001;
-        const REOCF = 0x00000002;
-        const JOVRF = 0x00000004;
-        const ROVRF = 0x00000008;
-        const AWDF = 0x00000010;
+        const SCDF_1 = 1 << 25;
+        const SCDF_0 = 1 << 24;
+        const SCDF_MASK = 0x3 << 24;
 
-        const JCIP = 0x00002000;
-        const RCIP = 0x00004000;
+        const CKABF_1 = 1 << 17;
+        const CKABF_0 = 1 << 16;
+        const CKABF_MASK = 0x3 << 16;
 
-        const CKABF = 0x00030000;
-        const CKABF_0 = 0x00010000;
-        const CKABF_1 = 0x00020000;
-
-        const SCDF = 0x03000000;
-        const SCDF_0 = 0x01000000;
-        const SCDF_1 = 0x02000000;
+        const RCIP = 1 << 14;
+        const JCIP = 1 << 13;
+        const AWDF = 1 << 4;
+        const ROVRF = 1 << 3;
+        const JOVRF = 1 << 2;
+        const REOCF = 1 << 1;
+        const JEOCF = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ICR: u32 {
-        const CLRJOVRF = 0x00000004;
-        const CLRROVRF = 0x00000008;
+        const CLRSCDF_1 = 1 << 25;
+        const CLRSCDF_0 = 1 << 24;
+        const CLRSCDF_MASK = 0x3 << 24;
 
-        const CLRCKABF = 0x00030000;
-        const CLRCKABF_0 = 0x00010000;
-        const CLRCKABF_1 = 0x00020000;
+        const CLRCKABF_1 = 1 << 17;
+        const CLRCKABF_0 = 1 << 16;
+        const CLRCKABF_MASK = 0x3 << 16;
 
-        const CLRSCDF = 0x03000000;
-        const CLRSCDF_0 = 0x01000000;
-        const CLRSCDF_1 = 0x02000000;
+        const CLRROVRF = 1 << 3;
+        const CLRJOVRF = 1 << 2;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct JCHGR: u32 {
-        const JCHG = 0x00000003;
+        const JCHG_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct FCR3: u32 {
-        const IOSR = 0x000000FF;
-        const IOSR_0 = 0x00000001;
-        const IOSR_1 = 0x00000002;
-        const IOSR_2 = 0x00000004;
-        const IOSR_3 = 0x00000008;
-        const IOSR_4 = 0x00000010;
-        const IOSR_5 = 0x00000020;
-        const IOSR_6 = 0x00000040;
-        const IOSR_7 = 0x00000080;
+        const FORD_2 = 1 << 31;
+        const FORD_1 = 1 << 30;
+        const FORD_0 = 1 << 29;
+        const FORD_MASK = 0x7 << 29;
 
-        const FOSR = 0x03FF0000;
-        const FOSR_0 = 0x00010000;
-        const FOSR_1 = 0x00020000;
-        const FOSR_2 = 0x00040000;
-        const FOSR_3 = 0x00080000;
-        const FOSR_4 = 0x00100000;
-        const FOSR_5 = 0x00200000;
-        const FOSR_6 = 0x00400000;
-        const FOSR_7 = 0x00800000;
-        const FOSR_8 = 0x01000000;
-        const FOSR_9 = 0x03FF0000;
+        const FOSR_9 = 0x3FF << 16;
+        const FOSR_8 = 1 << 24;
+        const FOSR_7 = 1 << 23;
+        const FOSR_6 = 1 << 22;
+        const FOSR_5 = 1 << 21;
+        const FOSR_4 = 1 << 20;
+        const FOSR_3 = 1 << 19;
+        const FOSR_2 = 1 << 18;
+        const FOSR_1 = 1 << 17;
+        const FOSR_0 = 1 << 16;
+        const FOSR_MASK = 0x3FF << 16;
 
-        const FORD = 0xE0000000;
-        const FORD_0 = 0x20000000;
-        const FORD_1 = 0x40000000;
-        const FORD_2 = 0x80000000;
+        const IOSR_7 = 1 << 7;
+        const IOSR_6 = 1 << 6;
+        const IOSR_5 = 1 << 5;
+        const IOSR_4 = 1 << 4;
+        const IOSR_3 = 1 << 3;
+        const IOSR_2 = 1 << 2;
+        const IOSR_1 = 1 << 1;
+        const IOSR_0 = 1 << 0;
+        const IOSR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct JDATAR: u32 {
-        const JDATACH = 0x00000001;
-        const JDATA = 0xFFFFFF00;
+        const JDATA_MASK = 0xFFFFFF << 8;
+
+        const JDATACH = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RDATAR: u32 {
-        const RDATACH = 0x00000001;
-        const RPEND = 0x00000010;
-        const RDATA = 0xFFFFFF00;
+        const RDATA_MASK = 0xFFFFFF << 8;
+
+        const RPEND = 1 << 4;
+        const RDATACH = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWHTR: u32 {
-        const BKAWH = 0x0000000F;
-        const BKAWH_0 = 0x00000001;
-        const BKAWH_1 = 0x00000002;
-        const BKAWH_2 = 0x00000004;
-        const BKAWH_3 = 0x00000008;
+        const AWHT_MASK = 0xFFFFFF << 8;
 
-        const AWHT = 0xFFFFFF00;
+        const BKAWH_3 = 1 << 3;
+        const BKAWH_2 = 1 << 2;
+        const BKAWH_1 = 1 << 1;
+        const BKAWH_0 = 1 << 0;
+        const BKAWH_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWLTR: u32 {
-        const BKAWL = 0x0000000F;
-        const BKAWL_0 = 0x00000001;
-        const BKAWL_1 = 0x00000002;
-        const BKAWL_2 = 0x00000004;
-        const BKAWL_3 = 0x00000008;
+        const AWLT_MASK = 0xFFFFFF << 8;
 
-        const AWLT = 0xFFFFFF00;
+        const BKAWL_3 = 1 << 3;
+        const BKAWL_2 = 1 << 2;
+        const BKAWL_1 = 1 << 1;
+        const BKAWL_0 = 1 << 0;
+        const BKAWL_MASK = 0xF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWSR: u32 {
-        const AWLTF = 0x00000003;
-        const AWHTF = 0x00000300;
+        const AWHTF_MASK = 0x3 << 8;
+
+        const AWLTF_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWCFR: u32 {
-        const CLRAWLTF = 0x00000003;
-        const CLRAWLTF_0 = 0x00000001;
-        const CLRAWLTF_1 = 0x00000002;
+        const CLRAWHTF_1 = 1 << 9;
+        const CLRAWHTF_0 = 1 << 8;
+        const CLRAWHTF_MASK = 0x3 << 8;
 
-        const CLRAWHTF = 0x00000300;
-        const CLRAWHTF_0 = 0x00000100;
-        const CLRAWHTF_1 = 0x00000200;
+        const CLRAWLTF_1 = 1 << 1;
+        const CLRAWLTF_0 = 1 << 0;
+        const CLRAWLTF_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct EXMAX: u32 {
-        const EXMAXCH = 0x00000001;
-        const EXMAX = 0xFFFFFF00;
+        const EXMAX_MASK = 0xFFFFFF << 8;
+
+        const EXMAXCH = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct EXMIN: u32 {
-        const EXMINCH = 0x00000001;
-        const EXMIN = 0xFFFFFF00;
+        const EXMIN_MASK = 0xFFFFFF << 8;
+
+        const EXMINCH = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct NVTIMR: u32 {
-        const CNVCNT = 0xFFFFFF00;
+        const CNVCNT_MASK = 0xFFFFFF << 8;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR1: u32 {
-        const SITP = 0x00000003;
-        const SITP_0 = 0x00000001;
-        const SITP_1 = 0x00000002;
+        const DFSDMEN = 1 << 31;
+        const CKOUTSRC = 1 << 30;
 
-        const SPICKSEL = 0x0000000C;
-        const SPICKSEL_0 = 0x00000004;
-        const SPICKSEL_1 = 0x00000008;
+        const CKOUTDIV_MASK = 0xFF << 16;
 
-        const SCDEN = 0x00000020;
-        const CKABEN = 0x00000040;
-        const CHEN = 0x00000080;
-        const CHINSEL = 0x00000100;
+        const DATPACK_1 = 1 << 15;
+        const DATPACK_0 = 1 << 14;
+        const DATPACK_MASK = 0x3 << 14;
 
-        const DATMPX = 0x00003000;
-        const DATMPX_0 = 0x00001000;
-        const DATMPX_1 = 0x00002000;
+        const DATMPX_1 = 1 << 13;
+        const DATMPX_0 = 1 << 12;
+        const DATMPX_MASK = 0x3 << 12;
 
-        const DATPACK = 0x0000C000;
-        const DATPACK_0 = 0x00004000;
-        const DATPACK_1 = 0x00008000;
+        const CHINSEL = 1 << 8;
+        const CHEN = 1 << 7;
+        const CKABEN = 1 << 6;
+        const SCDEN = 1 << 5;
 
-        const CKOUTDIV = 0x00FF0000;
+        const SPICKSEL_1 = 1 << 3;
+        const SPICKSEL_0 = 1 << 2;
+        const SPICKSEL_MASK = 0x3 << 2;
 
-        const CKOUTSRC = 0x40000000;
-        const DFSDMEN = 0x80000000;
+        const SITP_1 = 1 << 1;
+        const SITP_0 = 1 << 0;
+        const SITP_MASK = 0x3 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR2: u32 {
-        const DTRBS = 0x000000F8;
-        const OFFSET = 0xFFFFFF00;
+        const OFFSET_MASK = 0xFFFFFF << 8;
+
+        const DTRBS_MASK = 0x1F << 3;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AWSCDR: u32 {
-        const SCDT = 0x000000FF;
+        const AWFORD_1 = 1 << 23;
+        const AWFORD_0 = 1 << 22;
+        const AWFORD_MASK = 0x3 << 22;
 
-        const BKSCD = 0x00003000;
-        const BKSCD_0 = 0x00001000;
-        const BKSCD_1 = 0x00002000;
+        const AWFOSR_4 = 1 << 20;
+        const AWFOSR_3 = 1 << 19;
+        const AWFOSR_2 = 1 << 18;
+        const AWFOSR_1 = 1 << 17;
+        const AWFOSR_0 = 1 << 16;
+        const AWFOSR_MASK = 0x1F << 16;
 
-        const AWFOSR = 0x001F0000;
-        const AWFOSR_0 = 0x00010000;
-        const AWFOSR_1 = 0x00020000;
-        const AWFOSR_2 = 0x00040000;
-        const AWFOSR_3 = 0x00080000;
-        const AWFOSR_4 = 0x00100000;
+        const BKSCD_1 = 1 << 13;
+        const BKSCD_0 = 1 << 12;
+        const BKSCD_MASK = 0x3 << 12;
 
-        const AWFORD = 0x00C00000;
-        const AWFORD_0 = 0x00400000;
-        const AWFORD_1 = 0x00800000;
+        const SCDT_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DATINR: u32 {
-        const INDAT0 = 0x0000FFFF;
-        const INDAT1 = 0xFFFF0000;
+        const INDAT1_MASK = 0xFFFF << 16;
+
+        const INDAT0_MASK = 0xFFFF << 0;
     }
 }

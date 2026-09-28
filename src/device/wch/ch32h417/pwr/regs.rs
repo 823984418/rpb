@@ -12,49 +12,49 @@ pub struct PWR {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR: u32 {
-        const LPDS = 0x0001;
-        const PVDE = 0x0010;
+        const VSEL_VIO18_2 = 1 << 12;
+        const VSEL_VIO18_1 = 1 << 11;
+        const VSEL_VIO18_0 = 1 << 10;
 
-        const PLS = 0x00E0;
-        const PLS_0 = 0x0020;
-        const PLS_1 = 0x0040;
-        const PLS_2 = 0x0080;
+        const VSEL_VIO18_MODE7 = 0b111 << 10;
+        const VSEL_VIO18_MODE6 = 0b110 << 10;
+        const VSEL_VIO18_MODE5 = 0b101 << 10;
+        const VSEL_VIO18_MODE4 = 0b100 << 10;
+        const VSEL_VIO18_MODE3 = 0b011 << 10;
+        const VSEL_VIO18_MODE2 = 0b010 << 10;
+        const VSEL_VIO18_MODE1 = 0b001 << 10;
+        const VSEL_VIO18_MODE0 = 0b000 << 10;
+        const VSEL_VIO18_MASK = 0x7 << 10;
 
-        const PLS_MODE0 = 0x0000;
-        const PLS_MODE1 = 0x0020;
-        const PLS_MODE2 = 0x0040;
-        const PLS_MODE3 = 0x0060;
-        const PLS_MODE4 = 0x0080;
-        const PLS_MODE5 = 0x00A0;
-        const PLS_MODE6 = 0x00C0;
-        const PLS_MODE7 = 0x00E0;
+        const VIO_SWCR = 1 << 9;
+        const DBP = 1 << 8;
 
-        const DBP = 0x0100;
-        const VIO_SWCR = 0x0200;
+        const PLS_2 = 1 << 7;
+        const PLS_1 = 1 << 6;
+        const PLS_0 = 1 << 5;
 
-        const VSEL_VIO18 = 0x1C00;
-        const VSEL_VIO18_0 = 0x0400;
-        const VSEL_VIO18_1 = 0x0800;
-        const VSEL_VIO18_2 = 0x1000;
+        const PLS_MODE7 = 0b111 << 5;
+        const PLS_MODE6 = 0b110 << 5;
+        const PLS_MODE5 = 0b101 << 5;
+        const PLS_MODE4 = 0b100 << 5;
+        const PLS_MODE3 = 0b011 << 5;
+        const PLS_MODE2 = 0b010 << 5;
+        const PLS_MODE1 = 0b001 << 5;
+        const PLS_MODE0 = 0b000 << 5;
+        const PLS_MASK = 0x7 << 5;
 
-        const VSEL_VIO18_MODE0 = 0x0000;
-        const VSEL_VIO18_MODE1 = 0x0400;
-        const VSEL_VIO18_MODE2 = 0x0800;
-        const VSEL_VIO18_MODE3 = 0x0C00;
-        const VSEL_VIO18_MODE4 = 0x1000;
-        const VSEL_VIO18_MODE5 = 0x1400;
-        const VSEL_VIO18_MODE6 = 0x1800;
-        const VSEL_VIO18_MODE7 = 0x1C00;
+        const PVDE = 1 << 4;
+        const LPDS = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CSR: u32 {
-        const PVDO = 0x0001;
+        const VIO18_SR_1 = 1 << 9;
+        const VIO18_SR_0 = 1 << 8;
+        const VIO18_SR_MASK = 0x3 << 8;
 
-        const VIO18_SR = 0x0300;
-        const VIO18_SR_0 = 0x0100;
-        const VIO18_SR_1 = 0x0200;
+        const PVDO = 1 << 0;
     }
 }

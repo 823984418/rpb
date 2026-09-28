@@ -138,13 +138,13 @@ impl RCC {
                 clocks.SYSCLK = RCC::HSE_VALUE;
             }
             _ => match self.PLLCFGR.get() & PLLCFGR::SYSPLL_SEL_MASK {
-                PLLCFGR::SYSPLL_SEL_PLL_CLK => {
+                PLLCFGR::SYSPLL_PLL => {
                     let pllcfgr = self.PLLCFGR.get();
                     let pllmul = pllcfgr & PLLCFGR::PLLMUL_MASK;
                     let presc = ((pllcfgr & PLLCFGR::PLL_SRC_DIV_MASK).bits() >> 8) + 1;
                     let pllsrc;
                     match pllcfgr & PLLCFGR::PLLSRC_MASK {
-                        PLLCFGR::PLLSRC_SERDES_PLL_DIV_2 => {
+                        PLLCFGR::PLLSRC_SERDES_PLL => {
                             pllsrc = Self::HSE_VALUE
                                 * SERDESPLLMULTable[(self.PLLCFGR2.get()
                                     & PLLCFGR2::SERDESPLL_MUL_MASK)
@@ -173,11 +173,11 @@ impl RCC {
                     }
                     let pllsrc_tmp = pllsrc / presc * PLLMULTable[pllmul.bits() as usize] as u32;
                     match pllmul {
-                        PLLCFGR::PLLMUL_12_5
-                        | PLLCFGR::PLLMUL_11_5
-                        | PLLCFGR::PLLMUL_10_5
-                        | PLLCFGR::PLLMUL_9_5
-                        | PLLCFGR::PLLMUL_8_5 => {
+                        PLLCFGR::PLLMUL12_5
+                        | PLLCFGR::PLLMUL11_5
+                        | PLLCFGR::PLLMUL10_5
+                        | PLLCFGR::PLLMUL9_5
+                        | PLLCFGR::PLLMUL8_5 => {
                             clocks.SYSCLK = pllsrc_tmp >> 1;
                         }
                         _ => {
@@ -185,19 +185,19 @@ impl RCC {
                         }
                     }
                 }
-                PLLCFGR::SYSPLL_SEL_USBHS_PLL => {
+                PLLCFGR::SYSPLL_USBHS => {
                     clocks.SYSCLK = 480_000_000;
                 }
-                PLLCFGR::SYSPLL_SEL_ETH_PLL => {
+                PLLCFGR::SYSPLL_ETH => {
                     clocks.SYSCLK = 500_000_000;
                 }
-                PLLCFGR::SYSPLL_SEL_SERDES_PLL_DIV_2 => {
+                PLLCFGR::SYSPLL_SERDES => {
                     clocks.SYSCLK = Self::HSE_VALUE
                         * SERDESPLLMULTable
                             [(self.PLLCFGR2.get() & PLLCFGR2::SERDESPLL_MUL_MASK).bits() as usize]
                             as u32;
                 }
-                PLLCFGR::SYSPLL_SEL_USBSS_PLL => {
+                PLLCFGR::SYSPLL_USBSS => {
                     clocks.SYSCLK = 125_000_000;
                 }
                 _ => {

@@ -33,469 +33,470 @@ pub struct ADC {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATR: u32 {
-        const RSTF = 0x8000;
-        const STRT = 0x10;
-        const JSTRT = 0x08;
-        const JEOC = 0x04;
-        const EOC = 0x02;
-        const AWD = 0x01;
+        const RSTF = 1 << 15;
+        const STRT = 1 << 4;
+        const JSTRT = 1 << 3;
+        const JEOC = 1 << 2;
+        const EOC = 1 << 1;
+        const AWD = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u32 {
-        const AWDCH = 0x0000001F;
-        const AWDCH_0 = 0x00000001;
-        const AWDCH_1 = 0x00000002;
-        const AWDCH_2 = 0x00000004;
-        const AWDCH_3 = 0x00000008;
-        const AWDCH_4 = 0x00000010;
+        const SW_PRE = 1 << 31;
+        const ANA_RST = 1 << 30;
 
-        const EOCIE = 0x00000020;
-        const AWDIE = 0x00000040;
-        const JEOCIE = 0x00000080;
-        const SCAN = 0x00000100;
-        const AWDSGL = 0x00000200;
-        const JAUTO = 0x00000400;
-        const DISCEN = 0x00000800;
-        const JDISCEN = 0x00001000;
+        const PGA_1 = 1 << 28;
+        const PGA_0 = 1 << 27;
+        const PGA_MASK = 0x3 << 27;
 
-        const DISCNUM = 0x0000E000;
-        const DISCNUM_0 = 0x00002000;
-        const DISCNUM_1 = 0x00004000;
-        const DISCNUM_2 = 0x00008000;
+        const BUFEN = 1 << 26;
+        const TKITUNE = 1 << 25;
+        const TKENABLE = 1 << 24;
+        const AWDEN = 1 << 23;
+        const JAWDEN = 1 << 22;
 
-        const DUALMOD = 0x000F0000;
-        const DUALMOD_0 = 0x00010000;
-        const DUALMOD_1 = 0x00020000;
-        const DUALMOD_2 = 0x00040000;
-        const DUALMOD_3 = 0x00080000;
+        const DUALMOD_3 = 1 << 19;
+        const DUALMOD_2 = 1 << 18;
+        const DUALMOD_1 = 1 << 17;
+        const DUALMOD_0 = 1 << 16;
+        const DUALMOD_MASK = 0xF << 16;
 
-        const JAWDEN = 0x00400000;
-        const AWDEN = 0x00800000;
+        const DISCNUM_2 = 1 << 15;
+        const DISCNUM_1 = 1 << 14;
+        const DISCNUM_0 = 1 << 13;
+        const DISCNUM_MASK = 0x7 << 13;
 
-        const TKENABLE = 0x01000000;
-        const TKITUNE = 0x02000000;
-        const BUFEN = 0x04000000;
+        const JDISCEN = 1 << 12;
+        const DISCEN = 1 << 11;
+        const JAUTO = 1 << 10;
+        const AWDSGL = 1 << 9;
+        const SCAN = 1 << 8;
+        const JEOCIE = 1 << 7;
+        const AWDIE = 1 << 6;
+        const EOCIE = 1 << 5;
 
-        const PGA = 0x18000000;
-        const PGA_0 = 0x08000000;
-        const PGA_1 = 0x10000000;
-
-        const ANA_RST = 0x40000000;
-        const SW_PRE = 0x80000000;
+        const AWDCH_4 = 1 << 4;
+        const AWDCH_3 = 1 << 3;
+        const AWDCH_2 = 1 << 2;
+        const AWDCH_1 = 1 << 1;
+        const AWDCH_0 = 1 << 0;
+        const AWDCH_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR2: u32 {
-        const ADON = 0x00000001;
-        const CONT = 0x00000002;
-        const CAL = 0x00000004;
-        const RSTCAL = 0x00000008;
-        const DMA = 0x00000100;
-        const ALIGN = 0x00000800;
+        const TSVREFE = 1 << 23;
+        const SWSTART = 1 << 22;
+        const JSWSTART = 1 << 21;
+        const EXTTRIG = 1 << 20;
 
-        const JEXTSEL = 0x00007000;
-        const JEXTSEL_0 = 0x00001000;
-        const JEXTSEL_1 = 0x00002000;
-        const JEXTSEL_2 = 0x00004000;
+        const EXTSEL_2 = 1 << 19;
+        const EXTSEL_1 = 1 << 18;
+        const EXTSEL_0 = 1 << 17;
+        const EXTSEL_MASK = 0x7 << 17;
 
-        const JEXTTRIG = 0x00008000;
+        const JEXTTRIG = 1 << 15;
 
-        const EXTSEL = 0x000E0000;
-        const EXTSEL_0 = 0x00020000;
-        const EXTSEL_1 = 0x00040000;
-        const EXTSEL_2 = 0x00080000;
+        const JEXTSEL_2 = 1 << 14;
+        const JEXTSEL_1 = 1 << 13;
+        const JEXTSEL_0 = 1 << 12;
+        const JEXTSEL_MASK = 0x7 << 12;
 
-        const EXTTRIG = 0x00100000;
-        const JSWSTART = 0x00200000;
-        const SWSTART = 0x00400000;
-        const TSVREFE = 0x00800000;
+        const ALIGN = 1 << 11;
+        const DMA = 1 << 8;
+        const RSTCAL = 1 << 3;
+        const CAL = 1 << 2;
+        const CONT = 1 << 1;
+        const ADON = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SAMPTR1: u32 {
-        const SMP10 = 0x00000007;
-        const SMP10_0 = 0x00000001;
-        const SMP10_1 = 0x00000002;
-        const SMP10_2 = 0x00000004;
+        const SMP17_2 = 1 << 23;
+        const SMP17_1 = 1 << 22;
+        const SMP17_0 = 1 << 21;
+        const SMP17_MASK = 0x7 << 21;
 
-        const SMP11 = 0x00000038;
-        const SMP11_0 = 0x00000008;
-        const SMP11_1 = 0x00000010;
-        const SMP11_2 = 0x00000020;
+        const SMP16_2 = 1 << 20;
+        const SMP16_1 = 1 << 19;
+        const SMP16_0 = 1 << 18;
+        const SMP16_MASK = 0x7 << 18;
 
-        const SMP12 = 0x000001C0;
-        const SMP12_0 = 0x00000040;
-        const SMP12_1 = 0x00000080;
-        const SMP12_2 = 0x00000100;
+        const SMP15_2 = 1 << 17;
+        const SMP15_1 = 1 << 16;
+        const SMP15_0 = 1 << 15;
+        const SMP15_MASK = 0x7 << 15;
 
-        const SMP13 = 0x00000E00;
-        const SMP13_0 = 0x00000200;
-        const SMP13_1 = 0x00000400;
-        const SMP13_2 = 0x00000800;
+        const SMP14_2 = 1 << 14;
+        const SMP14_1 = 1 << 13;
+        const SMP14_0 = 1 << 12;
+        const SMP14_MASK = 0x7 << 12;
 
-        const SMP14 = 0x00007000;
-        const SMP14_0 = 0x00001000;
-        const SMP14_1 = 0x00002000;
-        const SMP14_2 = 0x00004000;
+        const SMP13_2 = 1 << 11;
+        const SMP13_1 = 1 << 10;
+        const SMP13_0 = 1 << 9;
+        const SMP13_MASK = 0x7 << 9;
 
-        const SMP15 = 0x00038000;
-        const SMP15_0 = 0x00008000;
-        const SMP15_1 = 0x00010000;
-        const SMP15_2 = 0x00020000;
+        const SMP12_2 = 1 << 8;
+        const SMP12_1 = 1 << 7;
+        const SMP12_0 = 1 << 6;
+        const SMP12_MASK = 0x7 << 6;
 
-        const SMP16 = 0x001C0000;
-        const SMP16_0 = 0x00040000;
-        const SMP16_1 = 0x00080000;
-        const SMP16_2 = 0x00100000;
+        const SMP11_2 = 1 << 5;
+        const SMP11_1 = 1 << 4;
+        const SMP11_0 = 1 << 3;
+        const SMP11_MASK = 0x7 << 3;
 
-        const SMP17 = 0x00E00000;
-        const SMP17_0 = 0x00200000;
-        const SMP17_1 = 0x00400000;
-        const SMP17_2 = 0x00800000;
+        const SMP10_2 = 1 << 2;
+        const SMP10_1 = 1 << 1;
+        const SMP10_0 = 1 << 0;
+        const SMP10_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SAMPTR2: u32 {
-        const SMP0 = 0x00000007;
-        const SMP0_0 = 0x00000001;
-        const SMP0_1 = 0x00000002;
-        const SMP0_2 = 0x00000004;
+        const SMP9_2 = 1 << 29;
+        const SMP9_1 = 1 << 28;
+        const SMP9_0 = 1 << 27;
+        const SMP9_MASK = 0x7 << 27;
 
-        const SMP1 = 0x00000038;
-        const SMP1_0 = 0x00000008;
-        const SMP1_1 = 0x00000010;
-        const SMP1_2 = 0x00000020;
+        const SMP8_2 = 1 << 26;
+        const SMP8_1 = 1 << 25;
+        const SMP8_0 = 1 << 24;
+        const SMP8_MASK = 0x7 << 24;
 
-        const SMP2 = 0x000001C0;
-        const SMP2_0 = 0x00000040;
-        const SMP2_1 = 0x00000080;
-        const SMP2_2 = 0x00000100;
+        const SMP7_2 = 1 << 23;
+        const SMP7_1 = 1 << 22;
+        const SMP7_0 = 1 << 21;
+        const SMP7_MASK = 0x7 << 21;
 
-        const SMP3 = 0x00000E00;
-        const SMP3_0 = 0x00000200;
-        const SMP3_1 = 0x00000400;
-        const SMP3_2 = 0x00000800;
+        const SMP6_2 = 1 << 20;
+        const SMP6_1 = 1 << 19;
+        const SMP6_0 = 1 << 18;
+        const SMP6_MASK = 0x7 << 18;
 
-        const SMP4 = 0x00007000;
-        const SMP4_0 = 0x00001000;
-        const SMP4_1 = 0x00002000;
-        const SMP4_2 = 0x00004000;
+        const SMP5_2 = 1 << 17;
+        const SMP5_1 = 1 << 16;
+        const SMP5_0 = 1 << 15;
+        const SMP5_MASK = 0x7 << 15;
 
-        const SMP5 = 0x00038000;
-        const SMP5_0 = 0x00008000;
-        const SMP5_1 = 0x00010000;
-        const SMP5_2 = 0x00020000;
+        const SMP4_2 = 1 << 14;
+        const SMP4_1 = 1 << 13;
+        const SMP4_0 = 1 << 12;
+        const SMP4_MASK = 0x7 << 12;
 
-        const SMP6 = 0x001C0000;
-        const SMP6_0 = 0x00040000;
-        const SMP6_1 = 0x00080000;
-        const SMP6_2 = 0x00100000;
+        const SMP3_2 = 1 << 11;
+        const SMP3_1 = 1 << 10;
+        const SMP3_0 = 1 << 9;
+        const SMP3_MASK = 0x7 << 9;
 
-        const SMP7 = 0x00E00000;
-        const SMP7_0 = 0x00200000;
-        const SMP7_1 = 0x00400000;
-        const SMP7_2 = 0x00800000;
+        const SMP2_2 = 1 << 8;
+        const SMP2_1 = 1 << 7;
+        const SMP2_0 = 1 << 6;
+        const SMP2_MASK = 0x7 << 6;
 
-        const SMP8 = 0x07000000;
-        const SMP8_0 = 0x01000000;
-        const SMP8_1 = 0x02000000;
-        const SMP8_2 = 0x04000000;
+        const SMP1_2 = 1 << 5;
+        const SMP1_1 = 1 << 4;
+        const SMP1_0 = 1 << 3;
+        const SMP1_MASK = 0x7 << 3;
 
-        const SMP9 = 0x38000000;
-        const SMP9_0 = 0x08000000;
-        const SMP9_1 = 0x10000000;
-        const SMP9_2 = 0x20000000;
+        const SMP0_2 = 1 << 2;
+        const SMP0_1 = 1 << 1;
+        const SMP0_0 = 1 << 0;
+        const SMP0_MASK = 0x7 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IOFR1: u32 {
-        const JOFFSET1 = 0x0FFF;
+        const JOFFSET1_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IOFR2: u32 {
-        const JOFFSET2 = 0x0FFF;
+        const JOFFSET2_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IOFR3: u32 {
-        const JOFFSET3 = 0x0FFF;
+        const JOFFSET3_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IOFR4: u32 {
-        const JOFFSET4 = 0x0FFF;
+        const JOFFSET4_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WDHTR: u32 {
-        const HT = 0x0FFF;
+        const HT_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct WDLTR: u32 {
-        const LT = 0x0FFF;
+        const LT_MASK = 0xFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RSQR1: u32 {
-        const SQ13 = 0x0000001F;
-        const SQ13_0 = 0x00000001;
-        const SQ13_1 = 0x00000002;
-        const SQ13_2 = 0x00000004;
-        const SQ13_3 = 0x00000008;
-        const SQ13_4 = 0x00000010;
+        const L_3 = 1 << 23;
+        const L_2 = 1 << 22;
+        const L_1 = 1 << 21;
+        const L_0 = 1 << 20;
+        const L_MASK = 0xF << 20;
 
-        const SQ14 = 0x000003E0;
-        const SQ14_0 = 0x00000020;
-        const SQ14_1 = 0x00000040;
-        const SQ14_2 = 0x00000080;
-        const SQ14_3 = 0x00000100;
-        const SQ14_4 = 0x00000200;
+        const SQ16_4 = 1 << 19;
+        const SQ16_3 = 1 << 18;
+        const SQ16_2 = 1 << 17;
+        const SQ16_1 = 1 << 16;
+        const SQ16_0 = 1 << 15;
+        const SQ16_MASK = 0x1F << 15;
 
-        const SQ15 = 0x00007C00;
-        const SQ15_0 = 0x00000400;
-        const SQ15_1 = 0x00000800;
-        const SQ15_2 = 0x00001000;
-        const SQ15_3 = 0x00002000;
-        const SQ15_4 = 0x00004000;
+        const SQ15_4 = 1 << 14;
+        const SQ15_3 = 1 << 13;
+        const SQ15_2 = 1 << 12;
+        const SQ15_1 = 1 << 11;
+        const SQ15_0 = 1 << 10;
+        const SQ15_MASK = 0x1F << 10;
 
-        const SQ16 = 0x000F8000;
-        const SQ16_0 = 0x00008000;
-        const SQ16_1 = 0x00010000;
-        const SQ16_2 = 0x00020000;
-        const SQ16_3 = 0x00040000;
-        const SQ16_4 = 0x00080000;
+        const SQ14_4 = 1 << 9;
+        const SQ14_3 = 1 << 8;
+        const SQ14_2 = 1 << 7;
+        const SQ14_1 = 1 << 6;
+        const SQ14_0 = 1 << 5;
+        const SQ14_MASK = 0x1F << 5;
 
-        const L = 0x00F00000;
-        const L_0 = 0x00100000;
-        const L_1 = 0x00200000;
-        const L_2 = 0x00400000;
-        const L_3 = 0x00800000;
+        const SQ13_4 = 1 << 4;
+        const SQ13_3 = 1 << 3;
+        const SQ13_2 = 1 << 2;
+        const SQ13_1 = 1 << 1;
+        const SQ13_0 = 1 << 0;
+        const SQ13_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RSQR2: u32 {
-        const SQ7 = 0x0000001F;
-        const SQ7_0 = 0x00000001;
-        const SQ7_1 = 0x00000002;
-        const SQ7_2 = 0x00000004;
-        const SQ7_3 = 0x00000008;
-        const SQ7_4 = 0x00000010;
+        const SQ12_4 = 1 << 29;
+        const SQ12_3 = 1 << 28;
+        const SQ12_2 = 1 << 27;
+        const SQ12_1 = 1 << 26;
+        const SQ12_0 = 1 << 25;
+        const SQ12_MASK = 0x1F << 25;
 
-        const SQ8 = 0x000003E0;
-        const SQ8_0 = 0x00000020;
-        const SQ8_1 = 0x00000040;
-        const SQ8_2 = 0x00000080;
-        const SQ8_3 = 0x00000100;
-        const SQ8_4 = 0x00000200;
+        const SQ11_4 = 1 << 24;
+        const SQ11_3 = 1 << 23;
+        const SQ11_2 = 1 << 22;
+        const SQ11_1 = 1 << 21;
+        const SQ11_0 = 1 << 20;
+        const SQ11_MASK = 0x1F << 20;
 
-        const SQ9 = 0x00007C00;
-        const SQ9_0 = 0x00000400;
-        const SQ9_1 = 0x00000800;
-        const SQ9_2 = 0x00001000;
-        const SQ9_3 = 0x00002000;
-        const SQ9_4 = 0x00004000;
+        const SQ10_4 = 1 << 19;
+        const SQ10_3 = 1 << 18;
+        const SQ10_2 = 1 << 17;
+        const SQ10_1 = 1 << 16;
+        const SQ10_0 = 1 << 15;
+        const SQ10_MASK = 0x1F << 15;
 
-        const SQ10 = 0x000F8000;
-        const SQ10_0 = 0x00008000;
-        const SQ10_1 = 0x00010000;
-        const SQ10_2 = 0x00020000;
-        const SQ10_3 = 0x00040000;
-        const SQ10_4 = 0x00080000;
+        const SQ9_4 = 1 << 14;
+        const SQ9_3 = 1 << 13;
+        const SQ9_2 = 1 << 12;
+        const SQ9_1 = 1 << 11;
+        const SQ9_0 = 1 << 10;
+        const SQ9_MASK = 0x1F << 10;
 
-        const SQ11 = 0x01F00000;
-        const SQ11_0 = 0x00100000;
-        const SQ11_1 = 0x00200000;
-        const SQ11_2 = 0x00400000;
-        const SQ11_3 = 0x00800000;
-        const SQ11_4 = 0x01000000;
+        const SQ8_4 = 1 << 9;
+        const SQ8_3 = 1 << 8;
+        const SQ8_2 = 1 << 7;
+        const SQ8_1 = 1 << 6;
+        const SQ8_0 = 1 << 5;
+        const SQ8_MASK = 0x1F << 5;
 
-        const SQ12 = 0x3E000000;
-        const SQ12_0 = 0x02000000;
-        const SQ12_1 = 0x04000000;
-        const SQ12_2 = 0x08000000;
-        const SQ12_3 = 0x10000000;
-        const SQ12_4 = 0x20000000;
+        const SQ7_4 = 1 << 4;
+        const SQ7_3 = 1 << 3;
+        const SQ7_2 = 1 << 2;
+        const SQ7_1 = 1 << 1;
+        const SQ7_0 = 1 << 0;
+        const SQ7_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RSQR3: u32 {
-        const SQ1 = 0x0000001F;
-        const SQ1_0 = 0x00000001;
-        const SQ1_1 = 0x00000002;
-        const SQ1_2 = 0x00000004;
-        const SQ1_3 = 0x00000008;
-        const SQ1_4 = 0x00000010;
+        const SQ6_4 = 1 << 29;
+        const SQ6_3 = 1 << 28;
+        const SQ6_2 = 1 << 27;
+        const SQ6_1 = 1 << 26;
+        const SQ6_0 = 1 << 25;
+        const SQ6_MASK = 0x1F << 25;
 
-        const SQ2 = 0x000003E0;
-        const SQ2_0 = 0x00000020;
-        const SQ2_1 = 0x00000040;
-        const SQ2_2 = 0x00000080;
-        const SQ2_3 = 0x00000100;
-        const SQ2_4 = 0x00000200;
+        const SQ5_4 = 1 << 24;
+        const SQ5_3 = 1 << 23;
+        const SQ5_2 = 1 << 22;
+        const SQ5_1 = 1 << 21;
+        const SQ5_0 = 1 << 20;
+        const SQ5_MASK = 0x1F << 20;
 
-        const SQ3 = 0x00007C00;
-        const SQ3_0 = 0x00000400;
-        const SQ3_1 = 0x00000800;
-        const SQ3_2 = 0x00001000;
-        const SQ3_3 = 0x00002000;
-        const SQ3_4 = 0x00004000;
+        const SQ4_4 = 1 << 19;
+        const SQ4_3 = 1 << 18;
+        const SQ4_2 = 1 << 17;
+        const SQ4_1 = 1 << 16;
+        const SQ4_0 = 1 << 15;
+        const SQ4_MASK = 0x1F << 15;
 
-        const SQ4 = 0x000F8000;
-        const SQ4_0 = 0x00008000;
-        const SQ4_1 = 0x00010000;
-        const SQ4_2 = 0x00020000;
-        const SQ4_3 = 0x00040000;
-        const SQ4_4 = 0x00080000;
+        const SQ3_4 = 1 << 14;
+        const SQ3_3 = 1 << 13;
+        const SQ3_2 = 1 << 12;
+        const SQ3_1 = 1 << 11;
+        const SQ3_0 = 1 << 10;
+        const SQ3_MASK = 0x1F << 10;
 
-        const SQ5 = 0x01F00000;
-        const SQ5_0 = 0x00100000;
-        const SQ5_1 = 0x00200000;
-        const SQ5_2 = 0x00400000;
-        const SQ5_3 = 0x00800000;
-        const SQ5_4 = 0x01000000;
+        const SQ2_4 = 1 << 9;
+        const SQ2_3 = 1 << 8;
+        const SQ2_2 = 1 << 7;
+        const SQ2_1 = 1 << 6;
+        const SQ2_0 = 1 << 5;
+        const SQ2_MASK = 0x1F << 5;
 
-        const SQ6 = 0x3E000000;
-        const SQ6_0 = 0x02000000;
-        const SQ6_1 = 0x04000000;
-        const SQ6_2 = 0x08000000;
-        const SQ6_3 = 0x10000000;
-        const SQ6_4 = 0x20000000;
+        const SQ1_4 = 1 << 4;
+        const SQ1_3 = 1 << 3;
+        const SQ1_2 = 1 << 2;
+        const SQ1_1 = 1 << 1;
+        const SQ1_0 = 1 << 0;
+        const SQ1_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ISQR: u32 {
-        const JSQ1 = 0x0000001F;
-        const JSQ1_0 = 0x00000001;
-        const JSQ1_1 = 0x00000002;
-        const JSQ1_2 = 0x00000004;
-        const JSQ1_3 = 0x00000008;
-        const JSQ1_4 = 0x00000010;
+        const JL_1 = 1 << 21;
+        const JL_0 = 1 << 20;
+        const JL_MASK = 0x3 << 20;
 
-        const JSQ2 = 0x000003E0;
-        const JSQ2_0 = 0x00000020;
-        const JSQ2_1 = 0x00000040;
-        const JSQ2_2 = 0x00000080;
-        const JSQ2_3 = 0x00000100;
-        const JSQ2_4 = 0x00000200;
+        const JSQ4_4 = 1 << 19;
+        const JSQ4_3 = 1 << 18;
+        const JSQ4_2 = 1 << 17;
+        const JSQ4_1 = 1 << 16;
+        const JSQ4_0 = 1 << 15;
+        const JSQ4_MASK = 0x1F << 15;
 
-        const JSQ3 = 0x00007C00;
-        const JSQ3_0 = 0x00000400;
-        const JSQ3_1 = 0x00000800;
-        const JSQ3_2 = 0x00001000;
-        const JSQ3_3 = 0x00002000;
-        const JSQ3_4 = 0x00004000;
+        const JSQ3_4 = 1 << 14;
+        const JSQ3_3 = 1 << 13;
+        const JSQ3_2 = 1 << 12;
+        const JSQ3_1 = 1 << 11;
+        const JSQ3_0 = 1 << 10;
+        const JSQ3_MASK = 0x1F << 10;
 
-        const JSQ4 = 0x000F8000;
-        const JSQ4_0 = 0x00008000;
-        const JSQ4_1 = 0x00010000;
-        const JSQ4_2 = 0x00020000;
-        const JSQ4_3 = 0x00040000;
-        const JSQ4_4 = 0x00080000;
+        const JSQ2_4 = 1 << 9;
+        const JSQ2_3 = 1 << 8;
+        const JSQ2_2 = 1 << 7;
+        const JSQ2_1 = 1 << 6;
+        const JSQ2_0 = 1 << 5;
+        const JSQ2_MASK = 0x1F << 5;
 
-        const JL = 0x00300000;
-        const JL_0 = 0x00100000;
-        const JL_1 = 0x00200000;
+        const JSQ1_4 = 1 << 4;
+        const JSQ1_3 = 1 << 3;
+        const JSQ1_2 = 1 << 2;
+        const JSQ1_1 = 1 << 1;
+        const JSQ1_0 = 1 << 0;
+        const JSQ1_MASK = 0x1F << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IDATAR1: u32 {
-        const JDATA = 0xFFFF;
+        const JDATA_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IDATAR2: u32 {
-        const JDATA = 0xFFFF;
+        const JDATA_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IDATAR3: u32 {
-        const JDATA = 0xFFFF;
+        const JDATA_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IDATAR4: u32 {
-        const JDATA = 0xFFFF;
+        const JDATA_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RDATAR: u32 {
-        const DATA = 0x0000FFFF;
-        const ADC2DATA = 0xFFFF0000;
+        const ADC2DATA_MASK = 0xFFFF << 16;
+
+        const DATA_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AUX: u32 {
-        const SMP_SEL_0 = 0x00000001;
-        const SMP_SEL_1 = 0x00000002;
-        const SMP_SEL_2 = 0x00000004;
-        const SMP_SEL_3 = 0x00000008;
-        const SMP_SEL_4 = 0x00000010;
-        const SMP_SEL_5 = 0x00000020;
-        const SMP_SEL_6 = 0x00000040;
-        const SMP_SEL_7 = 0x00000080;
-        const SMP_SEL_8 = 0x00000100;
-        const SMP_SEL_9 = 0x00000200;
-        const SMP_SEL_10 = 0x00000400;
-        const SMP_SEL_11 = 0x00000800;
-        const SMP_SEL_12 = 0x00001000;
-        const SMP_SEL_13 = 0x00002000;
-        const SMP_SEL_14 = 0x00004000;
-        const SMP_SEL_15 = 0x00008000;
-        const SMP_SEL_16 = 0x00010000;
-        const SMP_SEL_17 = 0x00020000;
+        const TO_DFSDM = 1 << 31;
 
-        const TO_DFSDM = 0x80000000;
+        const SMP_SEL_17 = 1 << 17;
+        const SMP_SEL_16 = 1 << 16;
+        const SMP_SEL_15 = 1 << 15;
+        const SMP_SEL_14 = 1 << 14;
+        const SMP_SEL_13 = 1 << 13;
+        const SMP_SEL_12 = 1 << 12;
+        const SMP_SEL_11 = 1 << 11;
+        const SMP_SEL_10 = 1 << 10;
+        const SMP_SEL_9 = 1 << 9;
+        const SMP_SEL_8 = 1 << 8;
+        const SMP_SEL_7 = 1 << 7;
+        const SMP_SEL_6 = 1 << 6;
+        const SMP_SEL_5 = 1 << 5;
+        const SMP_SEL_4 = 1 << 4;
+        const SMP_SEL_3 = 1 << 3;
+        const SMP_SEL_2 = 1 << 2;
+        const SMP_SEL_1 = 1 << 1;
+        const SMP_SEL_0 = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DRV: u32 {
-        const TKEY_OUTEN = 0x0000FFFF;
-        const TKEY_EN = 0x00010000;
+        const TKEY_EN = 1 << 16;
+
+        const TKEY_OUTEN_MASK = 0xFFFF << 0;
     }
 }
 
@@ -506,47 +507,48 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CHARGE1: u32 {
-        const TKCG10 = 0x0007;
-        const TKCG10_1C5 = 0x0000;
-        const TKCG10_7C5 = 0x0001;
-        const TKCG10_13C5 = 0x0002;
-        const TKCG10_28C5 = 0x0003;
-        const TKCG10_41C5 = 0x0004;
-        const TKCG10_55C5 = 0x0005;
-        const TKCG10_71C5 = 0x0006;
-        const TKCG10_239C5 = 0x0007;
+        const TKCG15_MASK = 0x7 << 15;
 
-        const TKCG11 = 0x0038;
-        const TKCG11_1C5 = 0x0000;
-        const TKCG11_7C5 = 0x0008;
-        const TKCG11_13C5 = 0x0010;
-        const TKCG11_28C5 = 0x0018;
-        const TKCG11_41C5 = 0x0020;
-        const TKCG11_55C5 = 0x0028;
-        const TKCG11_71C5 = 0x0030;
-        const TKCG11_239C5 = 0x0038;
+        const TKCG14_MASK = 0x7 << 12;
 
-        const TKCG12 = 0x01C0;
-        const TKCG12_1C5 = 0x0000;
-        const TKCG12_7C5 = 0x0040;
-        const TKCG12_13C5 = 0x0080;
-        const TKCG12_28C5 = 0x00C0;
-        const TKCG12_41C5 = 0x0100;
-        const TKCG12_55C5 = 0x0140;
-        const TKCG12_71C5 = 0x0180;
-        const TKCG12_239C5 = 0x01C0;
+        const TKCG13_239C5 = 0b111 << 9;
+        const TKCG13_71C5 = 0b110 << 9;
+        const TKCG13_55C5 = 0b101 << 9;
+        const TKCG13_41C5 = 0b100 << 9;
+        const TKCG13_28C5 = 0b011 << 9;
+        const TKCG13_13C5 = 0b010 << 9;
+        const TKCG13_7C5 = 0b001 << 9;
+        const TKCG13_1C5 = 0b000 << 9;
+        const TKCG13_MASK = 0x7 << 9;
 
-        const TKCG13 = 0x0E00;
-        const TKCG13_1C5 = 0x0000;
-        const TKCG13_7C5 = 0x0200;
-        const TKCG13_13C5 = 0x0400;
-        const TKCG13_28C5 = 0x0600;
-        const TKCG13_41C5 = 0x0800;
-        const TKCG13_55C5 = 0x0A00;
-        const TKCG13_71C5 = 0x0C00;
-        const TKCG13_239C5 = 0x0E00;
+        const TKCG12_239C5 = 0b111 << 6;
+        const TKCG12_71C5 = 0b110 << 6;
+        const TKCG12_55C5 = 0b101 << 6;
+        const TKCG12_41C5 = 0b100 << 6;
+        const TKCG12_28C5 = 0b011 << 6;
+        const TKCG12_13C5 = 0b010 << 6;
+        const TKCG12_7C5 = 0b001 << 6;
+        const TKCG12_1C5 = 0b000 << 6;
+        const TKCG12_MASK = 0x7 << 6;
 
-        const TKCG14 = 0x7000;
-        const TKCG15 = 0x38000;
+        const TKCG11_239C5 = 0b111 << 3;
+        const TKCG11_71C5 = 0b110 << 3;
+        const TKCG11_55C5 = 0b101 << 3;
+        const TKCG11_41C5 = 0b100 << 3;
+        const TKCG11_28C5 = 0b011 << 3;
+        const TKCG11_13C5 = 0b010 << 3;
+        const TKCG11_7C5 = 0b001 << 3;
+        const TKCG11_1C5 = 0b000 << 3;
+        const TKCG11_MASK = 0x7 << 3;
+
+        const TKCG10_239C5 = 0b111 << 0;
+        const TKCG10_71C5 = 0b110 << 0;
+        const TKCG10_55C5 = 0b101 << 0;
+        const TKCG10_41C5 = 0b100 << 0;
+        const TKCG10_28C5 = 0b011 << 0;
+        const TKCG10_13C5 = 0b010 << 0;
+        const TKCG10_7C5 = 0b001 << 0;
+        const TKCG10_1C5 = 0b000 << 0;
+        const TKCG10_MASK = 0x7 << 0;
     }
 }

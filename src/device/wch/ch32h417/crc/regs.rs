@@ -15,20 +15,20 @@ pub struct CRC {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DATAR: u32 {
-        const DR = 0xFFFFFFFF;
+        const DR_MASK = 0xFFFFFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct IDATAR: u8 {
-        const IDATAR = 0xFF;
+        const IDR_IDATAR_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR: u32 {
-        const RESET = 0x01;
+        const RESET = 1 << 0;
     }
 }

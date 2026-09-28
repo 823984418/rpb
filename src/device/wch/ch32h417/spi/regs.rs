@@ -30,121 +30,122 @@ pub struct SPI {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u16 {
-        const CPHA = 0x0001;
-        const CPOL = 0x0002;
-        const MSTR = 0x0004;
+        const BIDIMODE = 1 << 15;
+        const BIDIOE = 1 << 14;
+        const CRCEN = 1 << 13;
+        const CRCNEXT = 1 << 12;
+        const DFF = 1 << 11;
+        const RXONLY = 1 << 10;
+        const SSM = 1 << 9;
+        const SSI = 1 << 8;
+        const LSBFIRST = 1 << 7;
+        const SPE = 1 << 6;
 
-        const BR = 0x0038;
-        const BR_0 = 0x0008;
-        const BR_1 = 0x0010;
-        const BR_2 = 0x0020;
+        const BR_2 = 1 << 5;
+        const BR_1 = 1 << 4;
+        const BR_0 = 1 << 3;
+        const BR_MASK = 0x7 << 3;
 
-        const SPE = 0x0040;
-        const LSBFIRST = 0x0080;
-        const SSI = 0x0100;
-        const SSM = 0x0200;
-        const RXONLY = 0x0400;
-        const DFF = 0x0800;
-        const CRCNEXT = 0x1000;
-        const CRCEN = 0x2000;
-        const BIDIOE = 0x4000;
-        const BIDIMODE = 0x8000;
+        const MSTR = 1 << 2;
+        const CPOL = 1 << 1;
+        const CPHA = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR2: u16 {
-        const RXDMAEN = 0x01;
-        const TXDMAEN = 0x02;
-        const SSOE = 0x04;
-        const ERRIE = 0x20;
-        const RXNEIE = 0x40;
-        const TXEIE = 0x80;
+        const TXEIE = 1 << 7;
+        const RXNEIE = 1 << 6;
+        const ERRIE = 1 << 5;
+        const SSOE = 1 << 2;
+        const TXDMAEN = 1 << 1;
+        const RXDMAEN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATR: u16 {
-        const RXNE = 0x01;
-        const TXE = 0x02;
-        const CHSIDE = 0x04;
-        const UDR = 0x08;
-        const CRCERR = 0x10;
-        const MODF = 0x20;
-        const OVR = 0x40;
-        const BSY = 0x80;
+        const BSY = 1 << 7;
+        const OVR = 1 << 6;
+        const MODF = 1 << 5;
+        const CRCERR = 1 << 4;
+        const UDR = 1 << 3;
+        const CHSIDE = 1 << 2;
+        const TXE = 1 << 1;
+        const RXNE = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct DATAR: u16 {
-        const DR = 0xFFFF;
+        const DR_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CRCR: u16 {
-        const CRCPOLY = 0xFFFF;
+        const CRCPOLY_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct RCRCR: u16 {
-        const RXCRC = 0xFFFF;
+        const RXCRC_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TCRCR: u16 {
-        const TXCRC = 0xFFFF;
+        const TXCRC_MASK = 0xFFFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct I2SCFGR: u16 {
-        const CHLEN = 0x0001;
+        const I2SMOD = 1 << 11;
+        const I2SE = 1 << 10;
 
-        const DATLEN = 0x0006;
-        const DATLEN_0 = 0x0002;
-        const DATLEN_1 = 0x0004;
+        const I2SCFG_1 = 1 << 9;
+        const I2SCFG_0 = 1 << 8;
+        const I2SCFG_MASK = 0x3 << 8;
 
-        const CKPOL = 0x0008;
+        const PCMSYNC = 1 << 7;
 
-        const I2SSTD = 0x0030;
-        const I2SSTD_0 = 0x0010;
-        const I2SSTD_1 = 0x0020;
+        const I2SSTD_1 = 1 << 5;
+        const I2SSTD_0 = 1 << 4;
+        const I2SSTD_MASK = 0x3 << 4;
 
-        const PCMSYNC = 0x0080;
+        const CKPOL = 1 << 3;
 
-        const I2SCFG = 0x0300;
-        const I2SCFG_0 = 0x0100;
-        const I2SCFG_1 = 0x0200;
+        const DATLEN_1 = 1 << 2;
+        const DATLEN_0 = 1 << 1;
+        const DATLEN_MASK = 0x3 << 1;
 
-        const I2SE = 0x0400;
-        const I2SMOD = 0x0800;
+        const CHLEN = 1 << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct I2SPR: u16 {
-        const I2SDIV = 0x00FF;
-        const ODD = 0x0100;
-        const MCKOE = 0x0200;
+        const MCKOE = 1 << 9;
+        const ODD = 1 << 8;
+
+        const I2SDIV_MASK = 0xFF << 0;
     }
 }
 
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct HSCR: u16 {
-        const HSRXEN = 0x0001;
-        const HSRXEN2 = 0x0004;
+        const HSRXEN2 = 1 << 2;
+        const HSRXEN = 1 << 0;
     }
 }
