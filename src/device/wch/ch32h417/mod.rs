@@ -196,9 +196,9 @@ impl Device {
                 .PLLCFGR
                 .bit_clear(rcc::PLLCFGR::SYSPLL_GATE | rcc::PLLCFGR::SYSPLL_SEL_MASK);
 
-            while self.RCC.PLLCFGR.get() & rcc::PLLCFGR::SYSPLL_SEL_MASK
-                != rcc::PLLCFGR::SYSPLL_PLL
-            {}
+            while self.RCC.PLLCFGR.get() & rcc::PLLCFGR::SYSPLL_SEL_MASK != rcc::PLLCFGR::SYSPLL_PLL
+            {
+            }
 
             self.RCC.CFGR0.bit_clear_or(
                 rcc::CFGR0::FPRE_MASK | rcc::CFGR0::HPRE_MASK,
