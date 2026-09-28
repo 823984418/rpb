@@ -19,7 +19,7 @@ pub struct USART {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct STATR: u32 {
-        const USART_WKUP = 1 << 15;
+        const LPWKUP_ACT_FLAG = 1 << 15;
         const MS_ERR = 1 << 11;
         const RX_BUSY = 1 << 10;
         const CTS = 1 << 9;
@@ -55,12 +55,10 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR1: u32 {
-        const M_EXT_1 = 1 << 15;
-        const M_EXT_0 = 1 << 14;
-
-        const M_EXT5 = 0b11 << 14;
-        const M_EXT6 = 0b10 << 14;
-        const M_EXT7 = 0b01 << 14;
+        const M_EXT_5 = 0b11 << 14;
+        const M_EXT_6 = 0b10 << 14;
+        const M_EXT_7 = 0b01 << 14;
+        const M_EXT_M = 0b00 << 14;
         const M_EXT_MASK = 0x3 << 14;
 
         const UE = 1 << 13;
@@ -85,8 +83,10 @@ bitflags! {
     pub struct CTLR2: u32 {
         const LINEN = 1 << 14;
 
-        const STOP_1 = 1 << 13;
-        const STOP_0 = 1 << 12;
+        const STOP_1_5 = 0b11 << 12;
+        const STOP_2 = 0b10 << 12;
+        const STOP_0_5 = 0b01 << 12;
+        const STOP_1 = 0b00 << 12;
         const STOP_MASK = 0x3 << 12;
 
         const CLKEN = 1 << 11;
@@ -125,14 +125,6 @@ bitflags! {
     pub struct GPR: u32 {
         const GT_MASK = 0xFF << 8;
 
-        const PSC_7 = 1 << 7;
-        const PSC_6 = 1 << 6;
-        const PSC_5 = 1 << 5;
-        const PSC_4 = 1 << 4;
-        const PSC_3 = 1 << 3;
-        const PSC_2 = 1 << 2;
-        const PSC_1 = 1 << 1;
-        const PSC_0 = 1 << 0;
         const PSC_MASK = 0xFF << 0;
     }
 }
@@ -140,10 +132,9 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR4: u32 {
+        const CHECK_SEL_SPACEENABLE = 0b11 << 2;
+        const CHECK_SEL_MARKENABLE = 0b10 << 2;
         const CHECK_SEL_MASK = 0x3 << 2;
-
-        const CHECK_APACEENABLE = 0b11 << 2;
-        const CHECK_MARKENABLE = 0b10 << 2;
 
         const MS_ERRIE = 1 << 1;
     }
