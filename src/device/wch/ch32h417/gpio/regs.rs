@@ -20,138 +20,74 @@ bitflags! {
     pub struct CFGR: u32 {
         const CFGLR_CNF_MASK = 0xCCCCCCCC << 0;
 
-        const CFGLR_CNF7_1 = 1 << 31;
-        const CFGLR_CNF7_0 = 1 << 30;
         const CFGLR_CNF7_MASK = 0x3 << 30;
 
         const CFGLR_MODE_MASK = 0x33333333 << 0;
 
-        const CFGLR_MODE7_1 = 1 << 29;
-        const CFGLR_MODE7_0 = 1 << 28;
         const CFGLR_MODE7_MASK = 0x3 << 28;
 
-        const CFGLR_CNF6_1 = 1 << 27;
-        const CFGLR_CNF6_0 = 1 << 26;
         const CFGLR_CNF6_MASK = 0x3 << 26;
 
-        const CFGLR_MODE6_1 = 1 << 25;
-        const CFGLR_MODE6_0 = 1 << 24;
         const CFGLR_MODE6_MASK = 0x3 << 24;
 
-        const CFGLR_CNF5_1 = 1 << 23;
-        const CFGLR_CNF5_0 = 1 << 22;
         const CFGLR_CNF5_MASK = 0x3 << 22;
 
-        const CFGLR_MODE5_1 = 1 << 21;
-        const CFGLR_MODE5_0 = 1 << 20;
         const CFGLR_MODE5_MASK = 0x3 << 20;
 
-        const CFGLR_CNF4_1 = 1 << 19;
-        const CFGLR_CNF4_0 = 1 << 18;
         const CFGLR_CNF4_MASK = 0x3 << 18;
 
-        const CFGLR_MODE4_1 = 1 << 17;
-        const CFGLR_MODE4_0 = 1 << 16;
         const CFGLR_MODE4_MASK = 0x3 << 16;
 
-        const CFGLR_CNF3_1 = 1 << 15;
-        const CFGLR_CNF3_0 = 1 << 14;
         const CFGLR_CNF3_MASK = 0x3 << 14;
 
-        const CFGLR_MODE3_1 = 1 << 13;
-        const CFGLR_MODE3_0 = 1 << 12;
         const CFGLR_MODE3_MASK = 0x3 << 12;
 
-        const CFGLR_CNF2_1 = 1 << 11;
-        const CFGLR_CNF2_0 = 1 << 10;
         const CFGLR_CNF2_MASK = 0x3 << 10;
 
-        const CFGLR_MODE2_1 = 1 << 9;
-        const CFGLR_MODE2_0 = 1 << 8;
         const CFGLR_MODE2_MASK = 0x3 << 8;
 
-        const CFGLR_CNF1_1 = 1 << 7;
-        const CFGLR_CNF1_0 = 1 << 6;
         const CFGLR_CNF1_MASK = 0x3 << 6;
 
-        const CFGLR_MODE1_1 = 1 << 5;
-        const CFGLR_MODE1_0 = 1 << 4;
         const CFGLR_MODE1_MASK = 0x3 << 4;
 
-        const CFGLR_CNF0_1 = 1 << 3;
-        const CFGLR_CNF0_0 = 1 << 2;
         const CFGLR_CNF0_MASK = 0x3 << 2;
 
-        const CFGLR_MODE0_1 = 1 << 1;
-        const CFGLR_MODE0_0 = 1 << 0;
         const CFGLR_MODE0_MASK = 0x3 << 0;
 
         const CFGHR_CNF_MASK = 0xCCCCCCCC << 0;
 
-        const CFGHR_CNF15_1 = 1 << 31;
-        const CFGHR_CNF15_0 = 1 << 30;
         const CFGHR_CNF15_MASK = 0x3 << 30;
 
         const CFGHR_MODE_MASK = 0x33333333 << 0;
 
-        const CFGHR_MODE15_1 = 1 << 29;
-        const CFGHR_MODE15_0 = 1 << 28;
         const CFGHR_MODE15_MASK = 0x3 << 28;
 
-        const CFGHR_CNF14_1 = 1 << 27;
-        const CFGHR_CNF14_0 = 1 << 26;
         const CFGHR_CNF14_MASK = 0x3 << 26;
 
-        const CFGHR_MODE14_1 = 1 << 25;
-        const CFGHR_MODE14_0 = 1 << 24;
         const CFGHR_MODE14_MASK = 0x3 << 24;
 
-        const CFGHR_CNF13_1 = 1 << 23;
-        const CFGHR_CNF13_0 = 1 << 22;
         const CFGHR_CNF13_MASK = 0x3 << 22;
 
-        const CFGHR_MODE13_1 = 1 << 21;
-        const CFGHR_MODE13_0 = 1 << 20;
         const CFGHR_MODE13_MASK = 0x3 << 20;
 
-        const CFGHR_CNF12_1 = 1 << 19;
-        const CFGHR_CNF12_0 = 1 << 18;
         const CFGHR_CNF12_MASK = 0x3 << 18;
 
-        const CFGHR_MODE12_1 = 1 << 17;
-        const CFGHR_MODE12_0 = 1 << 16;
         const CFGHR_MODE12_MASK = 0x3 << 16;
 
-        const CFGHR_CNF11_1 = 1 << 15;
-        const CFGHR_CNF11_0 = 1 << 14;
         const CFGHR_CNF11_MASK = 0x3 << 14;
 
-        const CFGHR_MODE11_1 = 1 << 13;
-        const CFGHR_MODE11_0 = 1 << 12;
         const CFGHR_MODE11_MASK = 0x3 << 12;
 
-        const CFGHR_CNF10_1 = 1 << 11;
-        const CFGHR_CNF10_0 = 1 << 10;
         const CFGHR_CNF10_MASK = 0x3 << 10;
 
-        const CFGHR_MODE10_1 = 1 << 9;
-        const CFGHR_MODE10_0 = 1 << 8;
         const CFGHR_MODE10_MASK = 0x3 << 8;
 
-        const CFGHR_CNF9_1 = 1 << 7;
-        const CFGHR_CNF9_0 = 1 << 6;
         const CFGHR_CNF9_MASK = 0x3 << 6;
 
-        const CFGHR_MODE9_1 = 1 << 5;
-        const CFGHR_MODE9_0 = 1 << 4;
         const CFGHR_MODE9_MASK = 0x3 << 4;
 
-        const CFGHR_CNF8_1 = 1 << 3;
-        const CFGHR_CNF8_0 = 1 << 2;
         const CFGHR_CNF8_MASK = 0x3 << 2;
 
-        const CFGHR_MODE8_1 = 1 << 1;
-        const CFGHR_MODE8_0 = 1 << 0;
         const CFGHR_MODE8_MASK = 0x3 << 0;
     }
 }
@@ -365,9 +301,6 @@ pub struct AFIO {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PCFR1: u32 {
-        const SWJ_CFG_2 = 1 << 26;
-        const SWJ_CFG_1 = 1 << 25;
-        const SWJ_CFG_0 = 1 << 24;
         const SWJ_CFG_MASK = 0x7 << 24;
 
         const USBPD_CC_HVT = 1 << 20;
@@ -378,16 +311,10 @@ bitflags! {
 
         const TIM2ITR1_REMAP = 1 << 12;
 
-        const SDMMC_REMAP_1 = 1 << 11;
-        const SDMMC_REMAP_0 = 1 << 10;
         const SDMMC_REMAP_MASK = 0x3 << 10;
 
-        const UHSIF_PORT_REMAP_1 = 1 << 9;
-        const UHSIF_PORT_REMAP_0 = 1 << 8;
         const UHSIF_PORT_REMAP_MASK = 0x3 << 8;
 
-        const UHSIF_CLK_REMAP_1 = 1 << 7;
-        const UHSIF_CLK_REMAP_0 = 1 << 6;
         const UHSIF_CLK_REMAP_MASK = 0x3 << 6;
 
         const ADC2_ETRGREG_REMAP = 1 << 4;
@@ -401,52 +328,20 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AFLR: u32 {
-        const AFR7_3 = 1 << 31;
-        const AFR7_2 = 1 << 30;
-        const AFR7_1 = 1 << 29;
-        const AFR7_0 = 1 << 28;
         const AFR7_MASK = 0xF << 28;
 
-        const AFR6_3 = 1 << 27;
-        const AFR6_2 = 1 << 26;
-        const AFR6_1 = 1 << 25;
-        const AFR6_0 = 1 << 24;
         const AFR6_MASK = 0xF << 24;
 
-        const AFR5_3 = 1 << 23;
-        const AFR5_2 = 1 << 22;
-        const AFR5_1 = 1 << 21;
-        const AFR5_0 = 1 << 20;
         const AFR5_MASK = 0xF << 20;
 
-        const AFR4_3 = 1 << 19;
-        const AFR4_2 = 1 << 18;
-        const AFR4_1 = 1 << 17;
-        const AFR4_0 = 1 << 16;
         const AFR4_MASK = 0xF << 16;
 
-        const AFR3_3 = 1 << 15;
-        const AFR3_2 = 1 << 14;
-        const AFR3_1 = 1 << 13;
-        const AFR3_0 = 1 << 12;
         const AFR3_MASK = 0xF << 12;
 
-        const AFR2_3 = 1 << 11;
-        const AFR2_2 = 1 << 10;
-        const AFR2_1 = 1 << 9;
-        const AFR2_0 = 1 << 8;
         const AFR2_MASK = 0xF << 8;
 
-        const AFR1_3 = 1 << 7;
-        const AFR1_2 = 1 << 6;
-        const AFR1_1 = 1 << 5;
-        const AFR1_0 = 1 << 4;
         const AFR1_MASK = 0xF << 4;
 
-        const AFR0_3 = 1 << 3;
-        const AFR0_2 = 1 << 2;
-        const AFR0_1 = 1 << 1;
-        const AFR0_0 = 1 << 0;
         const AFR0_MASK = 0xF << 0;
     }
 }
@@ -454,52 +349,20 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct AFHR: u32 {
-        const AFR15_3 = 1 << 31;
-        const AFR15_2 = 1 << 30;
-        const AFR15_1 = 1 << 29;
-        const AFR15_0 = 1 << 28;
         const AFR15_MASK = 0xF << 28;
 
-        const AFR14_3 = 1 << 27;
-        const AFR14_2 = 1 << 26;
-        const AFR14_1 = 1 << 25;
-        const AFR14_0 = 1 << 24;
         const AFR14_MASK = 0xF << 24;
 
-        const AFR13_3 = 1 << 23;
-        const AFR13_2 = 1 << 22;
-        const AFR13_1 = 1 << 21;
-        const AFR13_0 = 1 << 20;
         const AFR13_MASK = 0xF << 20;
 
-        const AFR12_3 = 1 << 19;
-        const AFR12_2 = 1 << 18;
-        const AFR12_1 = 1 << 17;
-        const AFR12_0 = 1 << 16;
         const AFR12_MASK = 0xF << 16;
 
-        const AFR11_3 = 1 << 15;
-        const AFR11_2 = 1 << 14;
-        const AFR11_1 = 1 << 13;
-        const AFR11_0 = 1 << 12;
         const AFR11_MASK = 0xF << 12;
 
-        const AFR10_3 = 1 << 11;
-        const AFR10_2 = 1 << 10;
-        const AFR10_1 = 1 << 9;
-        const AFR10_0 = 1 << 8;
         const AFR10_MASK = 0xF << 8;
 
-        const AFR9_3 = 1 << 7;
-        const AFR9_2 = 1 << 6;
-        const AFR9_1 = 1 << 5;
-        const AFR9_0 = 1 << 4;
         const AFR9_MASK = 0xF << 4;
 
-        const AFR8_3 = 1 << 3;
-        const AFR8_2 = 1 << 2;
-        const AFR8_1 = 1 << 1;
-        const AFR8_0 = 1 << 0;
         const AFR8_MASK = 0xF << 0;
     }
 }

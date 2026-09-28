@@ -34,9 +34,6 @@ pub struct GPHA {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR: u32 {
-        const MODE_2 = 1 << 18;
-        const MODE_1 = 1 << 17;
-        const MODE_0 = 1 << 16;
         const MODE_MASK = 0x7 << 16;
 
         const CEIE = 1 << 13;
@@ -109,23 +106,14 @@ bitflags! {
         const RBS = 1 << 21;
         const AI = 1 << 20;
 
-        const CSS_1 = 1 << 19;
-        const CSS_0 = 1 << 18;
         const CSS_MASK = 0x3 << 18;
 
-        const AM_1 = 1 << 17;
-        const AM_0 = 1 << 16;
         const AM_MASK = 0x3 << 16;
 
         const CS_MASK = 0xFF << 8;
 
         const START = 1 << 5;
         const CCM = 1 << 4;
-
-        const CM_3 = 1 << 3;
-        const CM_2 = 1 << 2;
-        const CM_1 = 1 << 1;
-        const CM_0 = 1 << 0;
 
         const CM_YcbCr = 0b1011 << 0;
         const CM_A4 = 0b1010 << 0;
@@ -160,19 +148,12 @@ bitflags! {
         const RBS = 1 << 21;
         const AI = 1 << 20;
 
-        const AM_1 = 1 << 17;
-        const AM_0 = 1 << 16;
         const AM_MASK = 0x3 << 16;
 
         const CS_MASK = 0xFF << 8;
 
         const START = 1 << 5;
         const CCM = 1 << 4;
-
-        const CM_3 = 1 << 3;
-        const CM_2 = 1 << 2;
-        const CM_1 = 1 << 1;
-        const CM_0 = 1 << 0;
 
         const CM_A4 = 0b1010 << 0;
         const CM_A8 = 0b1001 << 0;
@@ -217,10 +198,6 @@ bitflags! {
     pub struct OPFCCR: u32 {
         const RBS = 1 << 21;
         const AI = 1 << 20;
-
-        const CM_2 = 1 << 2;
-        const CM_1 = 1 << 1;
-        const CM_0 = 1 << 0;
 
         const CM_ARGB4444 = 0b100 << 0;
         const CM_ARGB1555 = 0b011 << 0;

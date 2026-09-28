@@ -111,16 +111,10 @@ bitflags! {
         const DOUBLE_MODE = 1 << 15;
         const MEM2MEM = 1 << 14;
 
-        const PL_1 = 1 << 13;
-        const PL_0 = 1 << 12;
         const PL_MASK = 0x3 << 12;
 
-        const MSIZE_1 = 1 << 11;
-        const MSIZE_0 = 1 << 10;
         const MSIZE_MASK = 0x3 << 10;
 
-        const PSIZE_1 = 1 << 9;
-        const PSIZE_0 = 1 << 8;
         const PSIZE_MASK = 0x3 << 8;
 
         const MINC = 1 << 7;

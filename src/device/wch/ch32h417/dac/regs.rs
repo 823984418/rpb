@@ -25,19 +25,10 @@ bitflags! {
     pub struct CTLR: u32 {
         const DMAEN2 = 1 << 28;
 
-        const MAMP2_3 = 1 << 27;
-        const MAMP2_2 = 1 << 26;
-        const MAMP2_1 = 1 << 25;
-        const MAMP2_0 = 1 << 24;
         const MAMP2_MASK = 0xF << 24;
 
-        const WAVE2_1 = 1 << 23;
-        const WAVE2_0 = 1 << 22;
         const WAVE2_MASK = 0x3 << 22;
 
-        const TSEL2_2 = 1 << 21;
-        const TSEL2_1 = 1 << 20;
-        const TSEL2_0 = 1 << 19;
         const TSEL2_MASK = 0x7 << 19;
 
         const TEN2 = 1 << 18;
@@ -45,19 +36,10 @@ bitflags! {
         const EN2 = 1 << 16;
         const DMAEN1 = 1 << 12;
 
-        const MAMP1_3 = 1 << 11;
-        const MAMP1_2 = 1 << 10;
-        const MAMP1_1 = 1 << 9;
-        const MAMP1_0 = 1 << 8;
         const MAMP1_MASK = 0xF << 8;
 
-        const WAVE1_1 = 1 << 7;
-        const WAVE1_0 = 1 << 6;
         const WAVE1_MASK = 0x3 << 6;
 
-        const TSEL1_2 = 1 << 5;
-        const TSEL1_1 = 1 << 4;
-        const TSEL1_0 = 1 << 3;
         const TSEL1_MASK = 0x7 << 3;
 
         const TEN1 = 1 << 2;

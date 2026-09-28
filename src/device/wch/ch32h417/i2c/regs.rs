@@ -54,12 +54,6 @@ bitflags! {
         const ITEVTEN = 1 << 9;
         const ITERREN = 1 << 8;
 
-        const FREQ_5 = 1 << 5;
-        const FREQ_4 = 1 << 4;
-        const FREQ_3 = 1 << 3;
-        const FREQ_2 = 1 << 2;
-        const FREQ_1 = 1 << 1;
-        const FREQ_0 = 1 << 0;
         const FREQ_MASK = 0x3F << 0;
     }
 }

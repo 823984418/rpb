@@ -172,9 +172,6 @@ bitflags! {
 
         const TEC_MASK = 0xFF << 16;
 
-        const LEC_2 = 1 << 6;
-        const LEC_1 = 1 << 5;
-        const LEC_0 = 1 << 4;
         const LEC_MASK = 0x7 << 4;
 
         const BOFF = 1 << 2;

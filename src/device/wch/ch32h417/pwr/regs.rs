@@ -12,10 +12,6 @@ pub struct PWR {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CTLR: u32 {
-        const VSEL_VIO18_2 = 1 << 12;
-        const VSEL_VIO18_1 = 1 << 11;
-        const VSEL_VIO18_0 = 1 << 10;
-
         const VSEL_VIO18_MODE7 = 0b111 << 10;
         const VSEL_VIO18_MODE6 = 0b110 << 10;
         const VSEL_VIO18_MODE5 = 0b101 << 10;
@@ -28,10 +24,6 @@ bitflags! {
 
         const VIO_SWCR = 1 << 9;
         const DBP = 1 << 8;
-
-        const PLS_2 = 1 << 7;
-        const PLS_1 = 1 << 6;
-        const PLS_0 = 1 << 5;
 
         const PLS_MODE7 = 0b111 << 5;
         const PLS_MODE6 = 0b110 << 5;
@@ -51,8 +43,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CSR: u32 {
-        const VIO18_SR_1 = 1 << 9;
-        const VIO18_SR_0 = 1 << 8;
         const VIO18_SR_MASK = 0x3 << 8;
 
         const PVDO = 1 << 0;

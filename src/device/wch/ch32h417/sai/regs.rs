@@ -27,24 +27,15 @@ bitflags! {
         const EN = 1 << 16;
         const MONO = 1 << 12;
 
-        const SYNCEN_1 = 1 << 11;
-        const SYNCEN_0 = 1 << 10;
         const SYNCEN_MASK = 0x3 << 10;
 
         const CKSTR = 1 << 9;
         const LSBFIRST = 1 << 8;
 
-        const DS_2 = 1 << 7;
-        const DS_1 = 1 << 6;
-        const DS_0 = 1 << 5;
         const DS_MASK = 0x7 << 5;
 
-        const PRTCFG_1 = 1 << 3;
-        const PRTCFG_0 = 1 << 2;
         const PRTCFG_MASK = 0x3 << 2;
 
-        const MODE_1 = 1 << 1;
-        const MODE_0 = 1 << 0;
         const MODE_MASK = 0x3 << 0;
     }
 }
@@ -63,9 +54,6 @@ bitflags! {
         const TRIS = 1 << 4;
         const FFLUSH = 1 << 3;
 
-        const FTH_2 = 1 << 2;
-        const FTH_1 = 1 << 1;
-        const FTH_0 = 1 << 0;
         const FTH_MASK = 0x7 << 0;
     }
 }
@@ -112,9 +100,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct SR: u32 {
-        const FLTH_2 = 0x3 << 16;
-        const FLTH_1 = 1 << 17;
-        const FLTH_0 = 1 << 16;
         const FLTH_MASK = 0x7 << 16;
 
         const LFSDET = 1 << 6;

@@ -41,8 +41,6 @@ bitflags! {
         const EHMOD = 1 << 7;
         const ENHANCE_STATUS = 1 << 6;
 
-        const SCK_CFG_1 = 1 << 1;
-        const SCK_CFG_0 = 1 << 0;
         const SCK_CFG_MASK = 0x3 << 0;
 
         const LATENCY_HCLK_DIV4 = 0b10 << 0;

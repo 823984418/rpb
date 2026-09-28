@@ -476,9 +476,6 @@ bitflags! {
 
         const RTCEN = 1 << 8;
 
-        const RTCSEL_1 = 1 << 7;
-        const RTCSEL_0 = 1 << 6;
-
         const RTCSEL_HSE = 0b11 << 6;
         const RTCSEL_LSI = 0b10 << 6;
         const RTCSEL_LSE = 0b01 << 6;
@@ -532,17 +529,11 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CFGR2: u32 {
-        const ETH1GSRC_1 = 1 << 31;
-        const ETH1GSRC_0 = 1 << 30;
-
         const ETH1GSRC_SERDESPLL_DIV8 = 0b11 << 30;
         const ETH1GSRC_ETHPLL_DIV4 = 0b10 << 30;
         const ETH1GSRC_USBSSPLL = 0b01 << 30;
         const ETH1GSRC_PLLCLK = 0b00 << 30;
         const ETH1GSRC_MASK = 0x3 << 30;
-
-        const HSADCSRC_1 = 1 << 29;
-        const HSADCSRC_0 = 1 << 28;
 
         const HSADCSRC_ETHPLL = 0b11 << 28;
         const HSADCSRC_USBHSPLL = 0b10 << 28;
@@ -566,11 +557,6 @@ bitflags! {
         const USBFSSRC_USBHSPLL = 1 << 20;
         const USBFSSRC_PLLCLK = 0b0 << 20;
 
-        const USBFSDIV_3 = 1 << 19;
-        const USBFSDIV_2 = 1 << 18;
-        const USBFSDIV_1 = 1 << 17;
-        const USBFSDIV_0 = 1 << 16;
-
         const USBFSDIV_DIV9_5 = 0b1111 << 16;
         const USBFSDIV_DIV7_5 = 0b1110 << 16;
         const USBFSDIV_DIV6_5 = 0b1101 << 16;
@@ -589,21 +575,11 @@ bitflags! {
         const USBFSDIV_DIV1 = 0b0000 << 16;
         const USBFSDIV_MASK = 0xF << 16;
 
-        const LTDCSRC_1 = 1 << 15;
-        const LTDCSRC_0 = 1 << 14;
-
         const LTDCSRC_USBHSPLL = 0b11 << 14;
         const LTDCSRC_ETHPLL = 0b10 << 14;
         const LTDCSRC_SERDESPLL = 0b01 << 14;
         const LTDCSRC_PLLCLK = 0b00 << 14;
         const LTDCSRC_MASK = 0x3 << 14;
-
-        const LTDCDIV_5 = 1 << 13;
-        const LTDCDIV_4 = 1 << 12;
-        const LTDCDIV_3 = 1 << 11;
-        const LTDCDIV_2 = 1 << 10;
-        const LTDCDIV_1 = 1 << 9;
-        const LTDCDIV_0 = 1 << 8;
 
         const LTDCDIV_DIV64 = 0b111111 << 8;
         const LTDCDIV_DIV63 = 0b111110 << 8;
@@ -671,21 +647,11 @@ bitflags! {
         const LTDCDIV_DIV1 = 0b000000 << 8;
         const LTDCDIV_MASK = 0x3F << 8;
 
-        const UHSIFSRC_1 = 1 << 7;
-        const UHSIFSRC_0 = 1 << 6;
-
         const UHSIFSRC_ETHPLL = 0b11 << 6;
         const UHSIFSRC_USBHSPLL = 0b10 << 6;
         const UHSIFSRC_PLLCLK = 0b01 << 6;
         const UHSIFSRC_SYSCLK = 0b00 << 6;
         const UHSIFSRC_MASK = 0x3 << 6;
-
-        const UHSIFDIV_5 = 1 << 5;
-        const UHSIFDIV_4 = 1 << 4;
-        const UHSIFDIV_3 = 1 << 3;
-        const UHSIFDIV_2 = 1 << 2;
-        const UHSIFDIV_1 = 1 << 1;
-        const UHSIFDIV_0 = 1 << 0;
 
         const UHSIFDIV_DIV64 = 0b111111 << 0;
         const UHSIFDIV_DIV63 = 0b111110 << 0;
@@ -758,11 +724,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PLLCFGR2: u32 {
-        const SERDESPLL_MUL_3 = 1 << 19;
-        const SERDESPLL_MUL_2 = 1 << 18;
-        const SERDESPLL_MUL_1 = 1 << 17;
-        const SERDESPLL_MUL_0 = 1 << 16;
-
         const SERDESPLL_MUL90 = 0b1111 << 16;
         const SERDESPLL_MUL80 = 0b1110 << 16;
         const SERDESPLL_MUL76 = 0b1101 << 16;
@@ -780,12 +741,6 @@ bitflags! {
         const SERDESPLL_MUL28 = 0b0001 << 16;
         const SERDESPLL_MUL25 = 0b0000 << 16;
         const SERDESPLL_MUL_MASK = 0xF << 16;
-
-        const USBHSPLL_IN_DIV_4 = 1 << 12;
-        const USBHSPLL_IN_DIV_3 = 1 << 11;
-        const USBHSPLL_IN_DIV_2 = 1 << 10;
-        const USBHSPLL_IN_DIV_1 = 1 << 9;
-        const USBHSPLL_IN_DIV_0 = 1 << 8;
 
         const USBHSPLL_IN_DIV32 = 0b11111 << 8;
         const USBHSPLL_IN_DIV31 = 0b11110 << 8;
@@ -821,10 +776,6 @@ bitflags! {
         const USBHSPLL_IN_DIV1 = 0b00000 << 8;
         const USBHSPLL_IN_DIV_MASK = 0x1F << 8;
 
-        const USBSSPLL_REFSEL_2 = 0b11 << 4;
-        const USBSSPLL_REFSEL_1 = 1 << 5;
-        const USBSSPLL_REFSEL_0 = 1 << 4;
-
         const USBSSPLL_REFSEL_80MHZ = 0b111 << 4;
         const USBSSPLL_REFSEL_60MHZ = 0b110 << 4;
         const USBSSPLL_REFSEL_40MHZ = 0b101 << 4;
@@ -835,17 +786,11 @@ bitflags! {
         const USBSSPLL_REFSEL_20MHZ = 0b000 << 4;
         const USBSSPLL_REFSEL_MASK = 0x7 << 4;
 
-        const USBHSPLL_REFSEL_1 = 1 << 3;
-        const USBHSPLL_REFSEL_0 = 1 << 2;
-
         const USBHSPLL_REFSEL_32MHZ = 0b11 << 2;
         const USBHSPLL_REFSEL_24MHZ = 0b10 << 2;
         const USBHSPLL_REFSEL_20MHZ = 0b01 << 2;
         const USBHSPLL_REFSEL_25MHZ = 0b00 << 2;
         const USBHSPLL_REFSEL_MASK = 0x3 << 2;
-
-        const USBHSPLLSRC_1 = 1 << 1;
-        const USBHSPLLSRC_0 = 1 << 0;
 
         const USBHSPLLSRC_PLLCLK = 0b11 << 0;
         const USBHSPLLSRC_ETHCLK_20M = 0b10 << 0;

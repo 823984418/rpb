@@ -55,8 +55,6 @@ bitflags! {
         const DMAEN = 1 << 3;
         const ALL_CLR = 1 << 2;
 
-        const LW_MASK_1 = 1 << 1;
-        const LW_MASK_0 = 1 << 0;
         const LW_MASK = 0x3 << 0;
     }
 }
@@ -121,8 +119,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct TRAN_MODE: u32 {
-        const SW_1 = 1 << 20;
-        const SW_0 = 1 << 19;
         const SW_MASK = 0x3 << 19;
 
         const CARE_NEG = 1 << 18;

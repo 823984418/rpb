@@ -103,8 +103,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct OR: u32 {
-        const SWP_ISEL_1 = 1 << 3;
-        const SWP_ISEL_0 = 1 << 2;
         const SWP_ISEL_MASK = 0x3 << 2;
 
         const SWP_TBYP = 1 << 0;

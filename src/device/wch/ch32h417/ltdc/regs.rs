@@ -77,19 +77,10 @@ bitflags! {
         const DEPOL = 1 << 29;
         const PCPOL = 1 << 28;
 
-        const DRW_2 = 1 << 14;
-        const DRW_1 = 1 << 13;
-        const DRW_0 = 1 << 12;
         const DRW_MASK = 0x7 << 12;
 
-        const DGW_2 = 1 << 10;
-        const DGW_1 = 1 << 9;
-        const DGW_0 = 1 << 8;
         const DGW_MASK = 0x7 << 8;
 
-        const DBW_2 = 1 << 6;
-        const DBW_1 = 1 << 5;
-        const DBW_0 = 1 << 4;
         const DBW_MASK = 0x7 << 4;
 
         const LTDCEN = 1 << 0;
@@ -203,10 +194,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PFCR: u32 {
-        const PF_2 = 1 << 2;
-        const PF_1 = 1 << 1;
-        const PF_0 = 1 << 0;
-
         const PF_AL88 = 0b111 << 0;
         const PF_AL44 = 0b110 << 0;
         const PF_L8 = 0b101 << 0;
@@ -239,14 +226,8 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct BFCR: u32 {
-        const BF1_2 = 1 << 10;
-        const BF1_1 = 1 << 9;
-        const BF1_0 = 1 << 8;
         const BF1_MASK = 0x7 << 8;
 
-        const BF2_2 = 1 << 2;
-        const BF2_1 = 1 << 1;
-        const BF2_0 = 1 << 0;
         const BF2_MASK = 0x7 << 0;
     }
 }

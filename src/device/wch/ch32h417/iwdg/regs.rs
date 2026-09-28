@@ -21,9 +21,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct PSCR: u32 {
-        const PR_2 = 1 << 2;
-        const PR_1 = 1 << 1;
-        const PR_0 = 1 << 0;
         const PR_MASK = 0x7 << 0;
     }
 }

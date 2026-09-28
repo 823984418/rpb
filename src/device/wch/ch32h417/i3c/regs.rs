@@ -51,10 +51,6 @@ bitflags! {
     pub struct CTLR: u32 {
         const MEND = 1 << 31;
 
-        const MTYPE_3 = 1 << 30;
-        const MTYPE_2 = 1 << 29;
-        const MTYPE_1 = 1 << 28;
-        const MTYPE_0 = 1 << 27;
         const MTYPE_MASK = 0xF << 27;
 
         const ADD_MASK = 0x7F << 17;
@@ -296,12 +292,8 @@ bitflags! {
     pub struct DEVR0: u32 {
         const RSTVAL = 1 << 24;
 
-        const RSTACT_1 = 1 << 23;
-        const RSTACT_0 = 1 << 22;
         const RSTACT_MASK = 0x3 << 22;
 
-        const AS_1 = 1 << 21;
-        const AS_0 = 1 << 20;
         const AS_MASK = 0x3 << 20;
 
         const HJEN = 1 << 19;
@@ -373,9 +365,6 @@ bitflags! {
 bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct MAXRLR: u32 {
-        const IBIP_2 = 1 << 18;
-        const IBIP_1 = 1 << 17;
-        const IBIP_0 = 1 << 16;
         const IBIP_MASK = 0x7 << 16;
 
         const MRL_MASK = 0xFFFF << 0;
@@ -456,12 +445,8 @@ bitflags! {
 
         const RDTURN_MASK = 0xFF << 16;
 
-        const FMT_1 = 1 << 9;
-        const FMT_0 = 1 << 8;
         const FMT_MASK = 0x3 << 8;
 
-        const HOFFAS_1 = 1 << 1;
-        const HOFFAS_0 = 1 << 0;
         const HOFFAS_MASK = 0x3 << 0;
     }
 }

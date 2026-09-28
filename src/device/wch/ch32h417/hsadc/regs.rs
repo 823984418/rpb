@@ -22,23 +22,12 @@ bitflags! {
         const BURST_EN = 1 << 15;
         const PPMODE = 1 << 14;
 
-        const CLKDIV_5 = 1 << 13;
-        const CLKDIV_4 = 1 << 12;
-        const CLKDIV_3 = 1 << 11;
-        const CLKDIV_2 = 1 << 10;
-        const CLKDIV_1 = 1 << 9;
-        const CLKDIV_0 = 1 << 8;
         const CLKDIV_MASK = 0x3F << 8;
 
         const WIDTH = 1 << 7;
 
-        const SETUP_1 = 1 << 6;
-        const SETUP_0 = 1 << 5;
         const SETUP_MASK = 0x3 << 5;
 
-        const CHSEL_2 = 1 << 4;
-        const CHSEL_1 = 1 << 3;
-        const CHSEL_0 = 1 << 2;
         const CHSEL_MASK = 0x7 << 2;
 
         const DMAEN = 1 << 1;

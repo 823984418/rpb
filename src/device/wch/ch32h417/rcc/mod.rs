@@ -138,7 +138,7 @@ impl RCC {
                 clocks.SYSCLK = RCC::HSE_VALUE;
             }
             _ => match self.PLLCFGR.get() & PLLCFGR::SYSPLL_SEL_MASK {
-                PLLCFGR::SYSPLL_PLL => {
+                PLLCFGR::SYSPLL_SEL_PLL => {
                     let pllcfgr = self.PLLCFGR.get();
                     let pllmul = pllcfgr & PLLCFGR::PLLMUL_MASK;
                     let presc = ((pllcfgr & PLLCFGR::PLL_SRC_DIV_MASK).bits() >> 8) + 1;
@@ -185,19 +185,19 @@ impl RCC {
                         }
                     }
                 }
-                PLLCFGR::SYSPLL_USBHS => {
+                PLLCFGR::SYSPLL_SEL_USBHS => {
                     clocks.SYSCLK = 480_000_000;
                 }
-                PLLCFGR::SYSPLL_ETH => {
+                PLLCFGR::SYSPLL_SEL_ETH => {
                     clocks.SYSCLK = 500_000_000;
                 }
-                PLLCFGR::SYSPLL_SERDES => {
+                PLLCFGR::SYSPLL_SEL_SERDES => {
                     clocks.SYSCLK = Self::HSE_VALUE
                         * SERDESPLLMULTable
                             [(self.PLLCFGR2.get() & PLLCFGR2::SERDESPLL_MUL_MASK).bits() as usize]
                             as u32;
                 }
-                PLLCFGR::SYSPLL_USBSS => {
+                PLLCFGR::SYSPLL_SEL_USBSS => {
                     clocks.SYSCLK = 125_000_000;
                 }
                 _ => {

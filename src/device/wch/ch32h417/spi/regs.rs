@@ -41,9 +41,6 @@ bitflags! {
         const LSBFIRST = 1 << 7;
         const SPE = 1 << 6;
 
-        const BR_2 = 1 << 5;
-        const BR_1 = 1 << 4;
-        const BR_0 = 1 << 3;
         const BR_MASK = 0x7 << 3;
 
         const MSTR = 1 << 2;
@@ -112,20 +109,14 @@ bitflags! {
         const I2SMOD = 1 << 11;
         const I2SE = 1 << 10;
 
-        const I2SCFG_1 = 1 << 9;
-        const I2SCFG_0 = 1 << 8;
         const I2SCFG_MASK = 0x3 << 8;
 
         const PCMSYNC = 1 << 7;
 
-        const I2SSTD_1 = 1 << 5;
-        const I2SSTD_0 = 1 << 4;
         const I2SSTD_MASK = 0x3 << 4;
 
         const CKPOL = 1 << 3;
 
-        const DATLEN_1 = 1 << 2;
-        const DATLEN_0 = 1 << 1;
         const DATLEN_MASK = 0x3 << 1;
 
         const CHLEN = 1 << 0;
