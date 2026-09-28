@@ -61,11 +61,6 @@ bitflags! {
         const ADCSRC = 1 << 31;
         const ADC_DUTY_SEL = 1 << 30;
 
-        const MCO_3 = 1 << 27;
-        const MCO_2 = 1 << 26;
-        const MCO_1 = 1 << 25;
-        const MCO_0 = 1 << 24;
-
         const MCO_SERDES_DIV16 = 0b1011 << 24;
         const MCO_ETH_PLL_DIV8 = 0b1010 << 24;
         const MCO_USBSS_PLL_DIV2 = 0b1001 << 24;
@@ -81,16 +76,10 @@ bitflags! {
         const PIPEON = 1 << 22;
         const RGMIION = 1 << 21;
 
-        const FPRE_1 = 1 << 17;
-        const FPRE_0 = 1 << 16;
-
         const FPRE_DIV4 = 0b10 << 16;
         const FPRE_DIV2 = 0b01 << 16;
         const FPRE_DIV1 = 0b00 << 16;
         const FPRE_MASK = 0x3 << 16;
-
-        const ADCPRE_1 = 1 << 15;
-        const ADCPRE_0 = 1 << 14;
 
         const ADCPRE_DIV36 = 0b11111 << 11;
         const ADCPRE_DIV35 = 0b11110 << 11;
@@ -130,21 +119,12 @@ bitflags! {
         const ADCPRE_DIV5 = 0b00000 << 11;
         const ADCPRE_MASK = 0x3 << 14;
 
-        const PPRE2_2 = 1 << 13;
-        const PPRE2_1 = 1 << 12;
-        const PPRE2_0 = 1 << 11;
-
         const PPRE2_ADCL_DIV16 = 0b111 << 11;
         const PPRE2_ADCL_DIV8 = 0b110 << 11;
         const PPRE2_ADCL_DIV4 = 0b101 << 11;
         const PPRE2_ADCL_DIV2 = 0b100 << 11;
         const PPRE2_ADCL_DIV1 = 0b000 << 11;
         const PPRE2_MASK = 0x7 << 11;
-
-        const HPRE_3 = 1 << 7;
-        const HPRE_2 = 1 << 6;
-        const HPRE_1 = 1 << 5;
-        const HPRE_0 = 1 << 4;
 
         const HPRE_DIV512 = 0b1111 << 4;
         const HPRE_DIV256 = 0b1110 << 4;
@@ -157,16 +137,10 @@ bitflags! {
         const HPRE_DIV1 = 0b0000 << 4;
         const HPRE_MASK = 0xF << 4;
 
-        const SWS_1 = 1 << 3;
-        const SWS_0 = 1 << 2;
-
         const SWS_PLL = 0b10 << 2;
         const SWS_HSE = 0b01 << 2;
         const SWS_HSI = 0b00 << 2;
         const SWS_MASK = 0x3 << 2;
-
-        const SW_1 = 1 << 1;
-        const SW_0 = 1 << 0;
 
         const SW_PLL = 0b10 << 0;
         const SW_HSE = 0b01 << 0;
@@ -180,23 +154,12 @@ bitflags! {
     pub struct PLLCFGR: u32 {
         const SYSPLL_GATE = 1 << 31;
 
-        const SYSPLL_SEL_2 = 1 << 30;
-        const SYSPLL_SEL_1 = 1 << 29;
-        const SYSPLL_SEL_0 = 1 << 28;
-
-        const SYSPLL_USBSS = 0b111 << 28;
-        const SYSPLL_SERDES = 0b110 << 28;
-        const SYSPLL_ETH = 0b101 << 28;
-        const SYSPLL_USBHS = 0b100 << 28;
-        const SYSPLL_PLL = 0b000 << 28;
+        const SYSPLL_SEL_USBSS = 0b111 << 28;
+        const SYSPLL_SEL_SERDES = 0b110 << 28;
+        const SYSPLL_SEL_ETH = 0b101 << 28;
+        const SYSPLL_SEL_USBHS = 0b100 << 28;
+        const SYSPLL_SEL_PLL = 0b000 << 28;
         const SYSPLL_SEL_MASK = 0x7 << 28;
-
-        const PLL_SRC_DIV_5 = 1 << 13;
-        const PLL_SRC_DIV_4 = 1 << 12;
-        const PLL_SRC_DIV_3 = 1 << 11;
-        const PLL_SRC_DIV_2 = 1 << 10;
-        const PLL_SRC_DIV_1 = 1 << 9;
-        const PLL_SRC_DIV_0 = 1 << 8;
 
         const PLL_SRC_DIV64 = 0b111111 << 8;
         const PLL_SRC_DIV63 = 0b111110 << 8;
@@ -264,10 +227,6 @@ bitflags! {
         const PLL_SRC_DIV1 = 0b000000 << 8;
         const PLL_SRC_DIV_MASK = 0x3F << 8;
 
-        const PLLSRC_4 = 1 << 7;
-        const PLLSRC_2 = 1 << 6;
-        const PLLSRC_0 = 1 << 5;
-
         const PLLSRC_SERDES_PLL = 0b111 << 5;
         const PLLSRC_USBSS_PLL = 0b110 << 5;
         const PLLSRC_ETH_PLL = 0b101 << 5;
@@ -275,12 +234,6 @@ bitflags! {
         const PLLSRC_HSE = 0b001 << 5;
         const PLLSRC_HSI = 0b000 << 5;
         const PLLSRC_MASK = 0x7 << 5;
-
-        const PLLMUL_4 = 1 << 4;
-        const PLLMUL_3 = 1 << 3;
-        const PLLMUL_2 = 1 << 2;
-        const PLLMUL_1 = 1 << 1;
-        const PLLMUL_0 = 1 << 0;
 
         const PLLMUL59 = 0b11111 << 0;
         const PLLMUL40 = 0b11110 << 0;
