@@ -1,5 +1,3 @@
-pub mod uart0;
-pub mod uart1;
+mod regs;
 
-pub use uart0::UART0;
-pub use uart1::UART1;
+pub use regs::*;

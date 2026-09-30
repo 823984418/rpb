@@ -1,5 +1,3 @@
-pub mod pwm3;
-pub mod pwm4;
+mod regs;
 
-pub use pwm3::PWM3;
-pub use pwm4::PWM4;
+pub use regs::*;

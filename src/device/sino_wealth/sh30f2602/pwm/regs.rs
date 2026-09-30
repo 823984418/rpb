@@ -2,10 +2,10 @@ use bitflags::bitflags;
 
 use crate::register::Reg;
 
-/// PWM4 register block.
+/// PWM register block.
 #[derive(Debug)]
 #[repr(C)]
-pub struct PWM4 {
+pub struct PWM {
     pub CR: Reg<CR>,
     pub PWMLOCK: Reg<PWMLOCK>,
     pub PWMPR: Reg<PWMPR>,

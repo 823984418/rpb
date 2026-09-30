@@ -2,10 +2,10 @@ use bitflags::bitflags;
 
 use crate::register::Reg;
 
-/// TIM7 register block.
+/// TIM register block.
 #[derive(Debug)]
 #[repr(C)]
-pub struct TIM7 {
+pub struct TIM {
     pub CR: Reg<CR>,
     pub TCNT: Reg<TCNT>,
     pub TPR: Reg<TPR>,

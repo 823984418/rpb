@@ -21,11 +21,11 @@ use crate::peripheral::Block;
 pub struct Device {
     pub PCA0: Block<pca::PCA0, 0x40000400>,
 
-    pub TIM7: Block<tim::tim7::TIM7, 0x40000C00>,
-    pub TIM8: Block<tim::tim8::TIM8, 0x40001000>,
+    pub TIM7: Block<tim::TIM, 0x40000C00>,
+    pub TIM8: Block<tim::TIM, 0x40001000>,
 
-    pub UART0: Block<uart::uart0::UART0, 0x40001800>,
-    pub UART1: Block<uart::uart1::UART1, 0x40001C00>,
+    pub UART0: Block<uart::UART, 0x40001800>,
+    pub UART1: Block<uart::UART, 0x40001C00>,
 
     pub SPI0: Block<spi::SPI0, 0x40002400>,
 
@@ -36,8 +36,8 @@ pub struct Device {
 
     pub EXTI: Block<exti::EXTI, 0x40004000>,
 
-    pub PWM3: Block<pwm::pwm3::PWM3, 0x40005000>,
-    pub PWM4: Block<pwm::pwm4::PWM4, 0x40005400>,
+    pub PWM3: Block<pwm::PWM, 0x40005000>,
+    pub PWM4: Block<pwm::PWM, 0x40005400>,
 
     pub GPIOA: Block<gpio::GPIO, 0x40040000>,
     pub GPIOB: Block<gpio::GPIO, 0x40040080>,

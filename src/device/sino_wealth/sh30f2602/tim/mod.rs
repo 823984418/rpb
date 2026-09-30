@@ -1,5 +1,3 @@
-pub mod tim7;
-pub mod tim8;
+mod regs;
 
-pub use tim7::TIM7;
-pub use tim8::TIM8;
+pub use regs::*;
