@@ -17,6 +17,7 @@ pub struct DMA_Channel {
 pub struct DMA {
     pub INTFR: Reg<INTFR>,
     pub INTFCR: Reg<INTFCR>,
+    pub channel: [DMA_Channel; 8],
 }
 
 #[derive(Debug)]
@@ -26,6 +27,12 @@ pub struct DMAMUX {
     pub CFGR4_7: Reg<CFGR4_7>,
     pub CFGR8_11: Reg<CFGR8_11>,
     pub CFGR12_15: Reg<CFGR12_15>,
+}
+
+impl DMAMUX {
+    pub fn CFGR(&self) -> &[Reg<DMAMUX_CFGR>; 16] {
+        unsafe { &*(self as *const Self as *const [Reg<DMAMUX_CFGR>; 16]) }
+    }
 }
 
 bitflags! {
@@ -153,6 +160,130 @@ bitflags! {
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct M1ADDR: u32 {
         const M1A_MASK = 0xFFFFFFFF << 0;
+    }
+}
+
+bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct DMAMUX_CFGR: u8 {
+        const TIM7_UP = 123;
+        const TIM6_UP = 122;
+        const ADC2 = 121;
+        const ADC1 = 120;
+
+        const SAI_B_RX = 115;
+        const SAI_B_TX = 114;
+        const SAI_A_RX = 113;
+        const SAI_A_TX = 112;
+        const SDIO = 111;
+
+        const DFSDM_DMA1 = 108;
+        const DFSDM_DMA0 = 107;
+
+        const DAC2 = 104;
+        const DAC1 = 103;
+        const SWPMI1_RX = 102;
+        const SWPMI1_TX = 101;
+        const USART8_RX = 100;
+        const USART8_TX = 99;
+        const USART7_RX = 98;
+        const USART7_TX = 97;
+        const USART6_RX = 96;
+        const USART6_TX = 95;
+        const USART5_RX = 94;
+        const USART5_TX = 93;
+        const USART4_RX = 92;
+        const USART4_TX = 91;
+        const USART3_RX = 90;
+        const USART3_TX = 89;
+        const USART2_RX = 88;
+        const USART2_TX = 87;
+        const USART1_RX = 86;
+        const USART1_TX = 85;
+        const I3C_RX = 84;
+        const I3C_TX = 83;
+        const I3C_TC = 82;
+        const I3C_RS = 81;
+        const I2C4_RX = 80;
+        const I2C4_TX = 79;
+        const I2C3_RX = 78;
+        const I2C3_TX = 77;
+        const I2C2_RX = 76;
+        const I2C2_TX = 75;
+        const I2C1_RX = 74;
+        const I2C1_TX = 73;
+        const QSPI2_DMA = 72;
+        const QSPI1_DMA = 71;
+        const SPI4_RX = 70;
+        const SPI4_TX = 69;
+        const SPI3_RX = 68;
+        const SPI3_TX = 67;
+        const SPI2_RX = 66;
+        const SPI2_TX = 65;
+        const SPI1_RX = 64;
+        const SPI1_TX = 63;
+        const TIM12_TRIG = 62;
+        const TIM12_UP = 61;
+        const TIM12_CH4 = 60;
+        const TIM12_CH3 = 59;
+        const TIM12_CH2 = 58;
+        const TIM12_CH1 = 57;
+        const TIM11_TRIG = 56;
+        const TIM11_UP = 55;
+        const TIM11_CH4 = 54;
+        const TIM11_CH3 = 53;
+        const TIM11_CH2 = 52;
+        const TIM11_CH1 = 51;
+        const TIM10_TRIG = 50;
+        const TIM10_UP = 49;
+        const TIM10_CH4 = 48;
+        const TIM10_CH3 = 47;
+        const TIM10_CH2 = 46;
+        const TIM10_CH1 = 45;
+        const TIM9_TRIG = 44;
+        const TIM9_UP = 43;
+        const TIM9_CH4 = 42;
+        const TIM9_CH3 = 41;
+        const TIM9_CH2 = 40;
+        const TIM9_CH1 = 39;
+        const TIM8_TRIG = 38;
+        const TIM8_COM = 37;
+        const TIM8_UP = 36;
+        const TIM8_CH4 = 35;
+        const TIM8_CH3 = 34;
+        const TIM8_CH2 = 33;
+        const TIM8_CH1 = 32;
+        const TIM5_TRIG = 31;
+        const TIM5_UP = 30;
+        const TIM5_CH4 = 29;
+        const TIM5_CH3 = 28;
+        const TIM5_CH2 = 27;
+        const TIM5_CH1 = 26;
+        const TIM4_TRIG = 25;
+        const TIM4_UP = 24;
+        const TIM4_CH4 = 23;
+        const TIM4_CH3 = 22;
+        const TIM4_CH2 = 21;
+        const TIM4_CH1 = 20;
+        const TIM3_TRIG = 19;
+        const TIM3_UP = 18;
+        const TIM3_CH4 = 17;
+        const TIM3_CH3 = 16;
+        const TIM3_CH2 = 15;
+        const TIM3_CH1 = 14;
+        const TIM2_TRIG = 13;
+        const TIM2_UP = 12;
+        const TIM2_CH4 = 11;
+        const TIM2_CH3 = 10;
+        const TIM2_CH2 = 9;
+        const TIM2_CH1 = 8;
+        const TIM1_TRIG = 7;
+        const TIM1_COM = 6;
+        const TIM1_UP = 5;
+        const TIM1_CH4 = 4;
+        const TIM1_CH3 = 3;
+        const TIM1_CH2 = 2;
+        const TIM1_CH1 = 1;
     }
 }
 
