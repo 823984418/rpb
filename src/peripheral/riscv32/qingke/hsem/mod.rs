@@ -126,15 +126,15 @@ impl HSEM {
     /// 设置信号量 Key。
     ///
     /// - `Key`：信号量 Key，0~0xFFFF
-    pub fn SetClearKey(&self, Key: u32) {
-        self.CLR.set(CLR::from_bits_retain(Key << 16));
+    pub fn SetClearKey(&self, Key: u16) {
+        self.CLR.set(CLR::from_bits_retain((Key as u32) << 16));
     }
 
     /// 获取信号量 Key。
     ///
     /// 返回 0~0xFFFF 的信号量 Key。
-    pub fn GetClearKey(&self) -> u32 {
-        self.KEY.get().bits() >> 16
+    pub fn GetClearKey(&self) -> u16 {
+        (self.KEY.get().bits() >> 16) as u16
     }
 
     /// 使能或失能指定信号量的中断。
