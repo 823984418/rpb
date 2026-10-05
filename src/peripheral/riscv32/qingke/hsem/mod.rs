@@ -177,3 +177,40 @@ impl HSEM {
         self.ISR.set(1 << HSEM_ID as usize);
     }
 }
+
+/// 信号量编号
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+pub enum HSEM_ID {
+    HSEM_ID0 = 0,
+    HSEM_ID1,
+    HSEM_ID2,
+    HSEM_ID3,
+    HSEM_ID4,
+    HSEM_ID5,
+    HSEM_ID6,
+    HSEM_ID7,
+    HSEM_ID8,
+    HSEM_ID9,
+    HSEM_ID10,
+    HSEM_ID11,
+    HSEM_ID12,
+    HSEM_ID13,
+    HSEM_ID14,
+    HSEM_ID15,
+    HSEM_ID16,
+    HSEM_ID17,
+    HSEM_ID18,
+    HSEM_ID19,
+    HSEM_ID20,
+    HSEM_ID21,
+    HSEM_ID22,
+    HSEM_ID23,
+    HSEM_ID24,
+    HSEM_ID25,
+    HSEM_ID26,
+    HSEM_ID27,
+    HSEM_ID28,
+    HSEM_ID29,
+    HSEM_ID30,
+    HSEM_ID31,
+}
