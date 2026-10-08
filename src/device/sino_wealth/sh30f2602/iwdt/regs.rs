@@ -28,6 +28,7 @@ bitflags! {
     /// `CLR` (0x4).
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CLR: u32 {
+        const IWDTCLR_VALUE = 0xAAAA << 0;
         const IWDTCLR_MASK = 0xffff << 0;
     }
 }

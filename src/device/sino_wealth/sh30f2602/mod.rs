@@ -21,55 +21,55 @@ use crate::peripheral::Block;
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 #[repr(u16)]
 pub enum Interrupt {
-    ///0 - Window WatchDog Interrupt
+    /// 0 - Window WatchDog Interrupt
     WWDT = 0,
-    ///1 - PVD through EXTI Line detection Interrupt
+    /// 1 - PVD through EXTI Line detection Interrupt
     BOD = 1,
-    ///2 - RCC global Interrupt
+    /// 2 - RCC global Interrupt
     RCC = 2,
-    ///3 - EXTI Line0 Interrupt
+    /// 3 - EXTI Line0 Interrupt
     EXTI0 = 3,
-    ///4 - EXTI Line1 Interrupt
+    /// 4 - EXTI Line1 Interrupt
     EXTI1 = 4,
-    ///5 - EXTI Line2 Interrupt
+    /// 5 - EXTI Line2 Interrupt
     EXTI2 = 5,
-    ///6 - EXTI Line3 Interrupt
+    /// 6 - EXTI Line3 Interrupt
     EXTI3 = 6,
-    ///7 - MCM FAULT Interrupt
+    /// 7 - MCM FAULT Interrupt
     MCM_FLT = 7,
-    ///8 - MCM PWM Interrupt
+    /// 8 - MCM PWM Interrupt
     MCM_PWM = 8,
-    ///9 - ADC Interrupt
+    /// 9 - ADC Interrupt
     ADC = 9,
-    ///10 - PCA0 Interrupt
+    /// 10 - PCA0 Interrupt
     PCA0 = 10,
-    ///12 - PCA0 Fault Interrupt
+    /// 12 - PCA0 Fault Interrupt
     PCA0_FLT = 12,
-    ///13 - CMP2 Interrupt
+    /// 13 - CMP2 Interrupt
     CMP2 = 13,
-    ///14 - CMP0 Interrupt
+    /// 14 - CMP0 Interrupt
     CMP0 = 14,
-    ///15 - CMP1 Interrupt
+    /// 15 - CMP1 Interrupt
     CMP1 = 15,
-    ///16 - Reserved
+    /// 16 - Reserved
     EXTI4 = 16,
-    ///17 - Reserved
+    /// 17 - Reserved
     EXTI5 = 17,
-    ///18 - PWM3 Interrupt
+    /// 18 - PWM3 Interrupt
     PWM3 = 18,
-    ///19 - SPI Interrupt
+    /// 19 - SPI Interrupt
     SPI = 19,
-    ///20 - UART0 Interrupt
+    /// 20 - UART0 Interrupt
     UART0 = 20,
-    ///21 - UART1 Interrupt
+    /// 21 - UART1 Interrupt
     UART1 = 21,
-    ///22 - PWM4 Interrupt
+    /// 22 - PWM4 Interrupt
     PWM4 = 22,
-    ///23 - TIM7 Interrupt
+    /// 23 - TIM7 Interrupt
     TIM7 = 23,
-    ///24 - TIM8 Interrupt
+    /// 24 - TIM8 Interrupt
     TIM8 = 24,
-    ///25 - EXTI Line6/7 Interrupt
+    /// 25 - EXTI Line6/7 Interrupt
     EXTI67 = 25,
 }
 
