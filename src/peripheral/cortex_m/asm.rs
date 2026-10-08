@@ -34,7 +34,7 @@ pub fn delay(cycles: u32) {
     cfg_select! {
         all(target_arch = "arm", target_feature = "v6m") => unsafe {
             let real_cyc = cycles.saturating_add(1);
-            asm!(
+            core::arch::asm!(
                 // The `bne` on some cores (eg Cortex-M4) will take a different number of instructions
                 // depending on the alignment of the branch target.  Set the alignment of the top of the
                 // loop to prevent surprising timing changes when the alignment of the delay() changes.

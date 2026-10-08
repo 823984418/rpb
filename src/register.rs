@@ -1,5 +1,6 @@
 use core::cell::UnsafeCell;
 use core::fmt::{Debug, Formatter};
+use core::mem::MaybeUninit;
 use core::ops::{BitAnd, BitOr, Deref, DerefMut, Not};
 
 #[repr(transparent)]
@@ -98,7 +99,13 @@ pub type Reg64 = Reg<u64>;
 pub type Reg128 = Reg<u128>;
 
 #[repr(transparent)]
-pub struct Reserved<T>(UnsafeCell<T>);
+pub struct Reserved<T>(UnsafeCell<MaybeUninit<T>>);
+
+impl<T> Default for Reserved<T> {
+    fn default() -> Self {
+        Self(UnsafeCell::new(MaybeUninit::uninit()))
+    }
+}
 
 impl<T> Debug for Reserved<T> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {

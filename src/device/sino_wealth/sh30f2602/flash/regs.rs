@@ -39,7 +39,8 @@ bitflags! {
     /// `ACR` (0x0).
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ACR: u32 {
-        const LOCK_MASK = 0xffff << 16;
+        const LOCK_VALUE = 0x5AA5 << 16;
+        const LOCK_MASK = 0xFFFF << 16;
 
         const PRFTEN = 1 << 12;
 
@@ -51,6 +52,14 @@ bitflags! {
 
         const CACHEN = 1 << 8;
 
+        const LATENCY_7 = 0b111 << 0;
+        const LATENCY_6 = 0b110 << 0;
+        const LATENCY_5 = 0b101 << 0;
+        const LATENCY_4 = 0b100 << 0;
+        const LATENCY_3 = 0b011 << 0;
+        const LATENCY_2 = 0b010 << 0;
+        const LATENCY_1 = 0b001 << 0;
+        const LATENCY_0 = 0b000 << 0;
         const LATENCY_MASK = 0x7 << 0;
     }
 }
