@@ -33,10 +33,10 @@ bitflags! {
         const PWM3 = 0b011_0010;
         const PCA0 = 0b100_0001;
 
-        const MCM1 = 0b101_1000;
-        const MCM2 = 0b101_0100;
-        const MCM3 = 0b101_0010;
         const MCM4 = 0b101_0001;
+        const MCM3 = 0b101_0010;
+        const MCM2 = 0b101_0100;
+        const MCM1 = 0b101_1000;
     }
 }
 
