@@ -10,38 +10,57 @@ pub struct AMOC {
     pub CMP1CON: Reg<CMP1CON>,
     pub CMPINTF: Reg<CMPINTF>,
     pub OPCON: Reg<OPCON>,
-    pub CMP2CON: Reg<CMP2CON>,
+    pub CMP2CON: Reg<CMP1CON>,
 }
 
 bitflags! {
     /// `CMP0CON` (0x0).
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMP0CON: u32 {
-        const CP0NOUTEN = 1 << 30;
+        /// 内部电压输出到引脚
+        const NOUTEN = 1 << 30;
 
-        const CMP0VREF_MASK = 0xf << 26;
+        /// 内部电压选择
+        const VREF_MASK = 0xF << 26;
 
         const TRGPOL = 1 << 22;
 
         const PWMTRGS_MASK = 0x3 << 20;
 
+        /// VSUM控制
         const VSUMCHS_MASK = 0x3 << 17;
 
+        /// VSUM输出到引脚
         const CHSUMOUTEN = 1 << 16;
 
-        const CMP0EN = 1 << 15;
+        /// 比较器使能
+        const EN = 1 << 15;
 
-        const C0OUTEN = 1 << 12;
+        /// 结果输出到引脚
+        const OUTEN = 1 << 12;
 
-        const C0IES_MASK = 0x3 << 10;
+        /// 中断模式选择
+        const IES_MASK = 0x3 << 10;
 
-        const OP0NCHS_MASK = 0x3 << 8;
+        /// 反相输入端
+        const NCHS_MASK = 0x3 << 8;
 
-        const OP0PCHS_MASK = 0x7 << 4;
+        /// 同相输入端
+        const PCHS_MASK = 0x7 << 4;
 
-        const C0OUT = 1 << 3;
+        /// 比较器输出
+        const OUT = 1 << 3;
 
-        const C0DEB_MASK = 0x7 << 0;
+        const DEB_HSI_128 = 0b111 << 0;
+        const DEB_HSI_96 = 0b110 << 0;
+        const DEB_HSI_64 = 0b101 << 0;
+        const DEB_HSI_32 = 0b100 << 0;
+        const DEB_HSI_16 = 0b011 << 0;
+        const DEB_HSI_8 = 0b010 << 0;
+        const DEB_HSI_4 = 0b001 << 0;
+        const DEB_NONE = 0b000 << 0;
+        /// 输出信号滤波
+        const DEB_MASK = 0x7 << 0;
     }
 }
 
@@ -49,25 +68,43 @@ bitflags! {
     /// `CMP1CON` (0x4).
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct CMP1CON: u32 {
-        const CP1NOUTEN = 1 << 30;
+        /// 内部电压输出到引脚
+        const NOUTEN = 1 << 30;
 
-        const CMP1VRS_MASK = 0xf << 26;
+        /// VSUM控制
+        const VRS_MASK = 0xf << 26;
 
-        const CMP1EN = 1 << 15;
+        /// 比较器使能
+        const EN = 1 << 15;
 
-        const C1SMT = 1 << 13;
+        /// 迟滞使能
+        const SMT = 1 << 13;
 
-        const C1OUTEN = 1 << 12;
+        /// 结果输出到引脚
+        const OUTEN = 1 << 12;
 
-        const C1IES_MASK = 0x3 << 10;
+        /// 中断模式选择
+        const IES_MASK = 0x3 << 10;
 
-        const C1NCHS = 1 << 8;
+        /// 反相输入端
+        const NCHS = 1 << 8;
 
-        const C1PCHS_MASK = 0xf << 4;
+        /// 同相输入端
+        const PCHS_MASK = 0xf << 4;
 
-        const C1OUT = 1 << 3;
+        /// 比较器输出
+        const OUT = 1 << 3;
 
-        const C1DEB_MASK = 0x7 << 0;
+        const DEB_HSI_128 = 0b111 << 0;
+        const DEB_HSI_96 = 0b110 << 0;
+        const DEB_HSI_64 = 0b101 << 0;
+        const DEB_HSI_32 = 0b100 << 0;
+        const DEB_HSI_16 = 0b011 << 0;
+        const DEB_HSI_8 = 0b010 << 0;
+        const DEB_HSI_4 = 0b001 << 0;
+        const DEB_NONE = 0b000 << 0;
+        /// 输出信号滤波
+        const DEB_MASK = 0x7 << 0;
     }
 }
 
@@ -100,31 +137,5 @@ bitflags! {
         const OP1EN = 1 << 1;
 
         const OP0EN = 1 << 0;
-    }
-}
-
-bitflags! {
-    /// `CMP2CON` (0x10).
-    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
-    pub struct CMP2CON: u32 {
-        const CP2NOUTEN = 1 << 30;
-
-        const CMP2VRS_MASK = 0xf << 26;
-
-        const CMP2EN = 1 << 15;
-
-        const C2SMT = 1 << 13;
-
-        const C2OUTEN = 1 << 12;
-
-        const C2IES_MASK = 0x3 << 10;
-
-        const C2NCHS = 1 << 8;
-
-        const C2PCHS_MASK = 0xf << 4;
-
-        const C2OUT = 1 << 3;
-
-        const C2DEB_MASK = 0x7 << 0;
     }
 }
