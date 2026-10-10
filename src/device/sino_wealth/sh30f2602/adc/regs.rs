@@ -20,20 +20,41 @@ pub struct ADC {
 }
 
 bitflags! {
+    #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+    pub struct ADSTRS: u32 {
+        const SOC = 0b000_0000;
+
+        const TIM8 = 0b001_0001;
+
+        const ADTRG = 0b010_0001;
+
+        const PWM4 = 0b011_0001;
+
+        const PWM3 = 0b011_0010;
+        const PCA0 = 0b100_0001;
+
+        const MCM1 = 0b101_1000;
+        const MCM2 = 0b101_0100;
+        const MCM3 = 0b101_0010;
+        const MCM4 = 0b101_0001;
+    }
+}
+
+bitflags! {
     /// `ADCON1` (0x0).
     #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
     pub struct ADCON1: u32 {
         const ADIE2 = 1 << 31;
 
-        const ADSTRS2_MASK = 0x7f << 24;
+        const ADSTRS2_MASK = 0x7F << 24;
 
         const ADIE1 = 1 << 23;
 
-        const ADSTRS1_MASK = 0x7f << 16;
+        const ADSTRS1_MASK = 0x7F << 16;
 
         const ADIE = 1 << 15;
 
-        const ADSTRS_MASK = 0x7f << 8;
+        const ADSTRS_MASK = 0x7F << 8;
 
         const ADON = 1 << 7;
 
